@@ -22,6 +22,8 @@ import StepByStepPerformance from "./pages/WritingPage/StepByStep/Performance";
 import AttachPicture from "./pages/AttachPicture";
 import GuideLineKPT from "./pages/WritingPage/GuideLine/KPT";
 import GuideLineContiue from "./pages/WritingPage/GuideLine/Continue";
+import { MyPage } from "./pages/MyPage";
+import { ViewAll } from "./pages/ViewAll";
 
 function App() {
   return (
@@ -58,6 +60,9 @@ function App() {
           {/* writingAfter */}
           <Route path="/attachPicture" element={<AttachPicture />} />
           <Route path="/completeWriting" element={<CompleteWriting />} />
+
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/viewAll" element={<ViewAll />} />
         </Routes>
       </Router>
     </div>
