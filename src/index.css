@@ -1,0 +1,33 @@
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* PretendardVariable 설치 후 연결 */
+@font-face {
+  font-family: "PretendardVariable";
+  src: url("../public/fonts/PretendardVariable.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-width: 1300px;
+  min-height: 100vh;
+
+  font-family: "PretendardVariable", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
