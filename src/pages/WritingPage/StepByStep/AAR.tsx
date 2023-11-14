@@ -5,7 +5,7 @@ import AAR2 from "../../../components/StepByStep/AAR/AAR2";
 import AAR3 from "../../../components/StepByStep/AAR/AAR3";
 import AAR4 from "../../../components/StepByStep/AAR/AAR4";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step AAR 회고 페이지
 export default function AAR() {

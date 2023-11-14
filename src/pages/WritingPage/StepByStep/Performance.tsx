@@ -9,7 +9,7 @@ import Performance6 from "../../../components/StepByStep/Performance/Performance
 import Performance7 from "../../../components/StepByStep/Performance/Performance7";
 
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step Performance 회고 페이지
 export default function Performance() {

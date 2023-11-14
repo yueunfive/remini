@@ -5,7 +5,7 @@ import ORID2 from "../../../components/StepByStep/ORID/ORID2";
 import ORID3 from "../../../components/StepByStep/ORID/ORID3";
 import ORID4 from "../../../components/StepByStep/ORID/ORID4";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step ORID 회고 페이지
 export default function ORID() {

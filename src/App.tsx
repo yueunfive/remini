@@ -22,6 +22,14 @@ import StepByStepPerformance from "./pages/WritingPage/StepByStep/Performance";
 import AttachPicture from "./pages/AttachPicture";
 import GuideLineKPT from "./pages/WritingPage/GuideLine/KPT";
 import GuideLineContiue from "./pages/WritingPage/GuideLine/Continue";
+import GuideLineTIL from "./pages/WritingPage/GuideLine/TIL";
+import GuideLineYWT from "./pages/WritingPage/GuideLine/YWT";
+import GuideLineFourL from "./pages/WritingPage/GuideLine/FourL";
+import GuideLineAAR from "./pages/WritingPage/GuideLine/AAR";
+import GuideLineORID from "./pages/WritingPage/GuideLine/ORID";
+import GuidLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
+import GiudLinePersonal from "./pages/WritingPage/GuideLine/Personal";
+import GuideLinePerformance from "./pages/WritingPage/GuideLine/Performance";
 import { MyPage } from "./pages/MyPage";
 import { ViewAll } from "./pages/ViewAll";
 
@@ -56,6 +64,17 @@ function App() {
           {/* guideLine */}
           <Route path="/guideLineKPT" element={<GuideLineKPT />} />
           <Route path="/guideLineContinue" element={<GuideLineContiue />} />
+          <Route path="/guideLineTIL" element={<GuideLineTIL />} />
+          <Route path="/guideLineYWT" element={<GuideLineYWT />} />
+          <Route path="/guideLineFourL" element={<GuideLineFourL />} />
+          <Route path="/guideLineAAR" element={<GuideLineAAR />} />
+          <Route path="/guideLineORID" element={<GuideLineORID />} />
+          <Route path="/guideLineFIveF" element={<GuidLineFiveF />} />
+          <Route path="/guideLinePersonal" element={<GiudLinePersonal />} />
+          <Route
+            path="/guideLinePerformance"
+            element={<GuideLinePerformance />}
+          />
 
           {/* writingAfter */}
           <Route path="/attachPicture" element={<AttachPicture />} />

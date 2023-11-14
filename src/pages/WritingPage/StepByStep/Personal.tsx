@@ -13,7 +13,7 @@ import Personal10 from "../../../components/StepByStep/Personal/Personal10";
 import Personal11 from "../../../components/StepByStep/Personal/Personal11";
 
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step Personal 회고 페이지
 export default function Personal() {

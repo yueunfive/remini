@@ -5,7 +5,7 @@ import FourL2 from "../../../components/StepByStep/FourL/FourL2";
 import FourL3 from "../../../components/StepByStep/FourL/FourL3";
 import FourL4 from "../../../components/StepByStep/FourL/FourL4";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step FourL 회고 페이지
 export default function FourL() {

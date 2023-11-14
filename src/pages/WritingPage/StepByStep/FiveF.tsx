@@ -6,7 +6,7 @@ import FiveF3 from "../../../components/StepByStep/FiveF/FiveF3";
 import FiveF4 from "../../../components/StepByStep/FiveF/FiveF4";
 import FiveF5 from "../../../components/StepByStep/FiveF/FiveF5";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step FiveF 회고 페이지
 export default function FiveF() {

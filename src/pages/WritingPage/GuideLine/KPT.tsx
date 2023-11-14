@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Header } from "../../../components/Header";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 import { useNavigate } from "react-router-dom";
 import WritingPageBtn from "../../../components/WritingPageBtn";
-import GuideLineTheeContent from "../../../components/GuideLine/GuideLineTheeContent";
+import GuideLineTheeContent from "../../../components/GuideLine/ThreeContent";
 
 //GuideLine KPT 회고 페이지
 export default function KPT() {
-  const [keepContent, setKeepContent] = useState(""); // Keep 컨텐츠 상태
-  const [problemContent, setProblemContent] = useState(""); // Problem 컨텐츠 상태
-  const [tryContent, setTryContent] = useState(""); // Try 컨텐츠 상태
+  const [firstContent, setFirstContent] = useState(""); // Keep 컨텐츠 상태
+  const [secondContent, setSecondContent] = useState(""); // Problem 컨텐츠 상태
+  const [thirdContent, setThirdContent] = useState(""); // Try 컨텐츠 상태
   const navigate = useNavigate();
 
-  const isKeepContentFilled = keepContent.trim().length > 0;
-  const isProblemContentFilled = problemContent.trim().length > 0;
-  const isTryContentFilled = tryContent.trim().length > 0;
+  const isFirstContentFilled = firstContent.trim().length > 0;
+  const isSecondContentFilled = secondContent.trim().length > 0;
+  const isThridContentFilled = thirdContent.trim().length > 0;
 
   const goToCompleteWriting = () => {
     navigate("/attachPicture");
@@ -43,11 +43,11 @@ export default function KPT() {
                 <textarea
                   className="mainContent_Input"
                   placeholder="텍스트를 입력해주세요"
-                  value={keepContent}
-                  onChange={(e) => setKeepContent(e.target.value)}
+                  value={firstContent}
+                  onChange={(e) => setFirstContent(e.target.value)}
                   style={{ resize: "none" }} // 사이즈 조절 방지
                 ></textarea>
-                <p className="text_num">{keepContent.length}/200</p>
+                <p className="text_num">{firstContent.length}/200</p>
               </div>
             </div>
             <div className="middleContent_container">
@@ -60,11 +60,11 @@ export default function KPT() {
                 <textarea
                   className="mainContent_Input"
                   placeholder="텍스트를 입력해주세요"
-                  value={problemContent}
-                  onChange={(e) => setProblemContent(e.target.value)}
+                  value={secondContent}
+                  onChange={(e) => setSecondContent(e.target.value)}
                   style={{ resize: "none" }} // 사이즈 조절 방지
                 ></textarea>
-                <p className="text_num">{problemContent.length}/200</p>
+                <p className="text_num">{secondContent.length}/200</p>
               </div>
             </div>
             <div className="rightContent_container">
@@ -77,11 +77,11 @@ export default function KPT() {
                 <textarea
                   className="mainContent_Input"
                   placeholder="텍스트를 입력해주세요"
-                  value={tryContent}
-                  onChange={(e) => setTryContent(e.target.value)}
+                  value={thirdContent}
+                  onChange={(e) => setThirdContent(e.target.value)}
                   style={{ resize: "none" }} // 사이즈 조절 방지
                 ></textarea>
-                <p className="text_num">{tryContent.length}/200</p>
+                <p className="text_num">{thirdContent.length}/200</p>
               </div>
             </div>
           </div>
@@ -90,9 +90,9 @@ export default function KPT() {
           <button
             className="temporary_btn"
             disabled={
-              !isKeepContentFilled ||
-              !isProblemContentFilled ||
-              !isTryContentFilled
+              !isFirstContentFilled ||
+              !isSecondContentFilled ||
+              !isThridContentFilled
             }
           >
             임시 저장
@@ -101,16 +101,16 @@ export default function KPT() {
             className="completed_btn"
             style={{
               backgroundColor:
-                isKeepContentFilled &&
-                isProblemContentFilled &&
-                isTryContentFilled
+                isFirstContentFilled &&
+                isSecondContentFilled &&
+                isThridContentFilled
                   ? "#79CD96"
                   : " #305D40",
             }}
             disabled={
-              !isKeepContentFilled ||
-              !isProblemContentFilled ||
-              !isTryContentFilled
+              !isFirstContentFilled ||
+              !isSecondContentFilled ||
+              !isThridContentFilled
             }
             onClick={() => {
               goToCompleteWriting();

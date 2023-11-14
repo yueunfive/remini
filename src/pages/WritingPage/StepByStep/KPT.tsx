@@ -4,7 +4,7 @@ import KPT1 from "../../../components/StepByStep/KPT/KPT1";
 import KPT2 from "../../../components/StepByStep/KPT/KPT2";
 import KPT3 from "../../../components/StepByStep/KPT/KPT3";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step KPT 회고 페이지
 export default function KPT() {

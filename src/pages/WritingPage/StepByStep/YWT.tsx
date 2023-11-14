@@ -4,7 +4,7 @@ import YWT1 from "../../../components/StepByStep/YWT/YWT1";
 import YWT2 from "../../../components/StepByStep/YWT/YWT2";
 import YWT3 from "../../../components/StepByStep/YWT/YWT3";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step YWT 회고 페이지
 export default function YWT() {

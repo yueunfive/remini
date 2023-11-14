@@ -3,11 +3,11 @@ import { Header } from "../../../components/Header";
 import WritingPageWrap from "../../../components/WritingPageWrap";
 import { useNavigate } from "react-router-dom";
 import WritingPageBtn from "../../../components/WritingPageBtn";
-import GuideLineTheeContent from "../../../components/GuideLine/ThreeContent";
+import GuideLineThreeContent from "../../../components/GuideLine/ThreeContent";
 
-//GuideLine Contiue 회고 페이지
-export default function Continue() {
-  const [firstContent, setFirstContent] = useState("");
+//GuideLine YWT 회고 페이지
+export default function YWT() {
+  const [firstContent, setContinueContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
   const navigate = useNavigate();
@@ -25,34 +25,48 @@ export default function Continue() {
       <WritingPageWrap>
         <Header />
         <div className="title_container">
-          <div className="title_main">Continue-Stop-Start 회고</div>
+          <div className="title_main">YWT 회고</div>
           <div className="title_content">
-            해결법 지향적이고, 무엇을 시작하고 그만둘지의 변화에 중점을 드는
-            회고예요
+            YWT는 일본 도요타에서 사용한 방식으로 짧게 진행되는 회고예요
           </div>
         </div>
-        <GuideLineTheeContent>
+        <GuideLineThreeContent>
           <div className="AllmainConten_container">
             <div className="leftContent_container">
-              <div className="mainContent_Btn">Continue</div>
+              <div className="mainContent_Btn">
+                한 일<br />
+                (やったこと-yattakoto)
+              </div>
               <div className="maintext_container">
-                <p>우리가 무엇을 계속할 지에 대해 작성하기</p>
+                <p>
+                  일을 통해 명확히 알게 되었거나
+                  <br />
+                  이해한 부분 작성하기
+                </p>
               </div>
               <div>
                 <textarea
                   className="mainContent_Input"
                   placeholder="텍스트를 입력해주세요"
                   value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
+                  onChange={(e) => setContinueContent(e.target.value)}
                   style={{ resize: "none" }} // 사이즈 조절 방지
                 ></textarea>
                 <p className="text_num">{firstContent.length}/200</p>
               </div>
             </div>
             <div className="middleContent_container">
-              <div className="mainContent_Btn">Stop</div>
+              <div className="mainContent_Btn">
+                배운 것들
+                <br />
+                (わかったこと-wakattakoto)
+              </div>
               <div className="maintext_container">
-                <p>우리가 무엇을 그만두어야 할 지에 대해 작성하기</p>
+                <p>
+                  배운 점과 시사점 작성하기
+                  <br />
+                  <br />
+                </p>
               </div>
               <div>
                 <textarea
@@ -66,9 +80,16 @@ export default function Continue() {
               </div>
             </div>
             <div className="rightContent_container">
-              <div className="mainContent_Btn">Start</div>
+              <div className="mainContent_Btn">
+                앞으로 할 일<br />
+                (つぎにやること-tsuginiyarukoto)
+              </div>
               <div className="maintext_container">
-                <p>우리가 무엇을 시작하여야 할 지에 대해 작성하기</p>
+                <p>
+                  응용하여 배운 것을
+                  <br />
+                  어디에 어떻게 적용할 지 작성하기
+                </p>
               </div>
               <div>
                 <textarea
@@ -82,7 +103,7 @@ export default function Continue() {
               </div>
             </div>
           </div>
-        </GuideLineTheeContent>
+        </GuideLineThreeContent>
         <WritingPageBtn>
           <button
             className="temporary_btn"

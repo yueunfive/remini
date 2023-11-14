@@ -5,7 +5,7 @@ import Continue2 from "../../../components/StepByStep/Continue/Continue2";
 import Continue3 from "../../../components/StepByStep/Continue/Continue3";
 
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step Continue 회고 페이지
 export default function Continue() {

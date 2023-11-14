@@ -4,7 +4,7 @@ import TIL1 from "../../../components/StepByStep/TIL/TIL1";
 import TIL2 from "../../../components/StepByStep/TIL/TIL2";
 import TIL3 from "../../../components/StepByStep/TIL/TIL3";
 import { useState, useEffect } from "react";
-import WritingPageWrap from "../WritingPageWrap";
+import WritingPageWrap from "../../../components/WritingPageWrap";
 
 //Step by Step TIL 회고 페이지
 export default function TIL() {
