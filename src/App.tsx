@@ -31,7 +31,9 @@ import GuidLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
 import GiudLinePersonal from "./pages/WritingPage/GuideLine/Personal";
 import GuideLinePerformance from "./pages/WritingPage/GuideLine/Performance";
 import { MyPage } from "./pages/MyPage";
-import { ViewAll } from "./pages/ViewAll";
+import { Browsing } from "./pages/Browsing";
+import { MyRetro } from "./pages/ViewAll/MyRetro";
+import { TempStorage } from "./pages/ViewAll/TempStorage";
 
 function App() {
   return (
@@ -81,7 +83,9 @@ function App() {
           <Route path="/completeWriting" element={<CompleteWriting />} />
 
           <Route path="/myPage" element={<MyPage />} />
-          <Route path="/viewAll" element={<ViewAll />} />
+          <Route path="/browsing" element={<Browsing />} />
+          <Route path="/myRetro" element={<MyRetro />} />
+          <Route path="/tempStorage" element={<TempStorage />} />
         </Routes>
       </Router>
     </div>

@@ -8,7 +8,7 @@ import paginationImg from "../img/UI/Pagination.png";
 type ButtonType = "popular" | "latest" | "category";
 
 // 둘러보기
-export const ViewAll: React.FC = () => {
+export const Browsing: React.FC = () => {
   const [activeButton, setActiveButton] = useState("popular");
   const [activeCategory, setActiveCategory] = useState("KPT"); // 추가된 부분
 
@@ -23,7 +23,7 @@ export const ViewAll: React.FC = () => {
   return (
     <>
       <Header />
-      <ViewAllWrap showCategory={activeButton === "category"}>
+      <BrowsingWrap showCategory={activeButton === "category"}>
         <nav>
           <div className="main_btn">
             <button
@@ -137,13 +137,13 @@ export const ViewAll: React.FC = () => {
           alt="paginationImg"
           className="paginationImg"
         />
-      </ViewAllWrap>
+      </BrowsingWrap>
       <Footer />
     </>
   );
 };
 
-const ViewAllWrap = styled.div<{ showCategory: boolean }>`
+const BrowsingWrap = styled.div<{ showCategory: boolean }>`
   background: var(--Background, #121212);
 
   display: flex;

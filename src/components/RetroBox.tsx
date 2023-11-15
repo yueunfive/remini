@@ -5,7 +5,7 @@ import filledHeart from "../img/UI/filledHeart.png";
 import { useState } from "react";
 
 // 둘러보기, 마이페이지 등에 삽입할 회고 1칸
-export const RetroBox: React.FC = () => {
+export const RetroBox: React.FC<{ hideLikes?: boolean }> = ({ hideLikes }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(50);
 
@@ -17,12 +17,14 @@ export const RetroBox: React.FC = () => {
   return (
     <RetroBoxWrap>
       <div className="retro_img pointer">
-        <div className="likes" onClick={handleLikeClick}>
-          <img src={isLiked ? filledHeart : emptyHeart} alt="Heart" />
-          <p style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}>
-            {likesCount}
-          </p>
-        </div>
+        {hideLikes ? null : (
+          <div className="likes" onClick={handleLikeClick}>
+            <img src={isLiked ? filledHeart : emptyHeart} alt="Heart" />
+            <p style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}>
+              {likesCount}
+            </p>
+          </div>
+        )}
       </div>
       <h4 className="pointer">제목입니다.</h4>
       <p>2023.09.25</p>

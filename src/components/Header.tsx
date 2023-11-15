@@ -18,12 +18,16 @@ export const Header: React.FC = () => {
     navigate("/selectMethod");
   };
 
+  const goToBrowsing = () => {
+    navigate("/Browsing");
+  };
+
   return (
     <HeaderWrap>
       <img src={logoBlack} alt="logo" onClick={goToHome} />
       <div className="text-box font">
         <p onClick={goToSelectMethod}>회고하기</p>
-        <p>둘러보기</p>
+        <p onClick={goToBrowsing}>둘러보기</p>
       </div>
       <div className="login font">
         <p onClick={goToLogin}>로그인</p>

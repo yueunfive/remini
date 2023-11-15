@@ -3,12 +3,49 @@ import styled from "styled-components";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer";
 import { RetroBox } from "../components/RetroBox.tsx";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import LogoutModal from "../components/Modal/LogoutModal.tsx";
+import WithdrawalModal from "../components/Modal/WithdrawalModal.tsx";
 
 // 마이페이지
 export const MyPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
+
+  const openLogoutModal = () => {
+    setIsLogoutModalOpen(true);
+    document.body.style.overflow = "hidden"; // 페이지 스크롤 비활성화
+  };
+
+  const closeLogoutModal = () => {
+    setIsLogoutModalOpen(false);
+    document.body.style.overflow = ""; // 페이지 스크롤 활성화
+  };
+
+  const openWithdrawalModal = () => {
+    setIsWithdrawalModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeWithdrawalModal = () => {
+    setIsWithdrawalModalOpen(false);
+    document.body.style.overflow = "";
+  };
+
+  const goToMyRetro = () => {
+    navigate("/myRetro");
+  };
+
+  const goToTempStorage = () => {
+    navigate("/tempStorage");
+  };
+
   return (
     <>
       <Header />
+      <ModalOverlay isOpen={isLogoutModalOpen || isWithdrawalModalOpen} />
       <MyPageWrap>
         <div className="myPage">
           <h1>마이 페이지</h1>
@@ -27,7 +64,9 @@ export const MyPage: React.FC = () => {
         <div className="retro">
           <div className="retro_text">
             <h3>나의 회고</h3>
-            <p className="pointer">전체보기 {`>`}</p>
+            <p className="pointer" onClick={goToMyRetro}>
+              전체보기 {`>`}
+            </p>
           </div>
           <div className="retro_container">
             <RetroBox />
@@ -38,20 +77,30 @@ export const MyPage: React.FC = () => {
         <div className="retro">
           <div className="retro_text">
             <h3>임시저장</h3>
-            <p className="pointer">전체보기 {`>`}</p>
+            <p className="pointer" onClick={goToTempStorage}>
+              전체보기 {`>`}
+            </p>
           </div>
           <div className="retro_container">
-            <RetroBox />
-            <RetroBox />
-            <RetroBox />
+            <RetroBox hideLikes />
+            <RetroBox hideLikes />
+            <RetroBox hideLikes />
           </div>
         </div>
         <div className="footer_btn">
-          <p className="logout pointer">로그아웃</p>
-          <p className="delete_account pointer">탈퇴하기</p>
+          <p className="logout pointer" onClick={openLogoutModal}>
+            로그아웃
+          </p>
+          <p className="delete_account pointer" onClick={openWithdrawalModal}>
+            탈퇴하기
+          </p>
         </div>
       </MyPageWrap>
       <Footer />
+      {isLogoutModalOpen && <LogoutModal closeModal={closeLogoutModal} />}
+      {isWithdrawalModalOpen && (
+        <WithdrawalModal closeModal={closeWithdrawalModal} />
+      )}
     </>
   );
 };
@@ -173,4 +222,20 @@ const MyPageWrap = styled.div`
       color: var(--Error, #cf6679);
     }
   }
+`;
+
+type ModalOverlayProps = {
+  isOpen: boolean;
+};
+
+// 모달 창 뒤의 배경을 어둡게 처리하는 컴포넌트
+const ModalOverlay = styled.div<ModalOverlayProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9998; // 모달창과 마이페이지 사이에 위치
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;

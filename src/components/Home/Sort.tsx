@@ -125,11 +125,17 @@ export const Sort: React.FC = () => {
 };
 
 const SortWrap = styled.div`
-  background: linear-gradient(
+  /* background: linear-gradient(
     270deg,
-    rgba(0, 0, 0, 1) 39.37%,
-    rgb(121, 200, 150)
+    rgba(255, 255, 255, 0.2) -0.04%,
+    rgba(255, 255, 255, 0) 50%
+  ); */
+  background: linear-gradient(
+    to right,
+    rgba(18, 18, 18, 1) 50%,
+    rgba(18, 18, 18, 0.8)
   );
+
   display: flex;
   height: 600px;
   padding: 100px 47px;

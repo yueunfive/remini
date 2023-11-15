@@ -30,12 +30,7 @@ const ImportanceWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 0.2) -0.04%,
-    rgba(255, 255, 255, 0) 50%
-  ); */
-  background: linear-gradient(270deg, darkgray, black);
+  background: var(--Background, #121212);
   text-align: center;
 
   .text {

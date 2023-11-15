@@ -12,9 +12,9 @@ export const Home: React.FC = () => {
     <div>
       <Header />
       <Main />
+      <Sort />
       <Importance />
       <GoldenCircle />
-      <Sort />
       <Footer />
     </div>
   );
