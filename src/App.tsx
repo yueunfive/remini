@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import Recommend from "./pages/Recommend";
 import React from "react";
 import ScrollToTop from "./ScrollToTop";
@@ -22,19 +22,10 @@ import StepByStepPerformance from "./pages/WritingPage/StepByStep/Performance";
 import AttachPicture from "./pages/AttachPicture";
 import GuideLineKPT from "./pages/WritingPage/GuideLine/KPT";
 import GuideLineContiue from "./pages/WritingPage/GuideLine/Continue";
-import GuideLineTIL from "./pages/WritingPage/GuideLine/TIL";
-import GuideLineYWT from "./pages/WritingPage/GuideLine/YWT";
-import GuideLineFourL from "./pages/WritingPage/GuideLine/FourL";
-import GuideLineAAR from "./pages/WritingPage/GuideLine/AAR";
-import GuideLineORID from "./pages/WritingPage/GuideLine/ORID";
-import GuidLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
-import GiudLinePersonal from "./pages/WritingPage/GuideLine/Personal";
-import GuideLinePerformance from "./pages/WritingPage/GuideLine/Performance";
 import { MyPage } from "./pages/MyPage";
-import { Browsing } from "./pages/Browsing";
-import { MyRetro } from "./pages/ViewAll/MyRetro";
-import { TempStorage } from "./pages/ViewAll/TempStorage";
-
+///ViewAll 이라는 페이지가 없어져 있네용? 정확히 어떤 페이지였었는지 몰라 우선 주석 처리 해놓습니다!
+//import { ViewAll } from "./pages/ViewAll;
+import LogingCallback from "./pages/login/logingCallback";
 function App() {
   return (
     <div className="App">
@@ -43,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/callback" element={<LogingCallback />} />
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/recommendResult" element={<RecommendResult />} />
           <Route path="/selectMethod" element={<SelectMethod />} />
@@ -66,26 +58,15 @@ function App() {
           {/* guideLine */}
           <Route path="/guideLineKPT" element={<GuideLineKPT />} />
           <Route path="/guideLineContinue" element={<GuideLineContiue />} />
-          <Route path="/guideLineTIL" element={<GuideLineTIL />} />
-          <Route path="/guideLineYWT" element={<GuideLineYWT />} />
-          <Route path="/guideLineFourL" element={<GuideLineFourL />} />
-          <Route path="/guideLineAAR" element={<GuideLineAAR />} />
-          <Route path="/guideLineORID" element={<GuideLineORID />} />
-          <Route path="/guideLineFIveF" element={<GuidLineFiveF />} />
-          <Route path="/guideLinePersonal" element={<GiudLinePersonal />} />
-          <Route
-            path="/guideLinePerformance"
-            element={<GuideLinePerformance />}
-          />
 
           {/* writingAfter */}
           <Route path="/attachPicture" element={<AttachPicture />} />
           <Route path="/completeWriting" element={<CompleteWriting />} />
 
           <Route path="/myPage" element={<MyPage />} />
-          <Route path="/browsing" element={<Browsing />} />
-          <Route path="/myRetro" element={<MyRetro />} />
-          <Route path="/tempStorage" element={<TempStorage />} />
+          {/*<Route path="/viewAll" element={<ViewAll />} />*}
+
+          {/* login */}
         </Routes>
       </Router>
     </div>
