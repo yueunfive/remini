@@ -12,7 +12,7 @@ function LogingCallback() {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
 
-      console.log("code", code);
+      console.log(code);
 
       if (code) {
         sendCodeToServer(code);
@@ -24,11 +24,8 @@ function LogingCallback() {
     try {
       const response = await axios.post(
         "http://www.remini.store/api/auth/kakao",
-        {},
         {
-          headers: {
-            Authorization: `${code}`,
-          },
+          authorizationCode: code,
         }
       );
       console.log("response", response);
@@ -38,7 +35,7 @@ function LogingCallback() {
       localStorage.setItem("accessToken", accessToken);
 
       // 로그인 처리 완료 후 Home 페이지로 리디렉트
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error("Error sending code to server:", error);
     }
