@@ -8,11 +8,12 @@ function LogingCallback() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("redirect");
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
 
-      console.log(code);
+      console.log("code", code);
 
       if (code) {
         sendCodeToServer(code);
@@ -30,8 +31,7 @@ function LogingCallback() {
       );
       console.log("response", response);
 
-      console.log("response", response);
-      const { accessToken, refreshToken } = response.data;
+      const { accessToken } = response.data;
       localStorage.setItem("accessToken", accessToken);
 
       // 로그인 처리 완료 후 Home 페이지로 리디렉트
