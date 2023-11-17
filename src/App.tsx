@@ -34,7 +34,7 @@ import { MyPage } from "./pages/MyPage";
 import { Browsing } from "./pages/Browsing";
 import { MyRetro } from "./pages/ViewAll/MyRetro";
 import { TempStorage } from "./pages/ViewAll/TempStorage";
-import LogingCallback from "./pages/login/LogingCallback";
+import LoginCallback from "./pages/login/LoginCallback";
 
 function App() {
   return (
@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/callback" element={<LogingCallback />} />
+          <Route path="/callback" element={<LoginCallback />} />
 
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/recommendResult" element={<RecommendResult />} />
