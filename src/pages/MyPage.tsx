@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer";
@@ -7,12 +7,141 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LogoutModal from "../components/Modal/LogoutModal.tsx";
 import WithdrawalModal from "../components/Modal/WithdrawalModal.tsx";
+import ModalOverlay from "../components/Modal/ModalOverlay.tsx";
+import axios from "axios";
+
+interface UserData {
+  expirationDate: string;
+  nickName: string;
+  profileImageUrl: string;
+  state: string;
+}
+
+interface RetroData {
+  createdDate: string;
+  likesCount: number;
+  reminiId: number;
+  reminiImage: string;
+  title: string;
+  liked: boolean;
+}
+
+interface TemporaryRetroData {
+  createdDate: string;
+  likesCount: number;
+  reminiId: number;
+  reminiImage: string;
+  title: string;
+  liked: boolean;
+}
 
 // 마이페이지
 export const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isWithdrawalModalOpen, setIsWithdrawalModalOpen] = useState(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [retroData, setRetroData] = useState<RetroData[]>([]);
+  const [temporaryRetroData, setTemporaryRetroData] = useState<
+    TemporaryRetroData[]
+  >([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+
+      // 사용자 조회
+      const userResponse = await axios.get(
+        "https://www.remini.store/api/user",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const user = userResponse.data;
+      console.log(user);
+      setUserData(user);
+
+      // 개인 회고 목록 조회(3개)
+      const retroResponse = await axios.get(
+        "https://www.remini.store/api/remini/private?pageNumber=0&pageSize=3",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const retroData = retroResponse.data.content;
+      console.log(retroData);
+      setRetroData(retroData);
+
+      // 임시저장 회고 목록 조회(3개)
+      const temporaryResponse = await axios.get(
+        "https://www.remini.store/api/remini/temporary?pageNumber=0&pageSize=3",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const temporaryRetroData = temporaryResponse.data.content;
+      console.log(temporaryRetroData);
+      setTemporaryRetroData(temporaryRetroData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  // 회고 박스 클릭 -> 회고 상세 조회
+  const handleRetroBoxClick = async (reminiId: number) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `https://www.remini.store/api/remini/${reminiId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("Retrieved retro data:", data);
+        // 회고 작성 완료 페이지로 이동하는 코드 필요
+      }
+    } catch (error) {
+      console.error("Error fetching retro data:", error);
+    }
+  };
+
+  // 나의 회고 3개 불러오기
+  const renderRetroBoxes = () => {
+    return retroData.map((data) => (
+      <RetroBox
+        key={data.reminiId}
+        {...data}
+        goToResult={() => handleRetroBoxClick(data.reminiId)}
+      />
+    ));
+  };
+
+  // 임시저장 3개 불러오기
+  const renderTempRetroBoxes = () => {
+    return temporaryRetroData.map((data) => (
+      <RetroBox
+        key={data.reminiId}
+        {...data}
+        hideLikes
+        goToResult={() => handleRetroBoxClick(data.reminiId)}
+      />
+    ));
+  };
 
   const openLogoutModal = () => {
     setIsLogoutModalOpen(true);
@@ -34,6 +163,13 @@ export const MyPage: React.FC = () => {
     document.body.style.overflow = "";
   };
 
+  // 모달창 외부 영역 클릭시 모달창 닫기
+  const handleOverlayClick = () => {
+    setIsLogoutModalOpen(false);
+    setIsWithdrawalModalOpen(false);
+    document.body.style.overflow = "";
+  };
+
   const goToMyRetro = () => {
     navigate("/myRetro");
   };
@@ -45,7 +181,13 @@ export const MyPage: React.FC = () => {
   return (
     <>
       <Header />
-      <ModalOverlay isOpen={isLogoutModalOpen || isWithdrawalModalOpen} />
+      {(isLogoutModalOpen || isWithdrawalModalOpen) && (
+        <ModalOverlay onClick={handleOverlayClick} />
+      )}
+      {isLogoutModalOpen && <LogoutModal closeModal={closeLogoutModal} />}
+      {isWithdrawalModalOpen && (
+        <WithdrawalModal closeModal={closeWithdrawalModal} />
+      )}
       <MyPageWrap>
         <div className="myPage">
           <h1>마이 페이지</h1>
@@ -54,8 +196,15 @@ export const MyPage: React.FC = () => {
           <div className="profile">
             <h3>내 프로필</h3>
             <div className="kakao_profile">
-              <div className="profile_img"></div>
-              <p>레미니</p>
+              <div
+                className="profile_img"
+                style={{
+                  backgroundImage: `url(${
+                    userData && userData.profileImageUrl
+                  })`,
+                }}
+              ></div>
+              <p>{userData && userData.nickName}</p>
             </div>
           </div>
           <div className="alarm"></div>
@@ -68,11 +217,7 @@ export const MyPage: React.FC = () => {
               전체보기 {`>`}
             </p>
           </div>
-          <div className="retro_container">
-            <RetroBox />
-            <RetroBox />
-            <RetroBox />
-          </div>
+          <div className="retro_container">{renderRetroBoxes()}</div>
         </div>
         <div className="retro">
           <div className="retro_text">
@@ -81,11 +226,7 @@ export const MyPage: React.FC = () => {
               전체보기 {`>`}
             </p>
           </div>
-          <div className="retro_container">
-            <RetroBox hideLikes />
-            <RetroBox hideLikes />
-            <RetroBox hideLikes />
-          </div>
+          <div className="retro_container">{renderTempRetroBoxes()}</div>
         </div>
         <div className="footer_btn">
           <p className="logout pointer" onClick={openLogoutModal}>
@@ -97,10 +238,6 @@ export const MyPage: React.FC = () => {
         </div>
       </MyPageWrap>
       <Footer />
-      {isLogoutModalOpen && <LogoutModal closeModal={closeLogoutModal} />}
-      {isWithdrawalModalOpen && (
-        <WithdrawalModal closeModal={closeWithdrawalModal} />
-      )}
     </>
   );
 };
@@ -158,6 +295,8 @@ const MyPageWrap = styled.div`
     height: 200px;
     border-radius: 30px;
     background: #ffe9bf;
+    background-size: cover;
+    background-position: center;
   }
   .kakao_profile p {
     color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
@@ -178,6 +317,7 @@ const MyPageWrap = styled.div`
 
   .retro {
     margin-bottom: 10px;
+    width: 904px;
   }
   .retro_text {
     display: flex;
@@ -222,20 +362,4 @@ const MyPageWrap = styled.div`
       color: var(--Error, #cf6679);
     }
   }
-`;
-
-type ModalOverlayProps = {
-  isOpen: boolean;
-};
-
-// 모달 창 뒤의 배경을 어둡게 처리하는 컴포넌트
-const ModalOverlay = styled.div<ModalOverlayProps>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 9998; // 모달창과 마이페이지 사이에 위치
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
 `;

@@ -59,7 +59,47 @@ export default function SelectRetro() {
   };
 
   const retroBtnClick = () => {
+    // 페이지 이동
     navigate(`/${storedSelectMethod}${activeComponent}`);
+
+    // 백엔드 연동용 type 값 변경 후 저장
+    let type = "";
+    switch (activeComponent) {
+      case "KPT":
+        type = "KPT";
+        break;
+      case "Continue":
+        type = "CSS";
+        break;
+      case "FiveF":
+        type = "FIVE_F";
+        break;
+      case "TIL":
+        type = "TIL";
+        break;
+      case "FourL":
+        type = "FOUR_L";
+        break;
+      case "ORID":
+        type = "ORID";
+        break;
+      case "AAR":
+        type = "AAR";
+        break;
+      case "YWT":
+        type = "YWT";
+        break;
+      case "Personal":
+        type = "PERSONAL";
+        break;
+      case "Performance":
+        type = "RESULT";
+        break;
+      default:
+        type = "";
+    }
+    localStorage.setItem("type", type);
+    localStorage.setItem("title", inputValue);
   };
 
   return (

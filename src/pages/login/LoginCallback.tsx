@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import loadingGIF from "../../img/UI/loading.gif";
 
-function LogingCallback() {
+function LoginCallback() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,16 +42,16 @@ function LogingCallback() {
   };
 
   return (
-    <LogingCallbackWrap>
+    <LoginCallbackWrap>
       <img className="gif" src={loadingGIF} alt="Loading" />
       <div className="text">Remini와 함께 성장해보세요!</div>
-    </LogingCallbackWrap>
+    </LoginCallbackWrap>
   );
 }
 
-export default LogingCallback;
+export default LoginCallback;
 
-const LogingCallbackWrap = styled.div`
+const LoginCallbackWrap = styled.div`
   display: flex;
   width: 100%;
   height: 1200px;

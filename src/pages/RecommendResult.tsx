@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -13,13 +14,41 @@ import { Personal } from "../components/RecommendSort/Personal";
 import { YWT } from "../components/RecommendSort/YWT";
 import { FourL } from "../components/RecommendSort/FourL";
 import { useNavigate } from "react-router-dom";
+import LoginModal from "../components/Modal/LogInModal";
+import ModalOverlay from "../components/Modal/ModalOverlay";
 
 // 맞춤 회고 유형 추천 결과 페이지
 export default function RecommendResult() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    } else {
+      document.body.style.overflow = ""; // 스크롤 활성화
+    }
+  }, [showModal]);
+
+  // 회고 작성하러 가기 버튼 클릭
   const goToSelectMethod = () => {
-    navigate("/selectMethod");
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      navigate("/selectMethod"); // 로그인 O : 회고 작성 페이지로 이동
+    } else {
+      setShowModal(true); // 로그인 X : 로그인 유도 모달 띄우기
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  // 모달창 외부 영역 클릭시 모달창 닫기
+  const handleOverlayClick = () => {
+    setShowModal(false);
+    document.body.style.overflow = "";
   };
 
   const recommendedRetro = JSON.parse(
@@ -60,6 +89,12 @@ export default function RecommendResult() {
   return (
     <>
       <Header />
+      {showModal && (
+        <>
+          <LoginModal closeModal={closeModal} />
+          <ModalOverlay onClick={handleOverlayClick} />
+        </>
+      )}
       <RecommendResultWrap>
         <div className="recommend_title">맞춤 회고 유형 추천</div>
         <h3 className="recommend_text">

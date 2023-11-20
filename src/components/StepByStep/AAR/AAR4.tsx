@@ -29,7 +29,7 @@ export default function AAR4({
   const handleNext = () => {
     if (inputContent.trim().length > 0) {
       const updatedContent = [...content, inputContent]; // content 배열에 inputContent 추가
-      localStorage.setItem("StepByStep_AAR", JSON.stringify(updatedContent)); // 작성 완료 시 content 배열을 localStorage에 저장
+      localStorage.setItem("sectionTexts", JSON.stringify(updatedContent)); // 작성 완료 시 content 배열을 localStorage에 저장
     }
   };
 
