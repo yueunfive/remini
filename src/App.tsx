@@ -44,6 +44,7 @@ import { Browsing } from "./pages/Browsing";
 import { MyRetro } from "./pages/ViewAll/MyRetro";
 import { TempStorage } from "./pages/ViewAll/TempStorage";
 import LoginCallback from "./pages/login/LoginCallback";
+import CompleteWriting from "./pages/CompleteWriting";
 
 function App() {
   return (
@@ -120,6 +121,7 @@ function App() {
           />
           <Route path="/CompleteWritingTIL" element={<CompleteWritingTIL />} />
           <Route path="/CompleteWritingYWT" element={<CompleteWritingYWT />} />
+          <Route path="/CompleteWriting" element={<CompleteWriting />} />
 
           <Route path="/myPage" element={<MyPage />} />
           <Route path="/browsing" element={<Browsing />} />

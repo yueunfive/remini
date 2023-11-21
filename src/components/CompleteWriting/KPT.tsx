@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Header } from "../../components/Header";
 import styled from "styled-components";
 import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
@@ -13,10 +12,6 @@ function CompleteWritingKPT() {
   return (
     <>
       <CompleteWritingWrap>
-        <Header />
-        <div className="title_container">
-          <div className="title_content">KPT 회고</div>
-        </div>
         <div className="content-container">
           <div className="WritingKind_container">
             <div className="WritingKind_title">Continue-Stop-Start 회고</div>
@@ -92,11 +87,6 @@ function CompleteWritingKPT() {
               </div>
             </div>
           </GuideLineTheeContent>
-        </div>
-        <div className="completeButtom-contaner">
-          <button className="shareBtn">공유</button>
-          <button className="deleteBtn">삭제</button>
-          <button className="editBtn">수정</button>
         </div>
       </CompleteWritingWrap>
     </>

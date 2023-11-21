@@ -1,73 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Header } from "../components/Header";
 import styled from "styled-components";
-import CompleteImg from "../img/UI/basicImage.png";
-import BasicProfile from "../img/UI/basicProfile.png";
-//import FiveFContent from "../components/GuideLine/FiveFContent";
-//import FourContent from "../components/GuideLine/FourContent";
-//import PersonalContent from "../components/GuideLine/PersonalContent";
-//import ThreeContent from "../components/GuideLine/ThreeContent";
+import AAR from "../components/CompleteWriting/AAR";
+import Continue from "../components/CompleteWriting/Continue";
+import FiveF from "../components/CompleteWriting/FiveF";
+import FourL from "../components/CompleteWriting/FourL";
+import KPT from "../components/CompleteWriting/KPT";
+import ORID from "../components/CompleteWriting/ORID";
+import Performance from "../components/CompleteWriting/Performance";
+import Personal from "../components/CompleteWriting/Personal";
+import TIL from "../components/CompleteWriting/TIL";
+import YWT from "../components/CompleteWriting/YWT";
 
-// 페이지 처음 렌더링시 GET 요청(회고 조회)
-// isMine == true -> 공유|삭제|수정 버튼
-// isMine == false -> 기획 논의 필요
-
-//임시로, 우선 css 불러오는 것은 해결 한 것 같네요! , api 연결 후 아래 써주기 {renderContent()}
-
-/*interface RetrospectiveData {
-  type: string;
+interface Retrospective {
   title: string;
-  content: string;
+  type: string;
 }
 
-interface CompleteWritingProps {
-  retrospectiveData: RetrospectiveData;
-}
-*/
 function CompleteWriting() {
-  // 회고 유형에 따라 적절한 디자인 템플릿을 렌더링
-  /*const renderContent = () => {
-    switch (retrospectiveData.type) {
-      case "type1":
-        return <FiveFContent />;
-      case "type2":
-        return <FourContent />;
-      case "type3":
-        return <PersonalContent />;
-      case "type4":
-        return <ThreeContent />;
-      default:
-        return <div>알 수 없는 회고 유형</div>;
+  const [retrospective, setRetrospective] = useState<Retrospective | null>(
+    null
+  );
+
+  useEffect(() => {
+    const fetchRetrospective = async () => {
+      try {
+        const reminiId = "13";
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${reminiId}`
+        );
+        setRetrospective(response.data);
+      } catch (error) {
+        console.error("Error fetching retrospective:", error);
+      }
+    };
+
+    fetchRetrospective();
+  }, []);
+
+  const renderContent = () => {
+    console.log("Current Retrospective:", retrospective);
+    if (!retrospective) {
+      return <p>Loading...</p>;
     }
-    */
+
+    switch (retrospective.type) {
+      case "AAR":
+        return <AAR />;
+      case "Continue":
+        return <Continue />;
+      case "FiveF":
+        return <FiveF />;
+      case "FourL":
+        return <FourL />;
+      case "KPT":
+        return <KPT />;
+      case "ORID":
+        return <ORID />;
+      case "Performance":
+        return <Performance />;
+      case "Personal":
+        return <Personal />;
+      case "TIL":
+        return <TIL />;
+      case "YWT":
+        return <YWT />;
+      default:
+        return <p>Unknown retrospective type</p>;
+    }
+  };
 
   return (
     <>
       <CompleteWritingWrap>
         <Header />
         <div className="title_container">
-          <div className="title_content">Title</div>
-        </div>
-        <div className="content-container">
-          <div className="WritingKind_container">
-            <div className="WritingKind_title">회고 종류</div>
-            <div className="WritingKind_content">
-              어떤 회고 있가요?어떤 회고 있가요?어떤 회고 있가요?어떤 회고
-              있가요?
-            </div>
-            <div className="userInfo-container">
-              <div className="user-info">
-                <img src={BasicProfile} />
-              </div>
-              <div className="user-name">레미니</div>
-            </div>
-            <div className="date-info">작성일: 2023.09.24</div>
-          </div>
-          <div className="Image_container">
-            <img src={CompleteImg} alt="CompleteImg" className="CompleteImg" />
+          <div className="title_content">
+            {retrospective ? retrospective.title : "Loading..."}
           </div>
         </div>
-        <div className="mainContent-container"></div>
+        <div className="mainContent-container">{renderContent()}</div>
         <div className="completeButtom-contaner">
           <button className="shareBtn">공유</button>
           <button className="deleteBtn">삭제</button>
@@ -105,76 +118,6 @@ const CompleteWritingWrap = styled.div`
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
-  }
-
-  .content-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    width: 100%;
-    max-width: 1280px;
-    margin: auto;
-  }
-
-  .WritingKind_container {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-
-  .WritingKind_title {
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  .WritingKind_content {
-    color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
-
-  .Image_container {
-    width: 280px;
-    height: 200px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    margin-left: 160px;
-    background: linear-gradient(
-      180deg,
-      rgba(18, 18, 18, 0) 68.25%,
-      rgba(18, 18, 18, 0.35) 100%
-    );
-    flex: 0 0 auto;
-  }
-
-  .userInfo-container {
-    margin-top: 60px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 21px;
-  }
-
-  .user-name {
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-
-  .date-info {
-    color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
     line-height: normal;
   }
 
