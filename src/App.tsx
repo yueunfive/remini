@@ -8,7 +8,16 @@ import ScrollToTop from "./ScrollToTop";
 import RecommendResult from "./pages/RecommendResult";
 import SelectMethod from "./pages/SelectMethod";
 import SelectRetro from "./pages/SelectRetro";
-import CompleteWriting from "./pages/CompleteWriting";
+import CompleteWritingAAR from "./components/CompleteWriting/AAR";
+import CompleteWritingContinue from "./components/CompleteWriting/Continue";
+import CompleteWritingFiveF from "./components/CompleteWriting/FiveF";
+import CompleteWritingFourL from "./components/CompleteWriting/FourL";
+import CompleteWritingKPT from "./components/CompleteWriting/KPT";
+import CompleteWritingORID from "./components/CompleteWriting/ORID";
+import CompleteWritingPerformance from "./components/CompleteWriting/Performance";
+import CompleteWritingPersonal from "./components/CompleteWriting/Personal";
+import CompleteWritingTIL from "./components/CompleteWriting/TIL";
+import CompleteWritingYWT from "./components/CompleteWriting/YWT";
 import StepByStepKPT from "./pages/WritingPage/StepByStep/KPT";
 import StepByStepContinue from "./pages/WritingPage/StepByStep/Continue";
 import StepByStepTIL from "./pages/WritingPage/StepByStep/TIL";
@@ -81,9 +90,36 @@ function App() {
             element={<GuideLinePerformance />}
           />
 
-          {/* writingAfter */}
+          {/* CompleteWriting */}
           <Route path="/attachPicture" element={<AttachPicture />} />
-          <Route path="/completeWriting" element={<CompleteWriting />} />
+          <Route path="/CompleteWritingAAR" element={<CompleteWritingAAR />} />
+          <Route
+            path="/CompleteWritingContinue"
+            element={<CompleteWritingContinue />}
+          />
+          <Route
+            path="/CompleteWritingFiveF"
+            element={<CompleteWritingFiveF />}
+          />
+          <Route
+            path="/CompleteWritingFourL"
+            element={<CompleteWritingFourL />}
+          />
+          <Route path="/CompleteWritingKPT" element={<CompleteWritingKPT />} />
+          <Route
+            path="/CompleteWritingORID"
+            element={<CompleteWritingORID />}
+          />
+          <Route
+            path="/CompleteWritingPerformance"
+            element={<CompleteWritingPerformance />}
+          />
+          <Route
+            path="/CompleteWritingPersonal"
+            element={<CompleteWritingPersonal />}
+          />
+          <Route path="/CompleteWritingTIL" element={<CompleteWritingTIL />} />
+          <Route path="/CompleteWritingYWT" element={<CompleteWritingYWT />} />
 
           <Route path="/myPage" element={<MyPage />} />
           <Route path="/browsing" element={<Browsing />} />
