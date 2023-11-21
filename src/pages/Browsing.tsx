@@ -1,23 +1,120 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer";
 import { RetroBox } from "../components/RetroBox.tsx";
-import paginationImg from "../img/UI/Pagination.png";
+import Pagination from "../components/Pagination.tsx";
+
+import axios from "axios";
 
 type ButtonType = "popular" | "latest" | "category";
+
+type RetroDataType = {
+  createdDate: string;
+  liked: boolean;
+  likesCount: number;
+  reminiId: number;
+  reminiImage: string;
+  title: string;
+};
 
 // 둘러보기
 export const Browsing: React.FC = () => {
   const [activeButton, setActiveButton] = useState("popular");
-  const [activeCategory, setActiveCategory] = useState("KPT"); // 추가된 부분
+  const [activeCategory, setActiveCategory] = useState("");
+  const [retroData, setRetroData] = useState<RetroDataType[]>([]); // RetroBox에 사용될 데이터 상태
+  const [pageNumber, setPageNumber] = useState(0);
+  const [totalElements, setTotalElements] = useState(0); // 전체 개수 확인(for pagination)
+  const pageSize = 9;
+
+  useEffect(() => {
+    fetchRetroData();
+  }, [activeButton, pageNumber]); // activeButton 또는 pageNumber가 변경될 때마다 데이터를 다시 가져옴
+
+  // 인기, 최신 회고 목록 조회
+  const fetchRetroData = async () => {
+    try {
+      let url = "";
+
+      if (activeButton === "popular") {
+        url = `https://www.remini.store/api/remini/popular?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      } else if (activeButton === "latest") {
+        url = `https://www.remini.store/api/remini/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      }
+
+      const accessToken = localStorage.getItem("accessToken");
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setRetroData(response.data.content);
+      setTotalElements(response.data.totalElements);
+      console.log(response.data.content);
+      console.log(response.data.totalElements);
+    } catch (error) {
+      console.error("Error fetching retro data:", error);
+    }
+  };
+
+  // 카테고리별 회고 목록 조회
+  const handleCategoryClick = async (category: string) => {
+    try {
+      setActiveCategory(category);
+      setPageNumber(0); // 카테고리 변경 시 페이지 번호 초기화
+
+      const pageSize = 9;
+      let url = `https://www.remini.store/api/remini/category?category=${category}&pageNumber=0&pageSize=${pageSize}`;
+      const accessToken = localStorage.getItem("accessToken");
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setRetroData(response.data.content);
+      setTotalElements(response.data.totalElements);
+      console.log(response.data.content);
+      console.log(response.data.totalElements);
+    } catch (error) {
+      console.error("Error fetching retro data:", error);
+    }
+  };
+
+  // 페이지 변경 시 호출되는 함수
+  const handlePageChange = (newPageNumber: number) => {
+    setPageNumber(newPageNumber);
+  };
 
   const handleButtonClick = (buttonType: ButtonType) => {
     setActiveButton(buttonType);
+    setPageNumber(0); // 버튼이 바뀌면 페이지 번호 초기화
   };
 
-  const handleCategoryClick = (category: string) => {
-    setActiveCategory(category);
+  // 회고 박스 클릭 -> 회고 상세 조회
+  const handleRetroBoxClick = async (reminiId: number) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `https://www.remini.store/api/remini/${reminiId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("Retrieved retro data:", data);
+        // 회고 작성 완료 페이지로 이동하는 코드 필요
+      }
+    } catch (error) {
+      console.error("Error fetching retro data:", error);
+    }
   };
 
   return (
@@ -40,7 +137,10 @@ export const Browsing: React.FC = () => {
             </button>
             <button
               className={activeButton === "category" ? "active" : ""}
-              onClick={() => handleButtonClick("category")}
+              onClick={() => {
+                handleButtonClick("category");
+                handleCategoryClick("KPT");
+              }}
             >
               카테고리별 회고
             </button>
@@ -54,16 +154,14 @@ export const Browsing: React.FC = () => {
                 KPT
               </button>
               <button
-                className={
-                  activeCategory === "Continue-Stop-Start" ? "active" : ""
-                }
-                onClick={() => handleCategoryClick("Continue-Stop-Start")}
+                className={activeCategory === "CSS" ? "active" : ""}
+                onClick={() => handleCategoryClick("CSS")}
               >
                 Continue-Stop-Start
               </button>
               <button
-                className={activeCategory === "5F" ? "active" : ""}
-                onClick={() => handleCategoryClick("5F")}
+                className={activeCategory === "FIVE_F" ? "active" : ""}
+                onClick={() => handleCategoryClick("FIVE_F")}
               >
                 5F
               </button>
@@ -74,8 +172,8 @@ export const Browsing: React.FC = () => {
                 TIL
               </button>
               <button
-                className={activeCategory === "4L" ? "active" : ""}
-                onClick={() => handleCategoryClick("4L")}
+                className={activeCategory === "FOUR_L" ? "active" : ""}
+                onClick={() => handleCategoryClick("FOUR_L")}
               >
                 4L
               </button>
@@ -98,16 +196,14 @@ export const Browsing: React.FC = () => {
                 YWT
               </button>
               <button
-                className={activeCategory === "개인적 회고" ? "active" : ""}
-                onClick={() => handleCategoryClick("개인적 회고")}
+                className={activeCategory === "PERSONAL" ? "active" : ""}
+                onClick={() => handleCategoryClick("PERSONAL")}
               >
                 개인적 회고
               </button>
               <button
-                className={
-                  activeCategory === "성과/수치 중심 회고" ? "active" : ""
-                }
-                onClick={() => handleCategoryClick("성과/수치 중심 회고")}
+                className={activeCategory === "RESULT" ? "active" : ""}
+                onClick={() => handleCategoryClick("RESULT")}
               >
                 성과/수치 중심 회고
               </button>
@@ -115,27 +211,25 @@ export const Browsing: React.FC = () => {
           )}
         </nav>
         <div className="retro_container">
-          <div className="retro_line">
-            <RetroBox />
-            <RetroBox />
-            <RetroBox />
-          </div>
-          <div className="retro_line">
-            <RetroBox />
-            <RetroBox />
-            <RetroBox />
-          </div>
-          <div className="retro_line">
-            <RetroBox />
-            <RetroBox />
-            <RetroBox />
-          </div>
+          {retroData.map((item: RetroDataType) => (
+            <div className="retroBox" key={item.reminiId}>
+              <RetroBox
+                key={item.reminiId}
+                createdDate={item.createdDate}
+                liked={item.liked}
+                likesCount={item.likesCount}
+                reminiId={item.reminiId}
+                reminiImage={item.reminiImage}
+                title={item.title}
+                goToResult={() => handleRetroBoxClick(item.reminiId)}
+              />
+            </div>
+          ))}
         </div>
-        {/* 페이지네이션 : API 연동하면서 구현 예정입니다 */}
-        <img
-          src={paginationImg}
-          alt="paginationImg"
-          className="paginationImg"
+        <Pagination
+          totalItems={totalElements}
+          itemsPerPage={pageSize}
+          onPageChange={handlePageChange}
         />
       </BrowsingWrap>
       <Footer />
@@ -207,17 +301,15 @@ const BrowsingWrap = styled.div<{ showCategory: boolean }>`
 
   .retro_container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
 
-    .retro_line {
-      display: flex;
-      gap: 32px;
-    }
-  }
+    width: 916px;
+    height: 838px;
 
-  .paginationImg {
-    margin-top: 41px;
-    margin-bottom: ${(props) => (props.showCategory ? "85px" : "120px")};
+    .retroBox {
+      margin-left: 6px;
+      margin-right: 6px;
+    }
   }
 `;

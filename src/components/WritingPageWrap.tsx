@@ -29,6 +29,10 @@ const WritingPageWrap = styled.div`
     font-weight: 600;
     line-height: normal;
   }
+  .temporary_btn:disabled {
+    /* isContentFilled가 false일 때 버튼 스타일 */
+    opacity: 0.6;
+  }
 `;
 
 export default WritingPageWrap;

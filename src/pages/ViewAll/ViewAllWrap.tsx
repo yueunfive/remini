@@ -21,18 +21,16 @@ const ViewAllWrap = styled.div`
 
   .retro_container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
 
-    .retro_line {
-      display: flex;
-      gap: 32px;
-    }
-  }
+    width: 916px;
+    height: 838px;
 
-  .paginationImg {
-    margin-top: 21px;
-    margin-bottom: 120px;
+    .retroBox {
+      margin-left: 6px;
+      margin-right: 6px;
+    }
   }
 `;
 

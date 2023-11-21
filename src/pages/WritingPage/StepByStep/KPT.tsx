@@ -9,7 +9,7 @@ import WritingPageWrap from "../../../components/WritingPageWrap";
 //Step by Step KPT 회고 페이지
 export default function KPT() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [content, setContent] = useState<string[]>([]);
+  const [content, setContent] = useState<string[]>(["", "", ""]);
   const [inputContent, setInputContent] = useState("");
 
   const isContentFilled = inputContent.trim().length > 0;

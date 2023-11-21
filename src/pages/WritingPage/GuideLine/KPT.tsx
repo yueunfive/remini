@@ -16,7 +16,9 @@ export default function KPT() {
   const isSecondContentFilled = secondContent.trim().length > 0;
   const isThridContentFilled = thirdContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [firstContent, secondContent, thirdContent];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
 
@@ -113,7 +115,7 @@ export default function KPT() {
               !isThridContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

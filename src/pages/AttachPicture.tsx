@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Header } from "../components/Header";
 import WritingPageBtnWrap from "../components/WritingPageBtn";
 
@@ -14,8 +15,9 @@ export default function AttachPicture() {
 
   const goToCompleteWriting = (useDefaultImage = false) => {
     const imageToSend = useDefaultImage ? defaultImage : pictureFile;
-    navigate("/completeWriting", { state: { image: imageToSend } });
+    navigate("/MyPage", { state: { image: imageToSend } });
   };
+  ///completeWriting -> MyPage로 임시변경
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -38,6 +40,40 @@ export default function AttachPicture() {
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
+  };
+
+  // 회고 생성
+  const createRetro = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const storedSectionTexts = localStorage.getItem("sectionTexts");
+    const sectionTexts = storedSectionTexts
+      ? JSON.parse(storedSectionTexts)
+      : [];
+
+    const data = {
+      instantSave: false,
+      sectionTexts,
+      step: 0,
+      title: localStorage.getItem("title"),
+      type: localStorage.getItem("type"),
+    };
+
+    try {
+      const response = await axios.post(
+        "https://www.remini.store/api/remini",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log("요청 성공:", response.data);
+      goToCompleteWriting();
+    } catch (error) {
+      console.error("요청 실패:", error);
+    }
   };
 
   return (
@@ -65,18 +101,12 @@ export default function AttachPicture() {
         </div>
         <WritingPageBtnWrap>
           <button
-            className="temporary_btn"
-            onClick={() => goToCompleteWriting(true)}
-          >
-            첨부 안 함
-          </button>
-          <button
             className="completed_btn"
             style={{
-              backgroundColor: pictureFile ? "#79CD96" : "#305D40",
+              backgroundColor: "#79CD96",
             }}
-            disabled={!pictureFile}
-            onClick={() => goToCompleteWriting()}
+            // onClick={() => goToCompleteWriting()}
+            onClick={createRetro} // 일단 회고 생성으로 대체
           >
             회고 완료
           </button>

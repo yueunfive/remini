@@ -18,10 +18,16 @@ export default function ORID() {
   const isThirdContentFilled = thirdContent.trim().length > 0;
   const isFourContentFilled = fourContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [
+      firstContent,
+      secondContent,
+      thirdContent,
+      fourContent,
+    ];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
-
   return (
     <>
       <WritingPageWrap>
@@ -149,7 +155,7 @@ export default function ORID() {
               !isFourContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

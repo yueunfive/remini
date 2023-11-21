@@ -2,6 +2,8 @@ import React from "react";
 import StepByStepWrap from "../StepByStepWrap";
 import img1 from "../../../img/ProgressBar/KPT1.png";
 import WritingPageBtnWrap from "../../WritingPageBtn";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 //Step by Step KPT 회고 페이지 1
 interface KPT1Props {
@@ -21,12 +23,54 @@ export default function KPT1({
   isContentFilled, // isContentFilled 속성 추가
   setContent, // setContent 속성 추가
 }: KPT1Props) {
+  const navigate = useNavigate();
+  const indexToFill = 0;
+
+  // 다음
   const handleNext = () => {
     if (inputContent.trim().length > 0) {
-      const updatedContent = [...content, inputContent];
-      setContent(updatedContent);
+      const updatedContent = [...content]; // content 배열 복사
+      updatedContent[indexToFill] = inputContent; // 선택한 인덱스에 inputContent 삽입
+
+      setContent(updatedContent); // 새로운 배열로 content 업데이트
       setInputContent("");
       handleComplete();
+    }
+  };
+
+  // 임시 저장
+  const tempStore = () => {
+    if (inputContent.trim().length > 0) {
+      if (inputContent.trim().length > 0) {
+        const updatedContent = [...content];
+        updatedContent[indexToFill] = inputContent;
+
+        const accessToken = localStorage.getItem("accessToken");
+
+        const data = {
+          instantSave: true,
+          sectionTexts: updatedContent,
+          step: indexToFill + 1,
+          title: localStorage.getItem("title"),
+          type: localStorage.getItem("type"),
+        };
+
+        // Axios를 사용한 POST 요청 보내기
+        axios
+          .post("https://www.remini.store/api/remini", data, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log("임시 저장 완료", response.data);
+            alert("임시 저장에 성공했습니다!");
+            navigate("/MyPage"); // MyPage로 이동
+          })
+          .catch((error) => {
+            console.error("임시 저장 실패:", error);
+          });
+      }
     }
   };
 
@@ -64,7 +108,11 @@ export default function KPT1({
           </div>
         </div>
         <WritingPageBtnWrap>
-          <button className="temporary_btn" disabled={!isContentFilled}>
+          <button
+            className="temporary_btn"
+            disabled={!isContentFilled}
+            onClick={tempStore}
+          >
             임시 저장
           </button>
           <button

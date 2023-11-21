@@ -16,7 +16,9 @@ export default function YWT() {
   const isSecondContentFilled = secondContent.trim().length > 0;
   const isThirdContentFilled = thirdContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [firstContent, secondContent, thirdContent];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
 
@@ -131,7 +133,7 @@ export default function YWT() {
               !isThirdContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

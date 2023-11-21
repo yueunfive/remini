@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logoBlack from "../img/logo/logo_black.png";
 
+interface UserData {
+  expirationDate: string;
+  nickName: string;
+  profileImageUrl: string;
+  state: string;
+}
+
 export const Header: React.FC = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const parsedUserData: UserData = JSON.parse(storedUserData);
+      setUserData(parsedUserData);
+    }
+  }, []);
 
   const goToLogin = () => {
     navigate("/login");
@@ -22,6 +38,10 @@ export const Header: React.FC = () => {
     navigate("/Browsing");
   };
 
+  const goToMyPage = () => {
+    navigate("/MyPage");
+  };
+
   return (
     <HeaderWrap>
       <img src={logoBlack} alt="logo" onClick={goToHome} />
@@ -29,9 +49,21 @@ export const Header: React.FC = () => {
         <p onClick={goToSelectMethod}>회고하기</p>
         <p onClick={goToBrowsing}>둘러보기</p>
       </div>
-      <div className="login font">
-        <p onClick={goToLogin}>로그인</p>
-      </div>
+      {userData ? (
+        <div className="user-info font" onClick={goToMyPage}>
+          <div
+            className="profile-img"
+            style={{
+              backgroundImage: `url(${userData.profileImageUrl})`,
+            }}
+          ></div>
+          <p>{userData.nickName}</p>
+        </div>
+      ) : (
+        <div className="login font" onClick={goToLogin}>
+          <p>로그인</p>
+        </div>
+      )}
     </HeaderWrap>
   );
 };
@@ -70,5 +102,20 @@ const HeaderWrap = styled.div`
     font-weight: 600;
     line-height: normal;
     cursor: pointer;
+  }
+
+  .user-info {
+    width: 162px;
+    display: flex;
+    align-items: center;
+
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 266.667px;
+      background-size: cover;
+      background-position: center;
+      margin-right: 20px;
+    }
   }
 `;

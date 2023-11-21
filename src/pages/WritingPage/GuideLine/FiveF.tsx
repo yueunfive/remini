@@ -20,10 +20,17 @@ export default function FiveF() {
   const isFourContentFilled = fourContent.trim().length > 0;
   const isFiftheContentFilled = fifthContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [
+      firstContent,
+      secondContent,
+      thirdContent,
+      fourContent,
+      fifthContent,
+    ];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
-
   return (
     <>
       <WritingPageWrap>
@@ -150,7 +157,7 @@ export default function FiveF() {
               !isFiftheContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

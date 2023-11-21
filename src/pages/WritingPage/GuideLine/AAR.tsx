@@ -4,6 +4,7 @@ import WritingPageWrap from "../../../components/WritingPageWrap";
 import { useNavigate } from "react-router-dom";
 import WritingPageBtn from "../../../components/WritingPageBtn";
 import GuideLineFourContent from "../../../components/GuideLine/FourContent";
+import axios from "axios";
 
 //GuideLine AAR 회고 페이지
 export default function AAR() {
@@ -11,6 +12,8 @@ export default function AAR() {
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
   const [fourContent, setFourContent] = useState("");
+  const sectionTexts = [firstContent, secondContent, thirdContent, fourContent];
+
   const navigate = useNavigate();
 
   const isFirstContentFilled = firstContent.trim().length > 0;
@@ -18,8 +21,38 @@ export default function AAR() {
   const isThirdContentFilled = thirdContent.trim().length > 0;
   const isFourContentFilled = fourContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  // 작성 완료
+  const goToAttachPicture = () => {
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
+  };
+
+  // 임시 저장
+  const handleTemporarySave = () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const data = {
+      instantSave: true,
+      sectionTexts,
+      step: 0,
+      title: localStorage.getItem("title"),
+      type: localStorage.getItem("type"),
+    };
+
+    axios
+      .post("https://www.remini.store/api/remini", data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
+        console.log("임시 저장 완료", response.data);
+        alert("임시 저장에 성공했습니다!");
+        navigate("/MyPage"); // MyPage로 이동
+      })
+      .catch((error) => {
+        console.error("임시 저장 실패:", error);
+      });
   };
 
   return (
@@ -120,11 +153,12 @@ export default function AAR() {
           <button
             className="temporary_btn"
             disabled={
-              !isFirstContentFilled ||
-              !isSecondContentFilled ||
-              !isThirdContentFilled ||
+              !isFirstContentFilled &&
+              !isSecondContentFilled &&
+              !isThirdContentFilled &&
               !isFourContentFilled
             }
+            onClick={handleTemporarySave}
           >
             임시 저장
           </button>
@@ -146,7 +180,7 @@ export default function AAR() {
               !isFourContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

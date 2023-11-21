@@ -24,7 +24,17 @@ export default function Performance() {
   const isSixthContentFilled = sixthContent.trim().length > 0;
   const isSeventhContentFilled = seventhContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [
+      firstContent,
+      secondContent,
+      thirdContent,
+      fourContent,
+      fifthContent,
+      sixthContent,
+      seventhContent,
+    ];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
 
@@ -192,7 +202,7 @@ export default function Performance() {
               !isSeventhContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

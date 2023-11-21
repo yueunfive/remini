@@ -22,7 +22,7 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
   liked,
   likesCount,
   reminiId,
-  reminiImage,
+  // reminiImage,
   title,
   goToResult,
   hideLikes = false,
@@ -80,10 +80,9 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
     }
   };
 
-  // url에 이미지 등록 없으면 회색 처리
   const retroImgStyle = {
-    backgroundImage: `url(${reminiImage})`,
-    backgroundColor: reminiImage ? "" : "grey",
+    // backgroundImage: `url(${reminiImage})`,
+    backgroundColor: "grey",
   };
 
   return (

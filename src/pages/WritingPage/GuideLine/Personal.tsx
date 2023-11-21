@@ -32,7 +32,21 @@ export default function Personal() {
   const isTenthContentFilled = tenthContent.trim().length > 0;
   const isEleventhContentFilled = eleventhContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [
+      firstContent,
+      secondContent,
+      thirdContent,
+      fourContent,
+      fifthContent,
+      sixthContent,
+      seventhContent,
+      eighthContent,
+      ninthContent,
+      tenthContent,
+      eleventhContent,
+    ];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
 
@@ -269,7 +283,7 @@ export default function Personal() {
               !isEleventhContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

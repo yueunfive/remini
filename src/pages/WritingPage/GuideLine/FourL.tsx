@@ -18,7 +18,14 @@ export default function FourL() {
   const isThirdContentFilled = thirdContent.trim().length > 0;
   const isFourContentFilled = fourContent.trim().length > 0;
 
-  const goToCompleteWriting = () => {
+  const goToAttachPicture = () => {
+    const sectionTexts = [
+      firstContent,
+      secondContent,
+      thirdContent,
+      fourContent,
+    ];
+    localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
     navigate("/attachPicture");
   };
 
@@ -131,7 +138,7 @@ export default function FourL() {
               !isFourContentFilled
             }
             onClick={() => {
-              goToCompleteWriting();
+              goToAttachPicture();
             }}
           >
             작성 완료

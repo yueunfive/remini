@@ -14,8 +14,8 @@ import { Personal } from "../components/RecommendSort/Personal";
 import { YWT } from "../components/RecommendSort/YWT";
 import { FourL } from "../components/RecommendSort/FourL";
 import { useNavigate } from "react-router-dom";
-import LoginModal from "../components/Modal/LogInModal";
 import ModalOverlay from "../components/Modal/ModalOverlay";
+import LoginModal from "../components/Modal/LoginModal";
 
 // 맞춤 회고 유형 추천 결과 페이지
 export default function RecommendResult() {

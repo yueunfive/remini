@@ -34,10 +34,28 @@ function LoginCallback() {
       const { accessToken } = response.data;
       localStorage.setItem("accessToken", accessToken);
 
-      // 로그인 처리 완료 후 Home 페이지로 리디렉트
-      navigate("/");
+      getUserData(accessToken);
     } catch (error) {
       console.error("Error sending code to server:", error);
+    }
+  };
+
+  const getUserData = async (accessToken: string) => {
+    try {
+      const response = await axios.get("http://www.remini.store/api/user", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("User data response:", response);
+
+      const userData = response.data;
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      // Redirect to Home page after storing user data
+      navigate("/");
+    } catch (error) {
+      console.error("Error fetching user data:", error);
     }
   };
 
