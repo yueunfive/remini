@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 
+//세로로 된 회고 유형 css
 const GuideLineVerticleContent = styled.div`
   background-color: #121212;
   padding: 0px 100px;
@@ -10,7 +11,6 @@ const GuideLineVerticleContent = styled.div`
   flex-direction: column;
   align-items: center;
 
-  //가이드라인 회고 모두 동일 css
   .AllmainConten_container {
     display: inline-flex;
     flex-direction: column;

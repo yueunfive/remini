@@ -1,4 +1,4 @@
-//4개짜리 가이드라인 회고일 경우
+//4개짜리 가이드라인 회고일 경우(가로)
 
 import styled from "styled-components";
 
