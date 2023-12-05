@@ -8,16 +8,6 @@ import ScrollToTop from "./ScrollToTop";
 import RecommendResult from "./pages/RecommendResult";
 import SelectMethod from "./pages/SelectMethod";
 import SelectRetro from "./pages/SelectRetro";
-import CompleteWritingAAR from "./components/CompleteWriting/AAR";
-import CompleteWritingContinue from "./components/CompleteWriting/Continue";
-import CompleteWritingFiveF from "./components/CompleteWriting/FiveF";
-import CompleteWritingFourL from "./components/CompleteWriting/FourL";
-import CompleteWritingKPT from "./components/CompleteWriting/KPT";
-import CompleteWritingORID from "./components/CompleteWriting/ORID";
-import CompleteWritingPerformance from "./components/CompleteWriting/Performance";
-import CompleteWritingPersonal from "./components/CompleteWriting/Personal";
-import CompleteWritingTIL from "./components/CompleteWriting/TIL";
-import CompleteWritingYWT from "./components/CompleteWriting/YWT";
 import StepByStepKPT from "./pages/WritingPage/StepByStep/KPT";
 import StepByStepContinue from "./pages/WritingPage/StepByStep/Continue";
 import StepByStepTIL from "./pages/WritingPage/StepByStep/TIL";
@@ -30,14 +20,14 @@ import StepByStepPersonal from "./pages/WritingPage/StepByStep/Personal";
 import StepByStepPerformance from "./pages/WritingPage/StepByStep/Performance";
 import AttachPicture from "./pages/AttachPicture";
 import GuideLineKPT from "./pages/WritingPage/GuideLine/KPT";
-import GuideLineContiue from "./pages/WritingPage/GuideLine/Continue";
+import GuideLineContinue from "./pages/WritingPage/GuideLine/Continue";
 import GuideLineTIL from "./pages/WritingPage/GuideLine/TIL";
 import GuideLineYWT from "./pages/WritingPage/GuideLine/YWT";
 import GuideLineFourL from "./pages/WritingPage/GuideLine/FourL";
 import GuideLineAAR from "./pages/WritingPage/GuideLine/AAR";
 import GuideLineORID from "./pages/WritingPage/GuideLine/ORID";
-import GuidLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
-import GiudLinePersonal from "./pages/WritingPage/GuideLine/Personal";
+import GuideLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
+import GuideLinePersonal from "./pages/WritingPage/GuideLine/Personal";
 import GuideLinePerformance from "./pages/WritingPage/GuideLine/Performance";
 import { MyPage } from "./pages/MyPage";
 import { Browsing } from "./pages/Browsing";
@@ -57,76 +47,53 @@ function App() {
           <Route path="/callback" element={<LoginCallback />} />
 
           <Route path="/recommend" element={<Recommend />} />
-          <Route path="/recommendResult" element={<RecommendResult />} />
-          <Route path="/selectMethod" element={<SelectMethod />} />
-          <Route path="/selectRetro" element={<SelectRetro />} />
+          <Route path="/recommend-result" element={<RecommendResult />} />
+          <Route path="/select-method" element={<SelectMethod />} />
+          <Route path="/select-retro" element={<SelectRetro />} />
 
           {/* stepByStep */}
-          <Route path="/stepByStepKPT" element={<StepByStepKPT />} />
-          <Route path="/stepByStepContinue" element={<StepByStepContinue />} />
-          <Route path="/stepByStepTIL" element={<StepByStepTIL />} />
-          <Route path="/stepByStepYWT" element={<StepByStepYWT />} />
-          <Route path="/stepByStepFourL" element={<StepByStepFourL />} />
-          <Route path="/stepByStepAAR" element={<StepByStepAAR />} />
-          <Route path="/stepByStepORID" element={<StepByStepORID />} />
-          <Route path="/stepByStepFiveF" element={<StepByStepFiveF />} />
-          <Route path="/stepByStepPersonal" element={<StepByStepPersonal />} />
+          <Route path="/step-by-step-kpt" element={<StepByStepKPT />} />
           <Route
-            path="/stepByStepPerformance"
+            path="/step-by-step-continue"
+            element={<StepByStepContinue />}
+          />
+          <Route path="/step-by-step-til" element={<StepByStepTIL />} />
+          <Route path="/step-by-step-ywt" element={<StepByStepYWT />} />
+          <Route path="/step-by-step-4l" element={<StepByStepFourL />} />
+          <Route path="/step-by-step-aar" element={<StepByStepAAR />} />
+          <Route path="/step-by-step-orid" element={<StepByStepORID />} />
+          <Route path="/step-by-step-5f" element={<StepByStepFiveF />} />
+          <Route
+            path="/step-by-step-personal"
+            element={<StepByStepPersonal />}
+          />
+          <Route
+            path="/step-by-step-performance"
             element={<StepByStepPerformance />}
           />
 
           {/* guideLine */}
-          <Route path="/guideLineKPT" element={<GuideLineKPT />} />
-          <Route path="/guideLineContinue" element={<GuideLineContiue />} />
-          <Route path="/guideLineTIL" element={<GuideLineTIL />} />
-          <Route path="/guideLineYWT" element={<GuideLineYWT />} />
-          <Route path="/guideLineFourL" element={<GuideLineFourL />} />
-          <Route path="/guideLineAAR" element={<GuideLineAAR />} />
-          <Route path="/guideLineORID" element={<GuideLineORID />} />
-          <Route path="/guideLineFIveF" element={<GuidLineFiveF />} />
-          <Route path="/guideLinePersonal" element={<GiudLinePersonal />} />
+          <Route path="/guideline-kpt" element={<GuideLineKPT />} />
+          <Route path="/guideline-continue" element={<GuideLineContinue />} />
+          <Route path="/guideline-til" element={<GuideLineTIL />} />
+          <Route path="/guideline-ywt" element={<GuideLineYWT />} />
+          <Route path="/guideline-4l" element={<GuideLineFourL />} />
+          <Route path="/guideline-aar" element={<GuideLineAAR />} />
+          <Route path="/guideline-orid" element={<GuideLineORID />} />
+          <Route path="/guideline-5f" element={<GuideLineFiveF />} />
+          <Route path="/guideline-personal" element={<GuideLinePersonal />} />
           <Route
-            path="/guideLinePerformance"
+            path="/guideline-performance"
             element={<GuideLinePerformance />}
           />
 
-          {/* CompleteWriting */}
-          <Route path="/attachPicture" element={<AttachPicture />} />
-          <Route path="/CompleteWritingAAR" element={<CompleteWritingAAR />} />
-          <Route
-            path="/CompleteWritingContinue"
-            element={<CompleteWritingContinue />}
-          />
-          <Route
-            path="/CompleteWritingFiveF"
-            element={<CompleteWritingFiveF />}
-          />
-          <Route
-            path="/CompleteWritingFourL"
-            element={<CompleteWritingFourL />}
-          />
-          <Route path="/CompleteWritingKPT" element={<CompleteWritingKPT />} />
-          <Route
-            path="/CompleteWritingORID"
-            element={<CompleteWritingORID />}
-          />
-          <Route
-            path="/CompleteWritingPerformance"
-            element={<CompleteWritingPerformance />}
-          />
-          <Route
-            path="/CompleteWritingPersonal"
-            element={<CompleteWritingPersonal />}
-          />
-          <Route path="/CompleteWritingTIL" element={<CompleteWritingTIL />} />
-          <Route path="/CompleteWritingYWT" element={<CompleteWritingYWT />} />
-          <Route path="/CompleteWriting" element={<CompleteWriting />} />
+          <Route path="/attach-picture" element={<AttachPicture />} />
+          <Route path="/complete-writing/:id" element={<CompleteWriting />} />
 
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/my-page" element={<MyPage />} />
           <Route path="/browsing" element={<Browsing />} />
-          <Route path="/myRetro" element={<MyRetro />} />
-          <Route path="/tempStorage" element={<TempStorage />} />
+          <Route path="/my-retro" element={<MyRetro />} />
+          <Route path="/temp-storage" element={<TempStorage />} />
         </Routes>
       </Router>
     </div>

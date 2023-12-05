@@ -9,7 +9,7 @@ export default function SelectMethod() {
   const navigate = useNavigate();
 
   const goToSelectRetro = () => {
-    navigate("/SelectRetro");
+    navigate("/select-retro");
   };
 
   const handleSelect = (value: string) => {
@@ -25,7 +25,7 @@ export default function SelectMethod() {
           <div className="select1">
             <button
               onClick={() => {
-                handleSelect("guideLine");
+                handleSelect("guideline");
                 goToSelectRetro();
               }}
             >
@@ -38,7 +38,7 @@ export default function SelectMethod() {
           <div className="select2">
             <button
               onClick={() => {
-                handleSelect("stepByStep");
+                handleSelect("step-by-step");
                 goToSelectRetro();
               }}
             >

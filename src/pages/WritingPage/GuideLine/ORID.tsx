@@ -26,7 +26,7 @@ export default function ORID() {
       fourContent,
     ];
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
   return (
     <>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import WritingPageBtn from "../../../components/WritingPageBtn";
 import GuideLineTheeContent from "../../../components/GuideLine/ThreeContent";
 
-//GuideLine Contiue 회고 페이지
+//GuideLine Continue 회고 페이지
 export default function Continue() {
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");

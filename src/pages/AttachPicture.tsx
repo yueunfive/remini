@@ -1,46 +1,16 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Header } from "../components/Header";
 import WritingPageBtnWrap from "../components/WritingPageBtn";
+import defaultImage from "../img/UI/basicImage.png";
 
 //회고 작성완료 후 사진 첨부 페이지
 export default function AttachPicture() {
   const navigate = useNavigate();
   const [pictureFile, setPictureFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const defaultImage = "/src/img/UI/basicImage.png";
-
-  const goToCompleteWriting = (useDefaultImage = false) => {
-    const imageToSend = useDefaultImage ? defaultImage : pictureFile;
-    navigate("/MyPage", { state: { image: imageToSend } });
-  };
-  ///completeWriting -> MyPage로 임시변경
-
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      setPictureFile(files[0]);
-    }
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      setPictureFile(file);
-    }
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
 
   // 회고 생성
   const createRetro = async () => {
@@ -59,7 +29,7 @@ export default function AttachPicture() {
     };
 
     try {
-      const response = await axios.post(
+      const response: AxiosResponse = await axios.post(
         "https://www.remini.store/api/remini",
         data,
         {
@@ -70,10 +40,76 @@ export default function AttachPicture() {
       );
 
       console.log("요청 성공:", response.data);
-      goToCompleteWriting();
+      uploadImage(response);
     } catch (error) {
       console.error("요청 실패:", error);
     }
+  };
+
+  // 이미지 업로드(Presigned URL)
+  const uploadImage = async (response: AxiosResponse) => {
+    const imageToSend = pictureFile ? pictureFile : await getDefaultImageFile();
+
+    try {
+      const imageResponse = await axios.put(
+        response.data.uploadUrl,
+        imageToSend,
+        {
+          headers: {
+            "Content-Type": pictureFile?.type ?? "image/jpeg",
+          },
+        }
+      );
+
+      console.log("이미지 업로드 성공:", imageResponse);
+      goToCompleteWriting(response);
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
+  };
+
+  // 기본 이미지 파일 가져오기(파일 객체로 변환)
+  const getDefaultImageFile = async () => {
+    try {
+      const response = await fetch(defaultImage);
+      const blob = await response.blob();
+      const file = new File([blob], "defaultImage.png", { type: "image/png" });
+      return file;
+    } catch (error) {
+      console.error("기본 이미지 가져오기 실패:", error);
+      return null;
+    }
+  };
+
+  // 회고 작성 완료 페이지로 이동
+  const goToCompleteWriting = (response: AxiosResponse) => {
+    navigate(`/complete-writing/${response.data.reminiId}`);
+  };
+
+  // 파일 드래그 이벤트 처리
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      setPictureFile(files[0]);
+    }
+  };
+
+  // 파일 선택(input type="file") 이벤트 처리
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setPictureFile(file);
+    }
+  };
+
+  // 파일 선택(input type="file") 요소 클릭하는 함수
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -105,14 +141,14 @@ export default function AttachPicture() {
             style={{
               backgroundColor: "#79CD96",
             }}
-            // onClick={() => goToCompleteWriting()}
-            onClick={createRetro} // 일단 회고 생성으로 대체
+            onClick={createRetro}
           >
             회고 완료
           </button>
         </WritingPageBtnWrap>
         <input
           type="file"
+          accept="image/*"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileSelect}

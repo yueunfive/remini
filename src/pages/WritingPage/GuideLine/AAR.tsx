@@ -24,7 +24,7 @@ export default function AAR() {
   // 작성 완료
   const goToAttachPicture = () => {
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   // 임시 저장
@@ -48,7 +48,7 @@ export default function AAR() {
       .then((response) => {
         console.log("임시 저장 완료", response.data);
         alert("임시 저장에 성공했습니다!");
-        navigate("/MyPage"); // MyPage로 이동
+        navigate("/my-page"); // MyPage로 이동
       })
       .catch((error) => {
         console.error("임시 저장 실패:", error);

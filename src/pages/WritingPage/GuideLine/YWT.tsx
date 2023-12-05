@@ -19,7 +19,7 @@ export default function YWT() {
   const goToAttachPicture = () => {
     const sectionTexts = [firstContent, secondContent, thirdContent];
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   return (

@@ -35,7 +35,7 @@ export default function RecommendResult() {
     const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
-      navigate("/selectMethod"); // 로그인 O : 회고 작성 페이지로 이동
+      navigate("/select-method"); // 로그인 O : 회고 작성 페이지로 이동
     } else {
       setShowModal(true); // 로그인 X : 로그인 유도 모달 띄우기
     }

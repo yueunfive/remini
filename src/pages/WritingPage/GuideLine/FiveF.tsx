@@ -29,7 +29,7 @@ export default function FiveF() {
       fifthContent,
     ];
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
   return (
     <>

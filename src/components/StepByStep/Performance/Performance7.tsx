@@ -23,7 +23,7 @@ export default function Performance7({
   const navigate = useNavigate();
 
   const goToCompleteWriting = () => {
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   const handleNext = () => {

@@ -96,7 +96,7 @@ export default function Recommend() {
 
     // "맞춤 회고 유형 확인하기" 버튼을 눌렀을 때 다른 페이지로 이동
     if (["Page2a", "Page2b", "Page3a", "Page3b"].includes(page)) {
-      navigate("/recommendResult");
+      navigate("/recommend-result");
     }
   };
 

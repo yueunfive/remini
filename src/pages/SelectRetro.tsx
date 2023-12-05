@@ -60,39 +60,39 @@ export default function SelectRetro() {
 
   const retroBtnClick = () => {
     // 페이지 이동
-    navigate(`/${storedSelectMethod}${activeComponent}`);
+    navigate(`/${storedSelectMethod}-${activeComponent}`);
 
     // 백엔드 연동용 type 값 변경 후 저장
     let type = "";
     switch (activeComponent) {
-      case "KPT":
+      case "kpt":
         type = "KPT";
         break;
-      case "Continue":
+      case "continue":
         type = "CSS";
         break;
-      case "FiveF":
+      case "5f":
         type = "FIVE_F";
         break;
-      case "TIL":
+      case "til":
         type = "TIL";
         break;
-      case "FourL":
+      case "4l":
         type = "FOUR_L";
         break;
-      case "ORID":
+      case "orid":
         type = "ORID";
         break;
-      case "AAR":
+      case "aar":
         type = "AAR";
         break;
-      case "YWT":
+      case "ywt":
         type = "YWT";
         break;
-      case "Personal":
+      case "personal":
         type = "PERSONAL";
         break;
-      case "Performance":
+      case "performance":
         type = "RESULT";
         break;
       default:
@@ -123,67 +123,67 @@ export default function SelectRetro() {
               <div className="btn_box">
                 <div>
                   <button
-                    onClick={() => handleButtonClick("KPT")}
-                    className={activeComponent === "KPT" ? "active" : ""}
+                    onClick={() => handleButtonClick("kpt")}
+                    className={activeComponent === "kpt" ? "active" : ""}
                   >
                     KPT
                   </button>
                   <button
-                    onClick={() => handleButtonClick("Continue")}
-                    className={activeComponent === "Continue" ? "active" : ""}
+                    onClick={() => handleButtonClick("continue")}
+                    className={activeComponent === "continue" ? "active" : ""}
                   >
                     Continue-Stop-Start
                   </button>
                   <button
-                    onClick={() => handleButtonClick("FiveF")}
-                    className={activeComponent === "FiveF" ? "active" : ""}
+                    onClick={() => handleButtonClick("5f")}
+                    className={activeComponent === "5f" ? "active" : ""}
                   >
                     5F
                   </button>
                   <button
-                    onClick={() => handleButtonClick("TIL")}
-                    className={activeComponent === "TIL" ? "active" : ""}
+                    onClick={() => handleButtonClick("til")}
+                    className={activeComponent === "til" ? "active" : ""}
                   >
                     TIL
                   </button>
                 </div>
                 <div>
                   <button
-                    onClick={() => handleButtonClick("FourL")}
-                    className={activeComponent === "FourL" ? "active" : ""}
+                    onClick={() => handleButtonClick("4l")}
+                    className={activeComponent === "4l" ? "active" : ""}
                   >
                     4L
                   </button>
                   <button
-                    onClick={() => handleButtonClick("ORID")}
-                    className={activeComponent === "ORID" ? "active" : ""}
+                    onClick={() => handleButtonClick("orid")}
+                    className={activeComponent === "orid" ? "active" : ""}
                   >
                     ORID
                   </button>
                   <button
-                    onClick={() => handleButtonClick("AAR")}
-                    className={activeComponent === "AAR" ? "active" : ""}
+                    onClick={() => handleButtonClick("aar")}
+                    className={activeComponent === "aar" ? "active" : ""}
                   >
                     AAR
                   </button>
                   <button
-                    onClick={() => handleButtonClick("YWT")}
-                    className={activeComponent === "YWT" ? "active" : ""}
+                    onClick={() => handleButtonClick("ywt")}
+                    className={activeComponent === "ywt" ? "active" : ""}
                   >
                     YWT
                   </button>
                 </div>
                 <div>
                   <button
-                    onClick={() => handleButtonClick("Personal")}
-                    className={activeComponent === "Personal" ? "active" : ""}
+                    onClick={() => handleButtonClick("personal")}
+                    className={activeComponent === "personal" ? "active" : ""}
                   >
                     개인적 회고
                   </button>
                   <button
-                    onClick={() => handleButtonClick("Performance")}
+                    onClick={() => handleButtonClick("performance")}
                     className={
-                      activeComponent === "Performance" ? "active" : ""
+                      activeComponent === "performance" ? "active" : ""
                     }
                   >
                     성과/수치 중심 회고

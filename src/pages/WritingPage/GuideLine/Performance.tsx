@@ -35,7 +35,7 @@ export default function Performance() {
       seventhContent,
     ];
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   return (

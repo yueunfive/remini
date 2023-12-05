@@ -47,7 +47,7 @@ export default function Personal() {
       eleventhContent,
     ];
     localStorage.setItem("sectionTexts", JSON.stringify(sectionTexts));
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   return (

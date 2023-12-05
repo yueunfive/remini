@@ -31,15 +31,15 @@ export const Header: React.FC = () => {
   };
 
   const goToSelectMethod = () => {
-    navigate("/selectMethod");
+    navigate("/select-method");
   };
 
   const goToBrowsing = () => {
-    navigate("/Browsing");
+    navigate("/browsing");
   };
 
   const goToMyPage = () => {
-    navigate("/MyPage");
+    navigate("/my-page");
   };
 
   return (

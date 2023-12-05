@@ -171,11 +171,11 @@ export const MyPage: React.FC = () => {
   };
 
   const goToMyRetro = () => {
-    navigate("/myRetro");
+    navigate("/my-retro");
   };
 
   const goToTempStorage = () => {
-    navigate("/tempStorage");
+    navigate("/temp-storage");
   };
 
   return (

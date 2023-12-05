@@ -25,7 +25,7 @@ export default function KPT3({
   const indexToFill = 2;
 
   const goToCompleteWriting = () => {
-    navigate("/attachPicture");
+    navigate("/attach-picture");
   };
 
   const handleNext = () => {

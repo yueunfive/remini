@@ -22,7 +22,7 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
   liked,
   likesCount,
   reminiId,
-  // reminiImage,
+  reminiImage,
   title,
   goToResult,
   hideLikes = false,
@@ -81,8 +81,9 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
   };
 
   const retroImgStyle = {
-    // backgroundImage: `url(${reminiImage})`,
-    backgroundColor: "grey",
+    backgroundImage: `url(${reminiImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   };
 
   return (
@@ -92,6 +93,7 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
         style={retroImgStyle}
         onClick={goToResult}
       >
+        <div className="darkOverlay" />
         {!hideLikes && (
           <div className="likes" onClick={(e) => e.stopPropagation()}>
             <img
@@ -129,6 +131,14 @@ const RetroBoxWrap = styled.div`
     background-position: center;
     position: relative;
     margin-bottom: 12px;
+  }
+
+  .darkOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.3); /* 배경을 반투명하게 설정 */
   }
 
   .likes {
