@@ -52,36 +52,36 @@ function App() {
           <Route path="/select-retro" element={<SelectRetro />} />
 
           {/* stepByStep */}
-          <Route path="/step-by-step-kpt" element={<StepByStepKPT />} />
+          <Route path="/step-by-step/kpt" element={<StepByStepKPT />} />
           <Route
-            path="/step-by-step-continue"
+            path="/step-by-step/continue"
             element={<StepByStepContinue />}
           />
-          <Route path="/step-by-step-til" element={<StepByStepTIL />} />
-          <Route path="/step-by-step-ywt" element={<StepByStepYWT />} />
-          <Route path="/step-by-step-4l" element={<StepByStepFourL />} />
-          <Route path="/step-by-step-aar" element={<StepByStepAAR />} />
-          <Route path="/step-by-step-orid" element={<StepByStepORID />} />
-          <Route path="/step-by-step-5f" element={<StepByStepFiveF />} />
+          <Route path="/step-by-step/til" element={<StepByStepTIL />} />
+          <Route path="/step-by-step/ywt" element={<StepByStepYWT />} />
+          <Route path="/step-by-step/4l" element={<StepByStepFourL />} />
+          <Route path="/step-by-step/aar" element={<StepByStepAAR />} />
+          <Route path="/step-by-step/orid" element={<StepByStepORID />} />
+          <Route path="/step-by-step/5f" element={<StepByStepFiveF />} />
           <Route
-            path="/step-by-step-personal"
+            path="/step-by-step/personal"
             element={<StepByStepPersonal />}
           />
           <Route
-            path="/step-by-step-performance"
+            path="/step-by-step/performance"
             element={<StepByStepPerformance />}
           />
 
           {/* guideLine */}
-          <Route path="/guideline-kpt" element={<GuideLineKPT />} />
-          <Route path="/guideline-continue" element={<GuideLineContinue />} />
-          <Route path="/guideline-til" element={<GuideLineTIL />} />
-          <Route path="/guideline-ywt" element={<GuideLineYWT />} />
-          <Route path="/guideline-4l" element={<GuideLineFourL />} />
-          <Route path="/guideline-aar" element={<GuideLineAAR />} />
-          <Route path="/guideline-orid" element={<GuideLineORID />} />
-          <Route path="/guideline-5f" element={<GuideLineFiveF />} />
-          <Route path="/guideline-personal" element={<GuideLinePersonal />} />
+          <Route path="/guideline/kpt" element={<GuideLineKPT />} />
+          <Route path="/guideline/continue" element={<GuideLineContinue />} />
+          <Route path="/guideline/til" element={<GuideLineTIL />} />
+          <Route path="/guideline/ywt" element={<GuideLineYWT />} />
+          <Route path="/guideline/4l" element={<GuideLineFourL />} />
+          <Route path="/guideline/aar" element={<GuideLineAAR />} />
+          <Route path="/guideline/orid" element={<GuideLineORID />} />
+          <Route path="/guideline/5f" element={<GuideLineFiveF />} />
+          <Route path="/guideline/personal" element={<GuideLinePersonal />} />
           <Route
             path="/guideline-performance"
             element={<GuideLinePerformance />}
@@ -90,8 +90,11 @@ function App() {
           <Route path="/attach-picture" element={<AttachPicture />} />
           <Route path="/complete-writing/:id" element={<CompleteWriting />} />
 
+          <Route path="/browsing/popular" element={<Browsing />} />
+          <Route path="/browsing/latest" element={<Browsing />} />
+          <Route path="/browsing/category" element={<Browsing />} />
+
           <Route path="/my-page" element={<MyPage />} />
-          <Route path="/browsing" element={<Browsing />} />
           <Route path="/my-retro" element={<MyRetro />} />
           <Route path="/temp-storage" element={<TempStorage />} />
         </Routes>

@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
   };
 
   const goToBrowsing = () => {
-    navigate("/browsing");
+    navigate("/browsing/popular");
   };
 
   const goToMyPage = () => {

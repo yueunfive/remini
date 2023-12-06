@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Header } from "../components/Header.tsx";
-import { Footer } from "../components/Footer";
+import { Footer } from "../components/Footer.tsx";
 import { RetroBox } from "../components/RetroBox.tsx";
 import Pagination from "../components/Pagination.tsx";
 
@@ -20,7 +21,12 @@ type RetroDataType = {
 
 // 둘러보기
 export const Browsing: React.FC = () => {
-  const [activeButton, setActiveButton] = useState("popular");
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const [activeButton, setActiveButton] = useState(
+    params.buttonType || "popular"
+  );
   const [activeCategory, setActiveCategory] = useState("");
   const [retroData, setRetroData] = useState<RetroDataType[]>([]); // RetroBox에 사용될 데이터 상태
   const [pageNumber, setPageNumber] = useState(0);
@@ -28,20 +34,17 @@ export const Browsing: React.FC = () => {
   const pageSize = 9;
 
   useEffect(() => {
-    fetchRetroData();
+    if (activeButton === "popular") {
+      fetchPopularRetroData();
+    } else if (activeButton === "latest") {
+      fetchLatestRetroData();
+    }
   }, [activeButton, pageNumber]); // activeButton 또는 pageNumber가 변경될 때마다 데이터를 다시 가져옴
 
-  // 인기, 최신 회고 목록 조회
-  const fetchRetroData = async () => {
+  // 인기 회고 목록 조회
+  const fetchPopularRetroData = async () => {
     try {
-      let url = "";
-
-      if (activeButton === "popular") {
-        url = `https://www.remini.store/api/remini/popular?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-      } else if (activeButton === "latest") {
-        url = `https://www.remini.store/api/remini/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`;
-      }
-
+      const url = `https://www.remini.store/api/remini/popular?pageNumber=${pageNumber}&pageSize=${pageSize}`;
       const accessToken = localStorage.getItem("accessToken");
 
       const response = await axios.get(url, {
@@ -55,18 +58,14 @@ export const Browsing: React.FC = () => {
       console.log(response.data.content);
       console.log(response.data.totalElements);
     } catch (error) {
-      console.error("Error fetching retro data:", error);
+      console.error("Error fetching popular retro data:", error);
     }
   };
 
-  // 카테고리별 회고 목록 조회
-  const handleCategoryClick = async (category: string) => {
+  // 최신 회고 목록 조회
+  const fetchLatestRetroData = async () => {
     try {
-      setActiveCategory(category);
-      setPageNumber(0); // 카테고리 변경 시 페이지 번호 초기화
-
-      const pageSize = 9;
-      let url = `https://www.remini.store/api/remini/category?category=${category}&pageNumber=0&pageSize=${pageSize}`;
+      const url = `https://www.remini.store/api/remini/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`;
       const accessToken = localStorage.getItem("accessToken");
 
       const response = await axios.get(url, {
@@ -77,6 +76,30 @@ export const Browsing: React.FC = () => {
 
       setRetroData(response.data.content);
       setTotalElements(response.data.totalElements);
+      console.log(response.data.content);
+      console.log(response.data.totalElements);
+    } catch (error) {
+      console.error("Error fetching latest retro data:", error);
+    }
+  };
+
+  // 카테고리별 회고 목록 조회
+  const handleCategoryClick = async (category: string) => {
+    try {
+      setActiveCategory(category);
+
+      let url = `https://www.remini.store/api/remini/category?category=${category}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      const accessToken = localStorage.getItem("accessToken");
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setRetroData(response.data.content);
+      setTotalElements(response.data.totalElements);
+
       console.log(response.data.content);
       console.log(response.data.totalElements);
     } catch (error) {
@@ -86,13 +109,17 @@ export const Browsing: React.FC = () => {
 
   // 페이지 변경 시 호출되는 함수
   const handlePageChange = (newPageNumber: number) => {
-    setPageNumber(newPageNumber);
+    setPageNumber(newPageNumber - 1);
   };
 
   const handleButtonClick = (buttonType: ButtonType) => {
+    navigate(`/browsing/${buttonType}`); // URL 업데이트
     setActiveButton(buttonType);
-    setPageNumber(0); // 버튼이 바뀌면 페이지 번호 초기화
   };
+
+  useEffect(() => {
+    setPageNumber(0); // navigate 함수 호출 이후에 페이지 번호 초기화
+  }, [activeButton]);
 
   // 회고 박스 클릭 -> 회고 상세 조회
   const handleRetroBoxClick = async (reminiId: number) => {
