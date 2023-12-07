@@ -30,11 +30,22 @@ import GuideLineFiveF from "./pages/WritingPage/GuideLine/FiveF";
 import GuideLinePersonal from "./pages/WritingPage/GuideLine/Personal";
 import GuideLinePerformance from "./pages/WritingPage/GuideLine/Performance";
 import { MyPage } from "./pages/MyPage";
-import { Browsing } from "./pages/Browsing";
 import { MyRetro } from "./pages/ViewAll/MyRetro";
 import { TempStorage } from "./pages/ViewAll/TempStorage";
 import LoginCallback from "./pages/login/LoginCallback";
 import CompleteWriting from "./pages/CompleteWriting";
+import { Popular } from "./pages/Browsing/popular";
+import { Latest } from "./pages/Browsing/latest";
+import { CategoryFourL } from "./pages/Browsing/Category/FourL";
+import { CategoryKPT } from "./pages/Browsing/Category/KPT";
+import { CategoryAAR } from "./pages/Browsing/Category/AAR";
+import { CategoryContinue } from "./pages/Browsing/Category/Continue";
+import { CategoryFiveF } from "./pages/Browsing/Category/FiveF";
+import { CategoryTIL } from "./pages/Browsing/Category/TIL";
+import { CategoryORID } from "./pages/Browsing/Category/ORID";
+import { CategoryPerformance } from "./pages/Browsing/Category/Performance";
+import { CategoryPersonal } from "./pages/Browsing/Category/Personal";
+import { CategoryYWT } from "./pages/Browsing/Category/YWT";
 
 function App() {
   return (
@@ -83,16 +94,35 @@ function App() {
           <Route path="/guideline/5f" element={<GuideLineFiveF />} />
           <Route path="/guideline/personal" element={<GuideLinePersonal />} />
           <Route
-            path="/guideline-performance"
+            path="/guideline/performance"
             element={<GuideLinePerformance />}
           />
 
           <Route path="/attach-picture" element={<AttachPicture />} />
           <Route path="/complete-writing/:id" element={<CompleteWriting />} />
 
-          <Route path="/browsing/popular" element={<Browsing />} />
-          <Route path="/browsing/latest" element={<Browsing />} />
-          <Route path="/browsing/category" element={<Browsing />} />
+          {/* browsing */}
+          <Route path="/browsing/popular" element={<Popular />} />
+          <Route path="/browsing/latest" element={<Latest />} />
+          <Route path="/browsing/category/4l" element={<CategoryFourL />} />
+          <Route path="/browsing/category/kpt" element={<CategoryKPT />} />
+          <Route path="/browsing/category/aar" element={<CategoryAAR />} />
+          <Route
+            path="/browsing/category/continue"
+            element={<CategoryContinue />}
+          />
+          <Route path="/browsing/category/5f" element={<CategoryFiveF />} />
+          <Route path="/browsing/category/til" element={<CategoryTIL />} />
+          <Route path="/browsing/category/orid" element={<CategoryORID />} />
+          <Route
+            path="/browsing/category/performance"
+            element={<CategoryPerformance />}
+          />
+          <Route
+            path="/browsing/category/personal"
+            element={<CategoryPersonal />}
+          />
+          <Route path="/browsing/category/ywt" element={<CategoryYWT />} />
 
           <Route path="/my-page" element={<MyPage />} />
           <Route path="/my-retro" element={<MyRetro />} />

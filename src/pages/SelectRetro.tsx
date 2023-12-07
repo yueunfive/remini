@@ -32,25 +32,25 @@ export default function SelectRetro() {
 
   const renderActiveComponent = () => {
     switch (activeComponent) {
-      case "KPT":
+      case "kpt":
         return <KPT />;
-      case "Continue":
+      case "continue":
         return <Continue />;
-      case "FiveF":
+      case "5f":
         return <FiveF />;
-      case "TIL":
+      case "til":
         return <TIL />;
-      case "FourL":
+      case "4l":
         return <FourL />;
-      case "ORID":
+      case "orid":
         return <ORID />;
-      case "AAR":
+      case "aar":
         return <AAR />;
-      case "YWT":
+      case "ywt":
         return <YWT />;
-      case "Personal":
+      case "personal":
         return <Personal />;
-      case "Performance":
+      case "performance":
         return <Performance />;
 
       default:
@@ -60,7 +60,7 @@ export default function SelectRetro() {
 
   const retroBtnClick = () => {
     // 페이지 이동
-    navigate(`/${storedSelectMethod}-${activeComponent}`);
+    navigate(`/${storedSelectMethod}/${activeComponent}`);
 
     // 백엔드 연동용 type 값 변경 후 저장
     let type = "";

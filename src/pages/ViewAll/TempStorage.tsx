@@ -57,7 +57,7 @@ export const TempStorage: React.FC = () => {
 
   // 페이지 변경 시 호출되는 함수
   const handlePageChange = (newPageNumber: number) => {
-    setPageNumber(newPageNumber);
+    setPageNumber(newPageNumber - 1);
   };
 
   // 회고 박스 클릭 -> 회고 상세 조회
