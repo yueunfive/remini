@@ -13,6 +13,7 @@ interface RetroBoxProps {
   reminiImage: string;
   title: string;
   goToResult: () => void;
+  setShowModal?: (value: boolean) => void; // 선택적(optional)으로 설정 (전체보기에서는 필요 X)
   hideLikes?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
   reminiImage,
   title,
   goToResult,
+  setShowModal,
   hideLikes = false,
 }) => {
   const [count, setCount] = useState(likesCount);
@@ -41,42 +43,47 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
 
   // 좋아요(POST / DELETE)
   const handleLikeClick = async () => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      try {
+        if (!isLiked) {
+          const response = await axios.post(
+            `https://www.remini.store/api/remini/${reminiId}/likes`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
 
-      if (!isLiked) {
-        const response = await axios.post(
-          `https://www.remini.store/api/remini/${reminiId}/likes`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+          if (response.status === 200) {
+            setIsLiked(true);
+            setCount(count + 1);
           }
-        );
+        } else {
+          const response = await axios.delete(
+            `https://www.remini.store/api/remini/${reminiId}/likes`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
 
-        if (response.status === 200) {
-          setIsLiked(true);
-          setCount(count + 1);
-        }
-      } else {
-        const response = await axios.delete(
-          `https://www.remini.store/api/remini/${reminiId}/likes`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+          if (response.status === 200) {
+            setIsLiked(false);
+            setCount(count - 1);
           }
-        );
-
-        if (response.status === 200) {
-          setIsLiked(false);
-          setCount(count - 1);
         }
+        window.location.reload(); // 좋아요 실시간 반영이 안되서 일단 새로고침으로
+      } catch (error) {
+        console.error("Error:", error);
       }
-      window.location.reload(); // 좋아요 실시간 반영이 안되서 일단 새로고침으로
-    } catch (error) {
-      console.error("Error:", error);
+    } else {
+      if (setShowModal) {
+        setShowModal(true); // 로그인 X : 로그인 유도 모달 띄우기
+      }
     }
   };
 

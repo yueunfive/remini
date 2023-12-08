@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 const ViewAllWrap = styled.div`
   background: var(--Background, #121212);
-
+  min-height: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 50px;
+  padding-bottom: 120px;
 
   h1 {
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
@@ -25,7 +26,6 @@ const ViewAllWrap = styled.div`
     gap: 20px;
 
     width: 916px;
-    height: 838px;
 
     .retroBox {
       margin-left: 6px;

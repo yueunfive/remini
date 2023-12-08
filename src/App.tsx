@@ -39,7 +39,7 @@ import { Latest } from "./pages/Browsing/latest";
 import { CategoryFourL } from "./pages/Browsing/Category/FourL";
 import { CategoryKPT } from "./pages/Browsing/Category/KPT";
 import { CategoryAAR } from "./pages/Browsing/Category/AAR";
-import { CategoryContinue } from "./pages/Browsing/Category/Continue";
+import { CategoryContinue } from "./pages/Browsing/Category/CategoryContinue";
 import { CategoryFiveF } from "./pages/Browsing/Category/FiveF";
 import { CategoryTIL } from "./pages/Browsing/Category/TIL";
 import { CategoryORID } from "./pages/Browsing/Category/ORID";

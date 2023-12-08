@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer";
 import { RetroBox } from "../../components/RetroBox.tsx";
 import axios from "axios";
 import Pagination from "../../components/Pagination.tsx";
+import { useNavigate } from "react-router-dom";
 
 type RetroDataType = {
   createdDate: string;
@@ -17,6 +18,7 @@ type RetroDataType = {
 
 // 임시저장 전체보기
 export const TempStorage: React.FC = () => {
+  const navigate = useNavigate();
   const [retroData, setRetroData] = useState<RetroDataType[]>([]); // RetroBox에 사용될 데이터 상태
   const [pageNumber, setPageNumber] = useState(0);
   const [totalElements, setTotalElements] = useState(0); // 전체 개수 확인(for pagination)
@@ -60,27 +62,9 @@ export const TempStorage: React.FC = () => {
     setPageNumber(newPageNumber - 1);
   };
 
-  // 회고 박스 클릭 -> 회고 상세 조회
+  // 회고 박스 클릭
   const handleRetroBoxClick = async (reminiId: number) => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        `https://www.remini.store/api/remini/${reminiId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = response.data;
-        console.log("Retrieved retro data:", data);
-        // 회고 작성 완료 페이지로 이동하는 코드 필요
-      }
-    } catch (error) {
-      console.error("Error fetching retro data:", error);
-    }
+    navigate(`/complete-writing/${reminiId}`);
   };
 
   return (

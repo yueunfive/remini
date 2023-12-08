@@ -5,22 +5,13 @@ import { Header } from "../../../components/Header.tsx";
 import { Footer } from "../../../components/Footer.tsx";
 import { RetroBox } from "../../../components/RetroBox.tsx";
 import Pagination from "../../../components/Pagination.tsx";
-
 import axios from "axios";
 import LoginModal from "../../../components/Modal/LoginModal.tsx";
-import ModalOverlay from "../../../components/Modal/ModalOverlay.tsx";
+import { RetroDataType } from "./Continue.tsx";
 
-type RetroDataType = {
-  createdDate: string;
-  liked: boolean;
-  likesCount: number;
-  reminiId: number;
-  reminiImage: string;
-  title: string;
-};
+// 둘러보기 - 카테고리별 회고 - Continue
 
-// 둘러보기 - 카테고리별 회고 - FourL
-export const CategoryFourL: React.FC = () => {
+export const CategoryContinue: React.FC = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
   const [retroData, setRetroData] = useState<RetroDataType[]>([]); // RetroBox에 사용될 데이터 상태
@@ -31,7 +22,7 @@ export const CategoryFourL: React.FC = () => {
   // FourL 회고 목록 조회
   const fetchCategoryRetroData = async () => {
     try {
-      let url = `https://www.remini.store/api/remini/category?category=FOUR_L&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+      let url = `https://www.remini.store/api/remini/category?category=CSS&pageNumber=${pageNumber}&pageSize=${pageSize}`;
       const accessToken = localStorage.getItem("accessToken");
 
       const response = await axios.get(url, {
@@ -79,12 +70,17 @@ export const CategoryFourL: React.FC = () => {
     document.body.style.overflow = "";
   };
 
-  // -------------------------------------------------------------------------------------------
   // 회고 박스 클릭
   const handleRetroBoxClick = async (reminiId: number) => {
-    navigate(`/complete-writing/${reminiId}`); // 로그인 O : 작성완료 페이지로 이동
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate(`/complete-writing/${reminiId}`); // 로그인 O : 작성완료 페이지로 이동
+    } else {
+      setShowModal(true); // 로그인 X : 로그인 유도 모달 띄우기
+    }
   };
 
+  // -------------------------------------------------------------------------------------------
   const goToPopular = () => {
     navigate("/browsing/popular");
   };
@@ -96,11 +92,11 @@ export const CategoryFourL: React.FC = () => {
   const goToAAR = () => {
     navigate(`/browsing/category/aar`);
   };
-  const goToContinue = () => {
-    navigate(`/browsing/category/continue`);
-  };
   const goToFiveF = () => {
     navigate(`/browsing/category/5f`);
+  };
+  const goToFourL = () => {
+    navigate(`/browsing/category/4l`);
   };
   const goToKPT = () => {
     navigate(`/browsing/category/kpt`);
@@ -140,10 +136,10 @@ export const CategoryFourL: React.FC = () => {
 
           <div className="category_btn">
             <button onClick={goToKPT}>KPT</button>
-            <button onClick={goToContinue}>Continue-Stop-Start</button>
+            <button className="active">Continue-Stop-Start</button>
             <button onClick={goToFiveF}>5F</button>
             <button onClick={goToTIL}>TIL</button>
-            <button className="active">4L</button>
+            <button onClick={goToFourL}>4L</button>
             <button onClick={goToORID}>ORID</button>
             <button onClick={goToAAR}>AAR</button>
             <button onClick={goToYWT}>YWT</button>
@@ -162,7 +158,6 @@ export const CategoryFourL: React.FC = () => {
                 reminiId={item.reminiId}
                 reminiImage={item.reminiImage}
                 title={item.title}
-                setShowModal={setShowModal}
                 goToResult={() => handleRetroBoxClick(item.reminiId)}
               />
             </div>

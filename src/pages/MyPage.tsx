@@ -97,27 +97,9 @@ export const MyPage: React.FC = () => {
     }
   };
 
-  // 회고 박스 클릭 -> 회고 상세 조회
+  // 회고 박스 클릭
   const handleRetroBoxClick = async (reminiId: number) => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        `https://www.remini.store/api/remini/${reminiId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = response.data;
-        console.log("Retrieved retro data:", data);
-        // 회고 작성 완료 페이지로 이동하는 코드 필요
-      }
-    } catch (error) {
-      console.error("Error fetching retro data:", error);
-    }
+    navigate(`/complete-writing/${reminiId}`);
   };
 
   // 나의 회고 3개 불러오기

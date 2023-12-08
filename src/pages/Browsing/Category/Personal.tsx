@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { CategoryBrowsingWrap } from "./CategoryBrowsingWrap.tsx";
 import { Header } from "../../../components/Header.tsx";
 import { Footer } from "../../../components/Footer.tsx";
 import { RetroBox } from "../../../components/RetroBox.tsx";
 import Pagination from "../../../components/Pagination.tsx";
 
 import axios from "axios";
+import LoginModal from "../../../components/Modal/LoginModal.tsx";
+import ModalOverlay from "../../../components/Modal/ModalOverlay.tsx";
 
 type RetroDataType = {
   createdDate: string;
@@ -20,7 +22,7 @@ type RetroDataType = {
 // 둘러보기 - 카테고리별 회고 - Personal
 export const CategoryPersonal: React.FC = () => {
   const navigate = useNavigate();
-
+  const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
   const [retroData, setRetroData] = useState<RetroDataType[]>([]); // RetroBox에 사용될 데이터 상태
   const [pageNumber, setPageNumber] = useState(0);
   const [totalElements, setTotalElements] = useState(0); // 전체 개수 확인(for pagination)
@@ -58,27 +60,29 @@ export const CategoryPersonal: React.FC = () => {
     fetchCategoryRetroData();
   }, [pageNumber]);
 
-  // 회고 박스 클릭 -> 회고 상세 조회
-  const handleRetroBoxClick = async (reminiId: number) => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        `https://www.remini.store/api/remini/${reminiId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = response.data;
-        console.log("Retrieved retro data:", data);
-        // 회고 작성 완료 페이지로 이동하는 코드 필요
-      }
-    } catch (error) {
-      console.error("Error fetching retro data:", error);
+  // 로그일 모달 관련 ---------------------------------------------------------------------
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    } else {
+      document.body.style.overflow = ""; // 스크롤 활성화
     }
+  }, [showModal]);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  // 모달창 외부 영역 클릭시 모달창 닫기
+  const handleOverlayClick = () => {
+    setShowModal(false);
+    document.body.style.overflow = "";
+  };
+
+  // -------------------------------------------------------------------------------------------
+  // 회고 박스 클릭
+  const handleRetroBoxClick = async (reminiId: number) => {
+    navigate(`/complete-writing/${reminiId}`); // 로그인 O : 작성완료 페이지로 이동
   };
 
   const goToPopular = () => {
@@ -120,7 +124,13 @@ export const CategoryPersonal: React.FC = () => {
   return (
     <>
       <Header />
-      <BrowsingWrap>
+      {showModal && (
+        <>
+          <LoginModal closeModal={closeModal} />
+          <ModalOverlay onClick={handleOverlayClick} />
+        </>
+      )}
+      <CategoryBrowsingWrap>
         <nav>
           <div className="main_btn">
             <button onClick={goToPopular}>인기 회고</button>
@@ -152,6 +162,7 @@ export const CategoryPersonal: React.FC = () => {
                 reminiId={item.reminiId}
                 reminiImage={item.reminiImage}
                 title={item.title}
+                setShowModal={setShowModal}
                 goToResult={() => handleRetroBoxClick(item.reminiId)}
               />
             </div>
@@ -162,85 +173,8 @@ export const CategoryPersonal: React.FC = () => {
           itemsPerPage={pageSize}
           onPageChange={handlePageChange}
         />
-      </BrowsingWrap>
+      </CategoryBrowsingWrap>
       <Footer />
     </>
   );
 };
-
-const BrowsingWrap = styled.div`
-  background: var(--Background, #121212);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-
-  nav {
-    margin-top: 40px;
-    margin-left: 45px;
-
-    .main_btn {
-      display: flex;
-      gap: 24px;
-      margin-right: 0;
-      margin-bottom: 0;
-
-      button {
-        padding: 13px 32px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-
-        color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-
-        &.active {
-          background: var(--primary-900, #233e2c);
-          color: var(--primary-400, #79cd96);
-        }
-      }
-    }
-
-    .category_btn {
-      display: flex;
-      gap: 16px;
-      margin-top: 24px;
-
-      button {
-        padding: 7px 16px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-
-        color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-
-        &.active {
-          background: var(--primary-900, #233e2c);
-          color: var(--primary-400, #79cd96);
-        }
-      }
-    }
-  }
-
-  .retro_container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-
-    width: 916px;
-    height: 838px;
-
-    .retroBox {
-      margin-left: 6px;
-      margin-right: 6px;
-    }
-  }
-`;
