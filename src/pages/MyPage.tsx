@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer";
@@ -9,6 +9,10 @@ import LogoutModal from "../components/Modal/LogoutModal.tsx";
 import WithdrawalModal from "../components/Modal/WithdrawalModal.tsx";
 import ModalOverlay from "../components/Modal/ModalOverlay.tsx";
 import axios from "axios";
+import { Toggle } from "../components/Toggle.tsx";
+import selectIcon from "../img/UI/selectIcon.png";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface UserData {
   expirationDate: string;
@@ -45,6 +49,14 @@ export const MyPage: React.FC = () => {
   const [temporaryRetroData, setTemporaryRetroData] = useState<
     TemporaryRetroData[]
   >([]);
+  const [selectedTime, setSelectedTime] = useState("23:00");
+  const [isTimeListOpen, setIsTimeListOpen] = useState(false);
+  const timeListRef = useRef<HTMLDivElement>(null);
+  const selectBoxRef = useRef<HTMLDivElement>(null);
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchData();
@@ -160,6 +172,71 @@ export const MyPage: React.FC = () => {
     navigate("/temp-storage");
   };
 
+  const goToSubscribe = () => {
+    navigate("/subscribe");
+  };
+
+  // 달력 외부 영역 클릭시 달력 닫음
+  const handleClickOutside = (event: MouseEvent) => {
+    const selectBox = document.querySelector(".select-box");
+
+    if (
+      calendarRef.current &&
+      !calendarRef.current.contains(event.target as Node) &&
+      !selectBox?.contains(event.target as Node)
+    ) {
+      setIsCalendarOpen(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // 날짜를 선택하고 달력을 닫는 함수
+  const handleDateSelect = (date: Date) => {
+    setIsCalendarOpen(false);
+    setSelectedDate(date);
+  };
+
+  const toggleTimeList = () => {
+    setIsTimeListOpen(!isTimeListOpen);
+  };
+
+  const handleTimeSelection = (time: string) => {
+    setSelectedTime(time);
+    setIsTimeListOpen(false);
+  };
+
+  const timeList = Array.from({ length: 24 }, (_, index) => {
+    const hour = (index < 10 ? "0" : "") + index;
+    return (
+      <TimeItem key={index} onClick={() => handleTimeSelection(`${hour}:00`)}>
+        {`${hour}:00`}
+      </TimeItem>
+    );
+  });
+
+  const handleClickOutsideTimeList = (event: MouseEvent) => {
+    if (
+      !timeListRef.current?.contains(event.target as Node) &&
+      !selectBoxRef.current?.contains(event.target as Node)
+    ) {
+      setIsTimeListOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsideTimeList);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideTimeList);
+    };
+  }, []);
+
   return (
     <>
       <Header />
@@ -189,8 +266,61 @@ export const MyPage: React.FC = () => {
               <p>{userData && userData.nickName}</p>
             </div>
           </div>
-          <div className="alarm"></div>
-          <div className="subscribe"></div>
+          <div className="alarm">
+            <div className="alarm_header">
+              <h3>알림 발송 시간 설정</h3>
+              <Toggle />
+            </div>
+            <div className="alarm_container">
+              <div className="content">
+                <h4>날짜</h4>
+                <div
+                  className="select-box"
+                  onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                >
+                  <p>
+                    {selectedDate
+                      ? selectedDate.toLocaleDateString()
+                      : new Date().toLocaleDateString()}
+                  </p>
+                  <img src={selectIcon} alt="selectIcon"></img>
+                </div>
+                {isCalendarOpen && (
+                  <div className="calendar-container" ref={calendarRef}>
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={(date: Date) => handleDateSelect(date)}
+                      inline
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="content">
+                <h4>시간</h4>
+                <div
+                  className="select-box"
+                  onClick={toggleTimeList}
+                  ref={selectBoxRef}
+                >
+                  <p>{selectedTime}</p>
+                  <img src={selectIcon} alt="selectIcon"></img>
+                  {isTimeListOpen && (
+                    <TimeList ref={timeListRef}>{timeList}</TimeList>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="subscribe">
+            <h3>구독 모델</h3>
+            <div className="subscribe_container">
+              <div className="subscribe_header">
+                <h3>Standard</h3>
+                <h4>이용 중</h4>
+              </div>
+              <button onClick={goToSubscribe}>구독 변경하기</button>
+            </div>
+          </div>
         </article>
         <div className="retro">
           <div className="retro_text">
@@ -232,6 +362,22 @@ const MyPageWrap = styled.div`
   align-items: center;
   gap: 50px;
 
+  h3 {
+    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  h4 {
+    color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
   .myPage {
     width: 100%;
     height: 90px;
@@ -257,12 +403,6 @@ const MyPageWrap = styled.div`
     margin-bottom: 22px;
   }
   .profile h3 {
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-
     margin-bottom: 20px;
   }
 
@@ -289,12 +429,116 @@ const MyPageWrap = styled.div`
   }
 
   .alarm {
-    width: 280px;
+    .alarm_header {
+      height: 29px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .alarm_container {
+      width: 280px;
+      height: 200px;
+      margin-top: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+
+      padding: 38px 34px;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .content {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+
+        .select-box {
+          width: 160px;
+          height: 50px;
+          border-radius: 8px;
+          background: var(--Background, #121212);
+          position: relative;
+          cursor: pointer;
+
+          p {
+            color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+            text-align: center;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+
+            position: absolute;
+            top: 15px;
+            left: 22px;
+          }
+
+          img {
+            position: absolute;
+            top: 17px;
+            right: 17px;
+          }
+        }
+
+        .calendar-container {
+          position: absolute;
+          top: 60px;
+          z-index: 5;
+        }
+      }
+    }
+
     margin-left: 80px;
   }
 
   .subscribe {
-    width: 280px;
+    .subscribe_container {
+      width: 280px;
+      height: 200px;
+      margin-top: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+
+      h3 {
+        color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
+        position: absolute;
+        top: 38px;
+        left: 30px;
+      }
+      h4 {
+        color: var(--text-disabled, rgba(255, 255, 255, 0.38));
+        position: absolute;
+        top: 44px;
+        left: 142px;
+      }
+      button {
+        padding: 13px 32px;
+        border-radius: 16px;
+        background: var(--primary-900, #233e2c);
+        border: none;
+
+        color: var(--primary-400, #79cd96);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+
+        position: absolute;
+        bottom: 30px;
+        right: 64.5px;
+
+        &:hover {
+          color: #000;
+          background: var(--primary-400, #79cd96);
+        }
+      }
+    }
   }
 
   .retro {
@@ -305,13 +549,7 @@ const MyPageWrap = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    h3 {
-      color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    }
+
     p {
       color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
       font-size: 16px;
@@ -343,5 +581,34 @@ const MyPageWrap = styled.div`
     .delete_account {
       color: var(--Error, #cf6679);
     }
+  }
+`;
+
+const TimeList = styled.div`
+  width: 160px;
+  height: 300px;
+  box-sizing: border-box;
+  position: absolute;
+  overflow-y: auto;
+  top: 60px;
+  z-index: 5;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.38);
+
+  padding: 10px;
+
+  color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const TimeItem = styled.div`
+  padding: 8px 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #121212;
   }
 `;

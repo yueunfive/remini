@@ -46,6 +46,7 @@ import { CategoryORID } from "./pages/Browsing/Category/ORID";
 import { CategoryPerformance } from "./pages/Browsing/Category/Performance";
 import { CategoryPersonal } from "./pages/Browsing/Category/Personal";
 import { CategoryYWT } from "./pages/Browsing/Category/YWT";
+import { Subscribe } from "./pages/Subscribe";
 
 function App() {
   return (
@@ -127,6 +128,7 @@ function App() {
           <Route path="/my-page" element={<MyPage />} />
           <Route path="/my-retro" element={<MyRetro />} />
           <Route path="/temp-storage" element={<TempStorage />} />
+          <Route path="/subscribe" element={<Subscribe />} />
         </Routes>
       </Router>
     </div>
