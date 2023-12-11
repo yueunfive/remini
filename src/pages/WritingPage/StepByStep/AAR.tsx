@@ -29,53 +29,55 @@ export default function AAR() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="title_container">
-          <div className="title_main">AAR 회고</div>
-          <div className="title_content">
-            AAR은 After Action Review/Report의 줄임말로 짧은 시간 내에 유연하고
-            편하게 진행되는 회고예요
+        <div className="container">
+          <div className="title_container" style={{ marginRight: "170px" }}>
+            <div className="title_main">AAR 회고</div>
+            <div className="title_content">
+              AAR은 After Action Review/Report의 줄임말로 짧은 시간 내에
+              유연하고 편하게 진행되는 회고예요
+            </div>
           </div>
+          {currentStep === 1 && (
+            <AAR1
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 2 && (
+            <AAR2
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 3 && (
+            <AAR3
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 4 && (
+            <AAR4
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
         </div>
-        {currentStep === 1 && (
-          <AAR1
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 2 && (
-          <AAR2
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 3 && (
-          <AAR3
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 4 && (
-          <AAR4
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
       </WritingPageWrap>
     </>
   );

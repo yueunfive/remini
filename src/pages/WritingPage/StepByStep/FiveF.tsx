@@ -30,63 +30,65 @@ export default function FiveF() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="title_container">
-          <div className="title_main">5F 회고</div>
-          <div className="title_content">
-            다섯 가지 차원(Five Dimensions)을 기반으로 순서대로 진행하는
-            회고예요
+        <div className="container">
+          <div className="title_container" style={{ marginRight: "400px" }}>
+            <div className="title_main">5F 회고</div>
+            <div className="title_content">
+              다섯 가지 차원(Five Dimensions)을 기반으로 순서대로 진행하는
+              회고예요
+            </div>
           </div>
+          {currentStep === 1 && (
+            <FiveF1
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 2 && (
+            <FiveF2
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 3 && (
+            <FiveF3
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 4 && (
+            <FiveF4
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
+          {currentStep === 5 && (
+            <FiveF5
+              content={content}
+              setContent={setContent}
+              handleComplete={handleComplete}
+              inputContent={inputContent}
+              setInputContent={setInputContent}
+              isContentFilled={isContentFilled}
+            />
+          )}
         </div>
-        {currentStep === 1 && (
-          <FiveF1
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 2 && (
-          <FiveF2
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 3 && (
-          <FiveF3
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 4 && (
-          <FiveF4
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
-        {currentStep === 5 && (
-          <FiveF5
-            content={content}
-            setContent={setContent}
-            handleComplete={handleComplete}
-            inputContent={inputContent}
-            setInputContent={setInputContent}
-            isContentFilled={isContentFilled}
-          />
-        )}
       </WritingPageWrap>
     </>
   );

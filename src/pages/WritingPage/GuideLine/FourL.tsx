@@ -33,81 +33,83 @@ export default function FourL() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="title_container">
-          <div className="title_main">4L 회고</div>
-          <div className="title_content">
-            4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게 정리하는
-            회고예요
+        <div className="container">
+          <div className="title_container">
+            <div className="title_main">4L 회고</div>
+            <div className="title_content">
+              4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게 정리하는
+              회고예요
+            </div>
           </div>
+          <GuideLineFourContent>
+            <div className="AllmainConten_container">
+              <div className="leftContent_container">
+                <div className="mainContent_Btn">Liked</div>
+                <div className="maintext_container">
+                  <p>좋았던 것을 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={firstContent}
+                    onChange={(e) => setFirstContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{firstContent.length}/200</p>
+                </div>
+              </div>
+              <div className="middleContent_container">
+                <div className="mainContent_Btn">Learned</div>
+                <div className="maintext_container">
+                  <p>배운 것을 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={secondContent}
+                    onChange={(e) => setSecondContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{secondContent.length}/200</p>
+                </div>
+              </div>
+              <div className="rightContent_container">
+                <div className="mainContent_Btn">Lacked</div>
+                <div className="maintext_container">
+                  <p>부족했던 것을 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={thirdContent}
+                    onChange={(e) => setThirdContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{thirdContent.length}/200</p>
+                </div>
+              </div>
+              <div className="rightContent_container">
+                <div className="mainContent_Btn">Longed for</div>
+                <div className="maintext_container">
+                  <p>바라는 것을 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={fourContent}
+                    onChange={(e) => setFourContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{fourContent.length}/200</p>
+                </div>
+              </div>
+            </div>
+          </GuideLineFourContent>
         </div>
-        <GuideLineFourContent>
-          <div className="AllmainConten_container">
-            <div className="leftContent_container">
-              <div className="mainContent_Btn">Liked</div>
-              <div className="maintext_container">
-                <p>좋았던 것을 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{firstContent.length}/200</p>
-              </div>
-            </div>
-            <div className="middleContent_container">
-              <div className="mainContent_Btn">Learned</div>
-              <div className="maintext_container">
-                <p>배운 것을 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={secondContent}
-                  onChange={(e) => setSecondContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{secondContent.length}/200</p>
-              </div>
-            </div>
-            <div className="rightContent_container">
-              <div className="mainContent_Btn">Lacked</div>
-              <div className="maintext_container">
-                <p>부족했던 것을 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={thirdContent}
-                  onChange={(e) => setThirdContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{thirdContent.length}/200</p>
-              </div>
-            </div>
-            <div className="rightContent_container">
-              <div className="mainContent_Btn">Longed for</div>
-              <div className="maintext_container">
-                <p>바라는 것을 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fourContent}
-                  onChange={(e) => setFourContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{fourContent.length}/200</p>
-              </div>
-            </div>
-          </div>
-        </GuideLineFourContent>
         <WritingPageBtn>
           <button
             className="temporary_btn"

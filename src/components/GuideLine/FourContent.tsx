@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const GuideLineFourContent = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,8 +14,7 @@ const GuideLineFourContent = styled.div`
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: 24px;
-    margin-top: 50px;
+    gap: 40px;
   }
 
   .leftContent_container {
@@ -62,7 +60,7 @@ const GuideLineFourContent = styled.div`
     margin-top: 24px;
     margin-bottom: 24px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -99,6 +97,11 @@ const GuideLineFourContent = styled.div`
     line-height: normal;
 
     margin-top: 8px;
+  }
+
+  .mainContent_Btn,
+  .mainContent_Input {
+    box-sizing: border-box;
   }
 `;
 

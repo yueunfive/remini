@@ -26,65 +26,67 @@ export default function Continue() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="title_container">
-          <div className="title_main">Continue-Stop-Start 회고</div>
-          <div className="title_content">
-            해결법 지향적이고, 무엇을 시작하고 그만둘지의 변화에 중점을 드는
-            회고예요
+        <div className="container">
+          <div className="title_container">
+            <div className="title_main">Continue-Stop-Start 회고</div>
+            <div className="title_content">
+              해결법 지향적이고, 무엇을 시작하고 그만둘지의 변화에 중점을 드는
+              회고예요
+            </div>
           </div>
+          <GuideLineTheeContent>
+            <div className="AllmainConten_container">
+              <div className="leftContent_container">
+                <div className="mainContent_Btn">Continue</div>
+                <div className="maintext_container">
+                  <p>우리가 무엇을 계속할 지에 대해 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={firstContent}
+                    onChange={(e) => setFirstContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{firstContent.length}/200</p>
+                </div>
+              </div>
+              <div className="middleContent_container">
+                <div className="mainContent_Btn">Stop</div>
+                <div className="maintext_container">
+                  <p>우리가 무엇을 그만두어야 할 지에 대해 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={secondContent}
+                    onChange={(e) => setSecondContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{secondContent.length}/200</p>
+                </div>
+              </div>
+              <div className="rightContent_container">
+                <div className="mainContent_Btn">Start</div>
+                <div className="maintext_container">
+                  <p>우리가 무엇을 시작하여야 할 지에 대해 작성하기</p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={thirdContent}
+                    onChange={(e) => setThirdContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{thirdContent.length}/200</p>
+                </div>
+              </div>
+            </div>
+          </GuideLineTheeContent>
         </div>
-        <GuideLineTheeContent>
-          <div className="AllmainConten_container">
-            <div className="leftContent_container">
-              <div className="mainContent_Btn">Continue</div>
-              <div className="maintext_container">
-                <p>우리가 무엇을 계속할 지에 대해 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{firstContent.length}/200</p>
-              </div>
-            </div>
-            <div className="middleContent_container">
-              <div className="mainContent_Btn">Stop</div>
-              <div className="maintext_container">
-                <p>우리가 무엇을 그만두어야 할 지에 대해 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={secondContent}
-                  onChange={(e) => setSecondContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{secondContent.length}/200</p>
-              </div>
-            </div>
-            <div className="rightContent_container">
-              <div className="mainContent_Btn">Start</div>
-              <div className="maintext_container">
-                <p>우리가 무엇을 시작하여야 할 지에 대해 작성하기</p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={thirdContent}
-                  onChange={(e) => setThirdContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{thirdContent.length}/200</p>
-              </div>
-            </div>
-          </div>
-        </GuideLineTheeContent>
         <WritingPageBtn>
           <button
             className="temporary_btn"

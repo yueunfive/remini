@@ -5,7 +5,6 @@ import styled from "styled-components";
 //세로로 된 회고 유형 css
 const GuideLineVerticleContent = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,7 +14,6 @@ const GuideLineVerticleContent = styled.div`
     display: inline-flex;
     flex-direction: column;
     gap: 24px;
-    margin-top: 50px;
   }
 
   .Content-Container {
@@ -30,6 +28,7 @@ const GuideLineVerticleContent = styled.div`
     display: flex;
     width: 320px;
     padding: 16px 60px;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -58,6 +57,7 @@ const GuideLineVerticleContent = styled.div`
     width: 1040px;
     height: 160px;
     padding: 24px;
+    box-sizing: border-box;
     align-items: flex-start;
     gap: 30px;
     flex-shrink: 0;

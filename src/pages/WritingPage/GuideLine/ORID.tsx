@@ -107,9 +107,8 @@ export default function ORID() {
               <div className="mainContent_Btn">Decisional</div>
               <div className="maintext_container">
                 <p>
-                  문제해결을 위해
-                  <br />
-                  미래에 대한 행동과 변화를 결정하여 작성하기
+                  문제해결을 위해 미래에 대한 <br />
+                  행동과 변화를 결정하여 작성하기
                 </p>
               </div>
               <div>

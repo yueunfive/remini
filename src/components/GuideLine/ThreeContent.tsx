@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const GuideLineTheeContent = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,8 +14,7 @@ const GuideLineTheeContent = styled.div`
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: 24px;
-    margin-top: 58px;
+    gap: 42px;
   }
 
   .leftContent_container {
@@ -44,7 +42,8 @@ const GuideLineTheeContent = styled.div`
   .mainContent_Btn {
     display: flex;
     width: 320px;
-    padding: 16px 60px;
+    padding: 16px 0;
+    text-align: center;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -62,7 +61,7 @@ const GuideLineTheeContent = styled.div`
     margin-top: 24px;
     margin-bottom: 24px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16.5px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -99,6 +98,11 @@ const GuideLineTheeContent = styled.div`
     line-height: normal;
 
     margin-top: 8px;
+  }
+
+  .mainContent_Btn,
+  .mainContent_Input {
+    box-sizing: border-box;
   }
 `;
 

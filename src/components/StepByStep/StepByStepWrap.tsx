@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StepByStepWrap = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -28,6 +27,7 @@ const StepByStepWrap = styled.div`
   .mainContent_Btn {
     width: 320px;
     padding: 16px 60px;
+    box-sizing: border-box;
     gap: 10px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.1);
@@ -56,6 +56,7 @@ const StepByStepWrap = styled.div`
     width: 320px;
     height: 320px;
     padding: 24px;
+    box-sizing: border-box;
     align-items: flex-start;
     gap: 30px;
     flex-shrink: 0;
@@ -78,6 +79,7 @@ const StepByStepWrap = styled.div`
   .temporary_btn {
     display: inline-flex;
     padding: 16px 60px;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -94,6 +96,7 @@ const StepByStepWrap = styled.div`
     margin-top: 30px;
     display: inline-flex;
     padding: 16px 60px;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
     gap: 10px;

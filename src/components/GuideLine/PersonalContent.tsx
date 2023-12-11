@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const GuideLinePersonalContent = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,7 +14,6 @@ const GuideLinePersonalContent = styled.div`
     display: inline-flex;
     flex-direction: column;
     gap: 24px;
-    margin-top: 50px;
   }
 
   .Content-Container {
@@ -41,6 +39,7 @@ const GuideLinePersonalContent = styled.div`
     width: 1040px;
     height: 160px;
     padding: 24px;
+    box-sizing: border-box;
     align-items: flex-start;
     gap: 30px;
     flex-shrink: 0;
