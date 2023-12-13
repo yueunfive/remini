@@ -1,7 +1,5 @@
-import React, { HTMLAttributes, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-interface ToggleProps extends HTMLAttributes<HTMLDivElement> {}
 
 const ToggleContainer = styled.div`
   position: relative;
@@ -38,17 +36,14 @@ const ToggleContainer = styled.div`
 `;
 
 // 토글(마이페이지 - 알림 발송 시간 설정)
-export const Toggle: React.FC<ToggleProps> = () => {
-  const [isOn, setIsOn] = useState(false);
-
-  const toggleHandler = () => {
-    setIsOn(!isOn);
-  };
-
+export const Toggle: React.FC<{
+  toggleOn: boolean;
+  toggleHandler: () => void;
+}> = ({ toggleOn, toggleHandler }) => {
   return (
     <ToggleContainer onClick={toggleHandler}>
-      <div className={`toggle-container ${isOn ? "toggle-checked" : ""}`} />
-      <div className={`toggle-circle ${isOn ? "toggle-checked" : ""}`} />
+      <div className={`toggle-container ${toggleOn ? "toggle-checked" : ""}`} />
+      <div className={`toggle-circle ${toggleOn ? "toggle-checked" : ""}`} />
     </ToggleContainer>
   );
 };

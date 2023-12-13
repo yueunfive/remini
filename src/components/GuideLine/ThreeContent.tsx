@@ -14,7 +14,7 @@ const GuideLineTheeContent = styled.div`
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: 42px;
+    gap: 50px;
   }
 
   .leftContent_container {
@@ -58,16 +58,11 @@ const GuideLineTheeContent = styled.div`
   }
 
   .maintext_container {
-    margin-top: 24px;
-    margin-bottom: 24px;
     text-align: center;
     font-size: 16.5px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     line-height: normal;
   }
 

@@ -4,6 +4,7 @@ import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer";
 import ModalOverlay from "../components/Modal/ModalOverlay.tsx";
 import SubscribeModal from "../components/Modal/SubscribeModal.tsx";
+import axios from "axios";
 
 // 구독 모델 변경페이지
 export const Subscribe: React.FC = () => {
@@ -33,6 +34,31 @@ export const Subscribe: React.FC = () => {
     document.body.style.overflow = "";
   };
   // -------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+
+      // 사용자 조회
+      const userResponse = await axios.get(
+        "https://www.remini.store/api/user",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const user = userResponse.data;
+      console.log(user.state);
+      setModel(user.state);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <>

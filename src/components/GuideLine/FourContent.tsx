@@ -57,16 +57,11 @@ const GuideLineFourContent = styled.div`
   }
 
   .maintext_container {
-    margin-top: 24px;
-    margin-bottom: 24px;
     text-align: center;
-    font-size: 16px;
+    color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
+    font-size: 16.5px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
-    font-style: normal;
-    font-weight: 700;
     line-height: normal;
   }
 

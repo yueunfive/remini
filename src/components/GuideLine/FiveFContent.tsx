@@ -21,7 +21,9 @@ const GuideLineVerticleContent = styled.div`
     display: inline-flex;
     flex-direction: row;
     align-items: flex-start;
+    align-items: center;
     gap: 31px;
+    margin-top: 26px;
   }
 
   .mainContent_Btn {
@@ -49,7 +51,6 @@ const GuideLineVerticleContent = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin-top: 20px;
   }
 
   .mainContent_Input {

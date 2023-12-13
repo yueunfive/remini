@@ -33,7 +33,7 @@ const WritingPageBtnWrap = styled.div`
     align-items: center;
     gap: 10px;
     border-radius: 8px;
-    background: var(--primary-800, #305d40);
+    background: var(--primary-800, #79cd96);
     color: #000;
     text-align: center;
     font-size: 18px;

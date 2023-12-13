@@ -31,7 +31,7 @@ const GuideLinePersonalContent = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin-top: 20px;
+    margin-top: 16px;
   }
 
   .mainContent_Input {

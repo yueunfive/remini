@@ -4,7 +4,8 @@ import WritingPageWrap from "../../../components/WritingPageWrap";
 import { useNavigate } from "react-router-dom";
 import WritingPageBtn from "../../../components/WritingPageBtn";
 import GuideLineFourContent from "../../../components/GuideLine/FourContent";
-import axios from "axios";
+import defaultImage from "../../../img/UI/basicImage.png";
+import axios, { AxiosResponse } from "axios";
 
 //GuideLine AAR 회고 페이지
 export default function AAR() {
@@ -34,7 +35,7 @@ export default function AAR() {
     const data = {
       instantSave: true,
       sectionTexts,
-      step: 0,
+      step: 1,
       title: localStorage.getItem("title"),
       type: localStorage.getItem("type"),
     };
@@ -48,11 +49,45 @@ export default function AAR() {
       .then((response) => {
         console.log("임시 저장 완료", response.data);
         alert("임시 저장에 성공했습니다!");
-        navigate("/my-page"); // MyPage로 이동
+        uploadImage(response);
       })
       .catch((error) => {
         console.error("임시 저장 실패:", error);
       });
+  };
+
+  // 이미지 업로드(Presigned URL)
+  const uploadImage = async (response: AxiosResponse) => {
+    const imageToSend = await getDefaultImageFile();
+    try {
+      const imageResponse = await axios.put(
+        response.data.uploadUrl,
+        imageToSend,
+        {
+          headers: {
+            "Content-Type": "image/png",
+          },
+        }
+      );
+
+      console.log("이미지 업로드 성공:", imageResponse);
+      navigate("/my-page");
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
+  };
+
+  // 기본 이미지 파일 가져오기(파일 객체로 변환)
+  const getDefaultImageFile = async () => {
+    try {
+      const response = await fetch(defaultImage);
+      const blob = await response.blob();
+      const file = new File([blob], "defaultImage.png", { type: "image/png" });
+      return file;
+    } catch (error) {
+      console.error("기본 이미지 가져오기 실패:", error);
+      return null;
+    }
   };
 
   return (
@@ -73,7 +108,7 @@ export default function AAR() {
                 <div className="mainContent_Btn">초기 목표</div>
                 <div className="maintext_container">
                   <p>
-                    의도한 결과는
+                    <span style={{ fontWeight: 700 }}>의도한 결과</span>는
                     <br />
                     무엇이었는지 작성하기
                   </p>
@@ -92,10 +127,9 @@ export default function AAR() {
               <div className="middleContent_container">
                 <div className="mainContent_Btn">현실</div>
                 <div className="maintext_container">
+                  <p style={{ fontWeight: 700 }}>실제 어떤 일들이</p>
                   <p>
-                    실제 어떤 일들이
-                    <br />
-                    일어났는지 작성하기
+                    <span style={{ fontWeight: 700 }}>일어났는지</span> 작성하기
                   </p>
                 </div>
                 <div>
@@ -112,9 +146,13 @@ export default function AAR() {
               <div className="rightContent_container">
                 <div className="mainContent_Btn">배운 점들</div>
                 <div className="maintext_container">
+                  <p style={{ fontWeight: 700 }}>
+                    계획과 실제 결과의 차이는 왜 발생
+                  </p>
                   <p>
-                    계획과 실제 결과의 차이는 왜 <br />
-                    발생 되었는지, 무엇을 배웠는지 작성하기
+                    되었는지,{" "}
+                    <span style={{ fontWeight: 700 }}>무엇을 배웠는지</span>{" "}
+                    작성하기
                   </p>
                 </div>
                 <div>
@@ -132,7 +170,10 @@ export default function AAR() {
                 <div className="mainContent_Btn">목적</div>
                 <div className="maintext_container">
                   <p>
-                    지속, 개선 혹은 포기할 것들은
+                    <span style={{ fontWeight: 700 }}>
+                      지속, 개선 혹은 포기할 것
+                    </span>
+                    들은
                     <br />
                     무엇인지 작성하기
                   </p>
@@ -154,6 +195,15 @@ export default function AAR() {
         <WritingPageBtn>
           <button
             className="temporary_btn"
+            style={{
+              opacity:
+                isFirstContentFilled ||
+                isSecondContentFilled ||
+                isThirdContentFilled ||
+                isFourContentFilled
+                  ? 1
+                  : 0.5,
+            }}
             disabled={
               !isFirstContentFilled &&
               !isSecondContentFilled &&
@@ -167,13 +217,13 @@ export default function AAR() {
           <button
             className="completed_btn"
             style={{
-              backgroundColor:
+              opacity:
                 isFirstContentFilled &&
                 isSecondContentFilled &&
                 isThirdContentFilled &&
                 isFourContentFilled
-                  ? "#79CD96"
-                  : " #305D40",
+                  ? 1
+                  : 0.5,
             }}
             disabled={
               !isFirstContentFilled ||

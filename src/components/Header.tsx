@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import logoBlack from "../img/logo/logo_black.png";
+import LoginModal from "./Modal/LoginModal";
+import ModalOverlay from "./Modal/ModalOverlay";
 
 interface UserData {
   expirationDate: string;
@@ -13,6 +15,7 @@ interface UserData {
 export const Header: React.FC = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -30,8 +33,33 @@ export const Header: React.FC = () => {
     navigate("/");
   };
 
+  // 회고 작성하러 가기 버튼 클릭
   const goToSelectMethod = () => {
-    navigate("/select-method");
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      navigate("/select-method"); // 로그인 O : 회고 작성 페이지로 이동
+    } else {
+      setShowModal(true); // 로그인 X : 로그인 유도 모달 띄우기
+    }
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    } else {
+      document.body.style.overflow = ""; // 스크롤 활성화
+    }
+  }, [showModal]);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  // 모달창 외부 영역 클릭시 모달창 닫기
+  const handleOverlayClick = () => {
+    setShowModal(false);
+    document.body.style.overflow = "";
   };
 
   const goToBrowsing = () => {
@@ -44,6 +72,12 @@ export const Header: React.FC = () => {
 
   return (
     <HeaderWrap>
+      {showModal && (
+        <>
+          <LoginModal closeModal={closeModal} />
+          <ModalOverlay onClick={handleOverlayClick} />
+        </>
+      )}
       <img src={logoBlack} alt="logo" onClick={goToHome} />
       <div className="text-box font">
         <p onClick={goToSelectMethod}>회고하기</p>
@@ -81,8 +115,8 @@ const HeaderWrap = styled.div`
     height: 39px;
     cursor: pointer;
   }
+
   .text-box {
-    width: 194px; // 사파리 화면 깨짐 해결
     height: 21px;
     display: flex;
     gap: 60px;
@@ -90,7 +124,6 @@ const HeaderWrap = styled.div`
   }
 
   .login {
-    // HeaderWrap justify-content 비율 맞추려고 임시로 조정
     width: 162px;
     text-align: right;
   }

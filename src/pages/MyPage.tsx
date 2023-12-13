@@ -39,6 +39,10 @@ interface TemporaryRetroData {
   liked: boolean;
 }
 
+interface toggleProps {
+  toggleOn: boolean;
+}
+
 // 마이페이지
 export const MyPage: React.FC = () => {
   const navigate = useNavigate();
@@ -49,7 +53,7 @@ export const MyPage: React.FC = () => {
   const [temporaryRetroData, setTemporaryRetroData] = useState<
     TemporaryRetroData[]
   >([]);
-  const [selectedTime, setSelectedTime] = useState("23:00");
+  const [selectedTime, setSelectedTime] = useState("00:00");
   const [isTimeListOpen, setIsTimeListOpen] = useState(false);
   const timeListRef = useRef<HTMLDivElement>(null);
   const selectBoxRef = useRef<HTMLDivElement>(null);
@@ -57,6 +61,26 @@ export const MyPage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
+
+  // selectedDate가 없으면 현재 날짜로 설정
+  const today = new Date();
+  const nextDay = new Date(today);
+  nextDay.setDate(today.getDate() + 1);
+
+  // selectedDate가 있으면 해당 날짜로 설정
+  const dateToShow = selectedDate
+    ? selectedDate.toLocaleDateString()
+    : nextDay.toLocaleDateString();
+
+  const [toggleOn, setToggleOn] = useState(false);
+
+  const toggleHandler = () => {
+    setToggleOn(!toggleOn);
+  };
+
+  const getCurrentDate = () => {
+    return nextDay;
+  };
 
   useEffect(() => {
     fetchData();
@@ -213,6 +237,7 @@ export const MyPage: React.FC = () => {
 
   const timeList = Array.from({ length: 24 }, (_, index) => {
     const hour = (index < 10 ? "0" : "") + index;
+
     return (
       <TimeItem key={index} onClick={() => handleTimeSelection(`${hour}:00`)}>
         {`${hour}:00`}
@@ -247,7 +272,7 @@ export const MyPage: React.FC = () => {
       {isWithdrawalModalOpen && (
         <WithdrawalModal closeModal={closeWithdrawalModal} />
       )}
-      <MyPageWrap>
+      <MyPageWrap toggleOn={toggleOn}>
         <div className="myPage">
           <h1>마이 페이지</h1>
         </div>
@@ -269,7 +294,7 @@ export const MyPage: React.FC = () => {
           <div className="alarm">
             <div className="alarm_header">
               <h3>알림 발송 시간 설정</h3>
-              <Toggle />
+              <Toggle toggleOn={toggleOn} toggleHandler={toggleHandler} />
             </div>
             <div className="alarm_container">
               <div className="content">
@@ -278,11 +303,7 @@ export const MyPage: React.FC = () => {
                   className="select-box"
                   onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                 >
-                  <p>
-                    {selectedDate
-                      ? selectedDate.toLocaleDateString()
-                      : new Date().toLocaleDateString()}
-                  </p>
+                  <p>{dateToShow}</p>
                   <img src={selectIcon} alt="selectIcon"></img>
                 </div>
                 {isCalendarOpen && (
@@ -290,6 +311,7 @@ export const MyPage: React.FC = () => {
                     <DatePicker
                       selected={selectedDate}
                       onChange={(date: Date) => handleDateSelect(date)}
+                      minDate={getCurrentDate()} // 현재 날짜 이전을 선택하지 못하도록 설정
                       inline
                     />
                   </div>
@@ -315,7 +337,11 @@ export const MyPage: React.FC = () => {
             <h3>구독 모델</h3>
             <div className="subscribe_container">
               <div className="subscribe_header">
-                <h3>Standard</h3>
+                <h3>
+                  {userData && userData.state == "STANDARD"
+                    ? "Standard"
+                    : "Premium"}
+                </h3>
                 <h4>이용 중</h4>
               </div>
               <button onClick={goToSubscribe}>구독 변경하기</button>
@@ -354,7 +380,7 @@ export const MyPage: React.FC = () => {
   );
 };
 
-const MyPageWrap = styled.div`
+const MyPageWrap = styled.div<toggleProps>`
   background: var(--Background, #121212);
 
   display: flex;
@@ -464,6 +490,7 @@ const MyPageWrap = styled.div`
           background: var(--Background, #121212);
           position: relative;
           cursor: pointer;
+          pointer-events: ${({ toggleOn }) => (toggleOn ? "auto" : "none")};
 
           p {
             color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
@@ -476,6 +503,9 @@ const MyPageWrap = styled.div`
             position: absolute;
             top: 15px;
             left: 22px;
+
+            opacity: ${(props) => (props.toggleOn ? "1" : "0.5")};
+            transition: opacity 0.5s ease;
           }
 
           img {
@@ -586,7 +616,7 @@ const MyPageWrap = styled.div`
 
 const TimeList = styled.div`
   width: 160px;
-  height: 300px;
+  max-height: 300px;
   box-sizing: border-box;
   position: absolute;
   overflow-y: auto;
