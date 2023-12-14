@@ -274,7 +274,9 @@ export const MyPage: React.FC = () => {
       )}
       <MyPageWrap toggleOn={toggleOn}>
         <div className="myPage">
-          <h1>마이 페이지</h1>
+          <div className="myPage_container">
+            <h1>마이페이지</h1>
+          </div>
         </div>
         <article>
           <div className="profile">
@@ -412,7 +414,14 @@ const MyPageWrap = styled.div<toggleProps>`
       rgba(255, 255, 255, 0) 0%,
       rgba(255, 255, 255, 0.1) 100%
     );
+    display: flex;
+    justify-content: center;
   }
+
+  .myPage_container {
+    width: 904px;
+  }
+
   .myPage h1 {
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
     font-size: 32px;
@@ -420,7 +429,7 @@ const MyPageWrap = styled.div<toggleProps>`
     font-weight: 700;
     line-height: normal;
 
-    margin-left: 245px;
+    margin-top: 26px;
   }
 
   article {
