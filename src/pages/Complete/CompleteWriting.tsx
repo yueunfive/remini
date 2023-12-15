@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Header } from "../components/Header";
+import { Header } from "../../components/Header";
 import styled from "styled-components";
-import AAR from "../components/CompleteWriting/AAR";
-import Continue from "../components/CompleteWriting/Continue";
-import FiveF from "../components/CompleteWriting/FiveF";
-import FourL from "../components/CompleteWriting/FourL";
-import KPT from "../components/CompleteWriting/KPT";
-import ORID from "../components/CompleteWriting/ORID";
-import Performance from "../components/CompleteWriting/Performance";
-import Personal from "../components/CompleteWriting/Personal";
-import TIL from "../components/CompleteWriting/TIL";
-import YWT from "../components/CompleteWriting/YWT";
+import AAR from "../../components/CompleteWriting/AAR";
+import Continue from "../../components/CompleteWriting/Continue";
+import FiveF from "../../components/CompleteWriting/FiveF";
+import FourL from "../../components/CompleteWriting/FourL";
+import KPT from "../../components/CompleteWriting/KPT";
+import ORID from "../../components/CompleteWriting/ORID";
+import Performance from "../../components/CompleteWriting/Performance";
+import Personal from "../../components/CompleteWriting/Personal";
+import TIL from "../../components/CompleteWriting/TIL";
+import YWT from "../../components/CompleteWriting/YWT";
 
 interface Retrospective {
   title: string;
@@ -26,7 +26,7 @@ function CompleteWriting() {
   useEffect(() => {
     const fetchRetrospective = async () => {
       try {
-        const reminiId = "13";
+        const reminiId = "14";
         const response = await axios.get(
           `https://www.remini.store/api/remini/${reminiId}`
         );

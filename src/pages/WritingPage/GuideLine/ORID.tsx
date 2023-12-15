@@ -93,13 +93,14 @@ export default function ORID() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="title_container">
-          <div className="title_main">ORID 회고</div>
-          <div className="title_content">
-            ORID 회고는 Objective(지각 단계)-Reflective(반응
-            단계)-Interpretive(해석 단계)-Decisional(결정 단계)의
-            <br />
-            줄임말로, 사고와 대화를 촉진하는 회고예요
+        <div className="container">
+          <div className="title_container">
+            <div className="title_main">ORID 회고</div>
+            <div className="title_content">
+              ORID 회고는 Objective(지각 단계)-Reflective(반응
+              단계)-Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로,
+              사고와 대화를 촉진하는 회고예요
+            </div>
           </div>
         </div>
         <GuideLineFourContent>

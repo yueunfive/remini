@@ -33,7 +33,7 @@ import { MyPage } from "./pages/MyPage";
 import { MyRetro } from "./pages/ViewAll/MyRetro";
 import { TempStorage } from "./pages/ViewAll/TempStorage";
 import LoginCallback from "./pages/login/LoginCallback";
-import CompleteWriting from "./pages/CompleteWriting";
+import CompleteWriting from "./pages/Complete/CompleteWriting";
 import { Popular } from "./pages/Browsing/popular";
 import { Latest } from "./pages/Browsing/latest";
 import { CategoryFourL } from "./pages/Browsing/Category/FourL";
