@@ -32,12 +32,12 @@ function CompleteWriting() {
     const fetchRetrospective = async () => {
       try {
         if (id) {
-          const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+          const accessToken = localStorage.getItem("accessToken");
           const response = await axios.get(
             `https://www.remini.store/api/remini/${id}`,
             {
               headers: {
-                Authorization: `Bearer ${accessToken}`, // 헤더에 액세스 토큰 추가
+                Authorization: `Bearer ${accessToken}`,
               },
             }
           );
@@ -94,9 +94,11 @@ function CompleteWriting() {
         </div>
         <div className="mainContent-container">{renderContent()}</div>
         <div className="completeButtom-contaner">
+          {/*
           <button className="shareBtn">공유</button>
           <button className="deleteBtn">삭제</button>
           <button className="editBtn">수정</button>
+          */}
         </div>
       </CompleteWritingWrap>
     </>

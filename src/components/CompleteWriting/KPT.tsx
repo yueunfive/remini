@@ -5,22 +5,37 @@ import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
 import axios from "axios";
 import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
+import filledHeart from "../../img/UI/filledHeart.png";
+import emptyHeart from "../../img/UI/emptyHeart.png";
+
+type DataType = {
+  createdDate: string;
+  liked: boolean;
+  likesCount: number;
+  nickname: String;
+  reminiImage: string;
+};
 
 function CompleteWritingKPT() {
-  const { reminiId } = useParams();
+  const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
-  const [retrospectiveData, setRetrospectiveData] = useState(null);
+  const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
+    null
+  );
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://www.remini.store/api/remini/${reminiId}`
+          `https://www.remini.store/api/remini/${id}`
         );
         const data = response.data;
 
+        console.log("연동 성공");
         console.log(data);
 
         setRetrospectiveData(data);
@@ -34,17 +49,62 @@ function CompleteWritingKPT() {
       }
     };
 
-    if (reminiId) {
+    if (id) {
       fetchData();
     }
-  }, [reminiId]);
+
+    if (retrospectiveData) {
+      setIsLiked(retrospectiveData.liked);
+      setLikesCount(retrospectiveData.likesCount);
+    }
+  }, [id, retrospectiveData]);
+
+  //좋아요
+  const handleLikeClick = async () => {
+    const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+    if (!accessToken) {
+      console.log("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      let response;
+      if (!isLiked) {
+        response = await axios.post(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.delete(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      }
+
+      if (response.status === 200) {
+        setIsLiked(!isLiked);
+        setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
+      }
+    } catch (error) {
+      console.error("좋아요 처리 중 오류 발생:", error);
+    }
+  };
 
   return (
     <>
       <CompleteWritingWrap>
         <div className="content-container">
           <div className="WritingKind_container">
-            <div className="WritingKind_title">Continue-Stop-Start 회고</div>
+            <div className="WritingKind_title">KPT 회고</div>
             <div className="WritingKind_content">
               회고 3가지 관점에서 업무를 돌아보고, 다음 액션 아이템을 도출해내는
               데 도움이 되는 회고예요
@@ -53,12 +113,32 @@ function CompleteWritingKPT() {
               <div className="user-info">
                 <img src={BasicProfile} />
               </div>
-              <div className="user-name">레미니</div>
+              <div className="user-name">
+                {retrospectiveData?.nickname || "레미니"}
+              </div>
             </div>
-            <div className="date-info">작성일: 2023.09.24</div>
+            <div className="date-info">
+              작성일: {retrospectiveData?.createdDate || "Date not available"}
+            </div>
           </div>
           <div className="Image_container">
-            <img src={CompleteImg} alt="CompleteImg" className="CompleteImg" />
+            <img
+              src={retrospectiveData?.reminiImage || CompleteImg}
+              alt="CompleteImg"
+              className="CompleteImg"
+            />
+            <div className="likes" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={isLiked ? filledHeart : emptyHeart}
+                alt="Heart"
+                onClick={handleLikeClick}
+              />
+              <p
+                style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}
+              >
+                {likesCount}
+              </p>
+            </div>
           </div>
         </div>
         <div className="mainContent-container">
@@ -76,7 +156,7 @@ function CompleteWritingKPT() {
                     placeholder="텍스트를 입력해주세요"
                     value={firstContent}
                     onChange={(e) => setFirstContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
+                    style={{ resize: "none" }}
                   ></textarea>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
@@ -93,7 +173,7 @@ function CompleteWritingKPT() {
                     placeholder="텍스트를 입력해주세요"
                     value={secondContent}
                     onChange={(e) => setSecondContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
+                    style={{ resize: "none" }}
                   ></textarea>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
@@ -190,17 +270,37 @@ const CompleteWritingWrap = styled.div`
   }
 
   .Image_container {
-    width: 280px;
-    height: 200px;
-    flex-shrink: 0;
+    position: relative; /* 이미지 컨테이너에 대한 상대적 위치 설정 */
+    width: 280px; /* 필요한 경우 이미지 컨테이너의 너비를 설정 */
+    margin-left: 400px; /* 필요에 따라 조정 */
+  }
+
+  .CompleteImg {
+    width: 330dp;
+    height: 230px;
     border-radius: 16px;
-    margin-left: 400px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
-    flex: 0 0 auto;
+  }
+
+  .likes {
+    position: absolute;
+    top: 190px;
+    right: 200px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .likes p {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
 
   .userInfo-container {
@@ -232,54 +332,5 @@ const CompleteWritingWrap = styled.div`
     display: inline-flex;
     justify-content: center;
     flex-direction: row;
-  }
-  .shareBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    margin-left: 30dp;
-    border: none;
-  }
-  .deleteBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(207, 102, 121, 0.5);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-  .editBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: var(--primary-900, #233e2c);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
   }
 `;
