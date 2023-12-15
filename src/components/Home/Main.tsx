@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import lottie from "lottie-web";
+import Arrow from "../../img/anim/arrow.json";
 
 export const Main: React.FC = () => {
   const navigate = useNavigate();
+  const arrowAnimationRef = useRef(null);
+
+  useEffect(() => {
+    if (arrowAnimationRef.current) {
+      lottie.loadAnimation({
+        container: arrowAnimationRef.current,
+        animationData: Arrow,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+      });
+    }
+  }, []);
 
   const goToRecommend = () => {
     navigate("/recommend");
@@ -23,6 +38,7 @@ export const Main: React.FC = () => {
       <button className="font" onClick={goToRecommend}>
         맞춤 회고 유형 알아보기
       </button>
+      <div className="arrow-container" ref={arrowAnimationRef}></div>
     </MainWrap>
   );
 };
@@ -68,5 +84,11 @@ const MainWrap = styled.div`
     border: none;
     border-radius: 8px;
     background: var(--primary-400, #79cd96);
+  }
+
+  .arrow-container {
+    margin-block-end: 30dp;
+    width: 200px;
+    height: 150px;
   }
 `;

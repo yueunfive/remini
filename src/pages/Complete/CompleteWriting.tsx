@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
 import styled from "styled-components";
 import AAR from "../../components/CompleteWriting/AAR";
@@ -13,34 +14,45 @@ import Personal from "../../components/CompleteWriting/Personal";
 import TIL from "../../components/CompleteWriting/TIL";
 import YWT from "../../components/CompleteWriting/YWT";
 
+//작성완료 조회 페이지
+
 interface Retrospective {
   title: string;
   type: string;
 }
 
 function CompleteWriting() {
+  const { id } = useParams();
   const [retrospective, setRetrospective] = useState<Retrospective | null>(
     null
   );
 
   useEffect(() => {
+    console.log("Retrieved reminiId:", id);
     const fetchRetrospective = async () => {
       try {
-        const reminiId = "14";
-        const response = await axios.get(
-          `https://www.remini.store/api/remini/${reminiId}`
-        );
-        setRetrospective(response.data);
+        if (id) {
+          const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+          const response = await axios.get(
+            `https://www.remini.store/api/remini/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`, // 헤더에 액세스 토큰 추가
+              },
+            }
+          );
+          setRetrospective(response.data);
+          console.log(response.data);
+        }
       } catch (error) {
         console.error("Error fetching retrospective:", error);
       }
     };
 
     fetchRetrospective();
-  }, []);
+  }, [id]);
 
   const renderContent = () => {
-    console.log("Current Retrospective:", retrospective);
     if (!retrospective) {
       return <p>Loading...</p>;
     }

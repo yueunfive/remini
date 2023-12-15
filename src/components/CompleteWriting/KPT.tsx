@@ -1,13 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
+import axios from "axios";
 import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
 
 function CompleteWritingKPT() {
+  const { reminiId } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
+  const [retrospectiveData, setRetrospectiveData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${reminiId}`
+        );
+        const data = response.data;
+
+        console.log(data);
+
+        setRetrospectiveData(data);
+        if (data.sectionTexts && data.sectionTexts.length === 3) {
+          setFirstContent(data.sectionTexts[0]);
+          setSecondContent(data.sectionTexts[1]);
+          setThirdContent(data.sectionTexts[2]);
+        }
+      } catch (error) {
+        console.error("Error fetching retrospective data:", error);
+      }
+    };
+
+    if (reminiId) {
+      fetchData();
+    }
+  }, [reminiId]);
 
   return (
     <>
