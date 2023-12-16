@@ -29,7 +29,6 @@ const GuideLineVerticleContent = styled.div`
   .mainContent_Btn {
     display: flex;
     width: 320px;
-    height: 300px;
     padding: 16px 60px;
     box-sizing: border-box;
     justify-content: center;
@@ -82,6 +81,15 @@ const GuideLineVerticleContent = styled.div`
     line-height: normal;
 
     margin-top: 8px;
+  }
+
+  .mainContent_Btn {
+    display: flex;
+    width: 320px;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
 `;
 

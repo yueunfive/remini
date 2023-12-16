@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Header } from "../../../components/Header";
 import WritingPageWrap from "../../../components/WritingPageWrap";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import WritingPageBtn from "../../../components/WritingPageBtn";
 import GuideLineVerticleContent from "../../../components/GuideLine/FiveFContent";
 import axios, { AxiosResponse } from "axios";
@@ -257,3 +258,14 @@ export default function FiveF() {
     </>
   );
 }
+
+const FiveFWrap = styled.div`
+  .mainContent_Btn {
+    display: flex;
+    width: 320px;
+    padding: 16px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+`;
