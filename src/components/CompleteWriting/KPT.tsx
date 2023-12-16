@@ -277,7 +277,9 @@ const CompleteWritingWrap = styled.div`
   .Image_container {
     position: relative;
     width: 280px;
-    margin-left: 400px;
+    height: 230px;
+    margin-left: 320px;
+    border-radius: 16px;
   }
 
   .CompleteImg {
