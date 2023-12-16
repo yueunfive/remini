@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
 };
 
 const FooterWrap = styled.div`
-  height: 156px;
+  height: 470px;
   box-sizing: border-box;
   padding: 40px 0;
   background-color: #121212;

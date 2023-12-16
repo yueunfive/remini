@@ -29,6 +29,7 @@ const GuideLineVerticleContent = styled.div`
   .mainContent_Btn {
     display: flex;
     width: 320px;
+    height: 300px;
     padding: 16px 60px;
     box-sizing: border-box;
     justify-content: center;

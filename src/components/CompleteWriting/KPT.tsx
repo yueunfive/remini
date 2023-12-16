@@ -58,7 +58,7 @@ function CompleteWritingKPT() {
 
   //좋아요
   const handleLikeClick = async () => {
-    const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+    const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       console.log("로그인이 필요합니다.");
       return;
@@ -281,7 +281,7 @@ const CompleteWritingWrap = styled.div`
   }
 
   .CompleteImg {
-    width: 280dp;
+    width: 280;
     height: 230px;
     border-radius: 16px;
     background: linear-gradient(

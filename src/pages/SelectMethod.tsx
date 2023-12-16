@@ -60,6 +60,7 @@ const SelectMethodWrap = styled.div`
   box-sizing: border-box;
   background-color: #121212;
   text-align: center;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
