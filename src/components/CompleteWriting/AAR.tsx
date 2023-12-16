@@ -115,7 +115,9 @@ function CompleteWritingARR() {
                 {retrospectiveData?.nickname || "레미니"}
               </div>
             </div>
-            <div className="date-info">작성일: 2023.09.24</div>
+            <div className="date-info">
+              작성일: {retrospectiveData?.createdDate || "Date not available"}
+            </div>
           </div>
           <div className="Image_container">
             <img
