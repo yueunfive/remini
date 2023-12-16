@@ -28,43 +28,45 @@ export default function YWT() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container" style={{ marginRight: "430px" }}>
-            <div className="title_main">YWT 회고</div>
-            <div className="title_content">
-              YWT는 일본 도요타에서 사용한 방식으로 짧게 진행되는 회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container" style={{ marginRight: "430px" }}>
+              <div className="title_main">YWT 회고</div>
+              <div className="title_content">
+                YWT는 일본 도요타에서 사용한 방식으로 짧게 진행되는 회고예요
+              </div>
             </div>
+            {currentStep === 1 && (
+              <YWT1
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 2 && (
+              <YWT2
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 3 && (
+              <YWT3
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
           </div>
-          {currentStep === 1 && (
-            <YWT1
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 2 && (
-            <YWT2
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 3 && (
-            <YWT3
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
         </div>
       </WritingPageWrap>
     </>

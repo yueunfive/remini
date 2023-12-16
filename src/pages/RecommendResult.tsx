@@ -74,7 +74,7 @@ export default function RecommendResult() {
           return <FiveF />;
         case "성과/수치 중심 회고":
           return <Performance />;
-        case "Personal Retrospective":
+        case "개인적 회고":
           return <Personal />;
         case "YWT":
           return <YWT />;

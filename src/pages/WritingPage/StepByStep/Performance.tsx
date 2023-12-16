@@ -43,24 +43,26 @@ export default function Performance() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container" style={{ marginRight: "300px" }}>
-            <div className="title_main">성과/수치 중심 회고</div>
-            <div className="title_content">
-              성과/수치 중심 회고는 보통 분기/일 년 회고를 할 때 많이 사용하는
-              회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container" style={{ marginRight: "300px" }}>
+              <div className="title_main">성과/수치 중심 회고</div>
+              <div className="title_content">
+                성과/수치 중심 회고는 보통 분기/일 년 회고를 할 때 많이 사용하는
+                회고예요
+              </div>
             </div>
+            {currentStep >= 1 && currentStep <= 7 && (
+              <SelectedComponent // 컴포넌트 배열에서 필요한 컴포넌트를 선택
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
           </div>
-          {currentStep >= 1 && currentStep <= 7 && (
-            <SelectedComponent // 컴포넌트 배열에서 필요한 컴포넌트를 선택
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
         </div>
       </WritingPageWrap>
     </>

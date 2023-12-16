@@ -117,50 +117,52 @@ export default function AttachPicture() {
     <>
       <Header />
       <AttachPictureWrap>
-        <div className="titleText">
-          <p>첨부하고 싶은 사진이 있다면 넣어주세요</p>
-        </div>
-        <div className="preview">
-          {previewUrl && (
-            <img
-              src={previewUrl}
-              alt="Preview"
-              style={{ width: "300px", height: "300px", marginTop: "20px" }}
-            />
-          )}
-        </div>
-        <div
-          className="picture_container"
-          onDragOver={onDragOver}
-          onDrop={onDrop}
-        >
-          <button className="picture-select" onClick={triggerFileInput}>
-            <div className="select-text">파일 선택</div>
-          </button>
-          {pictureFile ? (
-            <p className="picture_input_text">{pictureFile.name}</p>
-          ) : (
-            <p className="picture_input_text">
-              또는 파일을 여기로 드래그 해주세요
-            </p>
-          )}
-        </div>
-        <WritingPageBtnWrap>
-          <button
-            className="completed_btn"
-            style={{ backgroundColor: "#79CD96" }}
-            onClick={createRetro}
+        <div className="container">
+          <div className="titleText">
+            <p>첨부하고 싶은 사진이 있다면 넣어주세요</p>
+          </div>
+          <div className="preview">
+            {previewUrl && (
+              <img
+                src={previewUrl}
+                alt="Preview"
+                style={{ width: "300px", height: "300px", marginTop: "20px" }}
+              />
+            )}
+          </div>
+          <div
+            className="picture_container"
+            onDragOver={onDragOver}
+            onDrop={onDrop}
           >
-            회고 완료
-          </button>
-        </WritingPageBtnWrap>
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleFileSelect}
-        />
+            <button className="picture-select" onClick={triggerFileInput}>
+              <div className="select-text">파일 선택</div>
+            </button>
+            {pictureFile ? (
+              <p className="picture_input_text">{pictureFile.name}</p>
+            ) : (
+              <p className="picture_input_text">
+                또는 파일을 여기로 드래그 해주세요
+              </p>
+            )}
+          </div>
+          <WritingPageBtnWrap>
+            <button
+              className="completed_btn"
+              style={{ backgroundColor: "#79CD96" }}
+              onClick={createRetro}
+            >
+              회고 완료
+            </button>
+          </WritingPageBtnWrap>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileSelect}
+          />
+        </div>
       </AttachPictureWrap>
     </>
   );
@@ -168,71 +170,75 @@ export default function AttachPicture() {
 
 const AttachPictureWrap = styled.div`
   background-color: #121212;
-  height: 100%;
-  width: 100%;
-  //padding: 0px 100px;
-  box-sizing: border-box;
+  min-height: calc(100vh - 90px);
+
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  .titleText {
-    margin-top: 90px;
-    margin-block: 30px;
-    display: inline-flex;
-    justify-content: center;
+  .container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
 
-  .picture_container {
-    width: 437px;
-    height: 280px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    border: 2px dashed var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
-  }
+    .titleText {
+      margin-top: 90px;
+      margin-block: 30px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
 
-  .picture-select {
-    display: inline-flex;
-    padding: 7px 16px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    margin-top: 107px;
-    margin-left: 176px;
-  }
+    .picture_container {
+      width: 437px;
+      height: 280px;
+      flex-shrink: 0;
+      border-radius: 16px;
+      border: 2px dashed var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
+    }
 
-  .select-text {
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
+    .picture-select {
+      display: inline-flex;
+      padding: 7px 16px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      margin-top: 107px;
+      margin-left: 176px;
+    }
 
-  .picture_input_text {
-    margin-top: 26px;
-    margin-bottom: 130px;
-    color: #fff;
-    text-align: center;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
+    .select-text {
+      color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
 
-  .preview {
-    text-align: center;
-    margin-block: 40px;
+    .picture_input_text {
+      margin-top: 26px;
+      margin-bottom: 130px;
+      color: #fff;
+      text-align: center;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .preview {
+      text-align: center;
+      margin-block: 40px;
+    }
   }
 `;

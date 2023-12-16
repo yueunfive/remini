@@ -106,101 +106,103 @@ export default function SelectRetro() {
     <>
       <Header />
       <SelectRetroWrap>
-        <div className="container">
-          <div className="select_container">
-            <h3>회고하기</h3>
-            <div className="retro_title">
-              <p>회고 제목</p>
-              <input
-                type="text"
-                placeholder="회고 제목을 작성해주세요"
-                value={inputValue}
-                onChange={handleInputChange}
-              ></input>
-            </div>
-            <div className="btn_container">
-              <p>회고 유형 선택</p>
-              <div className="btn_box">
-                <div>
-                  <button
-                    onClick={() => handleButtonClick("kpt")}
-                    className={activeComponent === "kpt" ? "active" : ""}
-                  >
-                    KPT
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("continue")}
-                    className={activeComponent === "continue" ? "active" : ""}
-                  >
-                    Continue-Stop-Start
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("5f")}
-                    className={activeComponent === "5f" ? "active" : ""}
-                  >
-                    5F
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("til")}
-                    className={activeComponent === "til" ? "active" : ""}
-                  >
-                    TIL
-                  </button>
-                </div>
-                <div>
-                  <button
-                    onClick={() => handleButtonClick("4l")}
-                    className={activeComponent === "4l" ? "active" : ""}
-                  >
-                    4L
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("orid")}
-                    className={activeComponent === "orid" ? "active" : ""}
-                  >
-                    ORID
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("aar")}
-                    className={activeComponent === "aar" ? "active" : ""}
-                  >
-                    AAR
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("ywt")}
-                    className={activeComponent === "ywt" ? "active" : ""}
-                  >
-                    YWT
-                  </button>
-                </div>
-                <div>
-                  <button
-                    onClick={() => handleButtonClick("personal")}
-                    className={activeComponent === "personal" ? "active" : ""}
-                  >
-                    개인적 회고
-                  </button>
-                  <button
-                    onClick={() => handleButtonClick("performance")}
-                    className={
-                      activeComponent === "performance" ? "active" : ""
-                    }
-                  >
-                    성과/수치 중심 회고
-                  </button>
+        <div className="select-retro-container">
+          <div className="container">
+            <div className="select_container">
+              <h3>회고하기</h3>
+              <div className="retro_title">
+                <p>회고 제목</p>
+                <input
+                  type="text"
+                  placeholder="회고 제목을 작성해주세요"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                ></input>
+              </div>
+              <div className="btn_container">
+                <p>회고 유형 선택</p>
+                <div className="btn_box">
+                  <div>
+                    <button
+                      onClick={() => handleButtonClick("kpt")}
+                      className={activeComponent === "kpt" ? "active" : ""}
+                    >
+                      KPT
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("continue")}
+                      className={activeComponent === "continue" ? "active" : ""}
+                    >
+                      Continue-Stop-Start
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("5f")}
+                      className={activeComponent === "5f" ? "active" : ""}
+                    >
+                      5F
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("til")}
+                      className={activeComponent === "til" ? "active" : ""}
+                    >
+                      TIL
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => handleButtonClick("4l")}
+                      className={activeComponent === "4l" ? "active" : ""}
+                    >
+                      4L
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("orid")}
+                      className={activeComponent === "orid" ? "active" : ""}
+                    >
+                      ORID
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("aar")}
+                      className={activeComponent === "aar" ? "active" : ""}
+                    >
+                      AAR
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("ywt")}
+                      className={activeComponent === "ywt" ? "active" : ""}
+                    >
+                      YWT
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => handleButtonClick("personal")}
+                      className={activeComponent === "personal" ? "active" : ""}
+                    >
+                      개인적 회고
+                    </button>
+                    <button
+                      onClick={() => handleButtonClick("performance")}
+                      className={
+                        activeComponent === "performance" ? "active" : ""
+                      }
+                    >
+                      성과/수치 중심 회고
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+            {renderActiveComponent()}
           </div>
-          {renderActiveComponent()}
-        </div>
-        <div className="retro_btn">
-          <button
-            disabled={inputValue.length < 1 || activeComponent == ""}
-            onClick={retroBtnClick}
-          >
-            회고 작성하기
-          </button>
+          <div className="retro_btn">
+            <button
+              disabled={inputValue.length < 1 || activeComponent == ""}
+              onClick={retroBtnClick}
+            >
+              회고 작성하기
+            </button>
+          </div>
         </div>
       </SelectRetroWrap>
       <Footer />
@@ -210,11 +212,11 @@ export default function SelectRetro() {
 
 const SelectRetroWrap = styled.div`
   background-color: #121212;
-  padding: 0px 100px;
   box-sizing: border-box;
-
+  min-height: calc(100vh - 90px);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .container {
     margin-top: 93px;
@@ -291,7 +293,7 @@ const SelectRetroWrap = styled.div`
 
   .retro_btn {
     text-align: center;
-    margin-top: 92px;
+    margin-top: 55px;
     margin-bottom: 60px;
   }
 

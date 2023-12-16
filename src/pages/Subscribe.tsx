@@ -121,9 +121,8 @@ export const Subscribe: React.FC = () => {
 
 const SubscribeWrap = styled.div`
   background: var(--Background, #121212);
-  min-width: 1280px;
+  height: calc(100vh - 246px);
   min-height: 586px;
-
   display: flex;
   justify-content: center;
   align-items: center;

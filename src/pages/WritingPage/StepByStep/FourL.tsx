@@ -29,54 +29,56 @@ export default function FourL() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container" style={{ marginRight: "390px" }}>
-            <div className="title_main">4L 회고</div>
-            <div className="title_content">
-              4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게 정리하는
-              회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container" style={{ marginRight: "390px" }}>
+              <div className="title_main">4L 회고</div>
+              <div className="title_content">
+                4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게
+                정리하는 회고예요
+              </div>
             </div>
+            {currentStep === 1 && (
+              <FourL1
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 2 && (
+              <FourL2
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 3 && (
+              <FourL3
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 4 && (
+              <FourL4
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
           </div>
-          {currentStep === 1 && (
-            <FourL1
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 2 && (
-            <FourL2
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 3 && (
-            <FourL3
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 4 && (
-            <FourL4
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
         </div>
       </WritingPageWrap>
     </>

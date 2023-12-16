@@ -3,7 +3,6 @@ import styled from "styled-components";
 const WritingPageBtnWrap = styled.div`
   margin-top: 50px;
   margin-bottom: 90px;
-  height: 100dp;
 
   .temporary_btn {
     width: 190px;

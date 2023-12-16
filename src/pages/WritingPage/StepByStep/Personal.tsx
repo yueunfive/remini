@@ -51,24 +51,26 @@ export default function Personal() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container" style={{ marginRight: "70px" }}>
-            <div className="title_main">개인적 회고</div>
-            <div className="title_content">
-              개인적 회고는 주로 일 년을 돌아보는 회고로, 개인이 보낸 한 해를
-              돌아보고 다음 한 해를 준비하기 좋은 회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container" style={{ marginRight: "70px" }}>
+              <div className="title_main">개인적 회고</div>
+              <div className="title_content">
+                개인적 회고는 주로 일 년을 돌아보는 회고로, 개인이 보낸 한 해를
+                돌아보고 다음 한 해를 준비하기 좋은 회고예요
+              </div>
             </div>
+            {currentStep >= 1 && currentStep <= 11 && (
+              <SelectedComponent // 컴포넌트 배열에서 필요한 컴포넌트를 선택
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
           </div>
-          {currentStep >= 1 && currentStep <= 11 && (
-            <SelectedComponent // 컴포넌트 배열에서 필요한 컴포넌트를 선택
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
         </div>
       </WritingPageWrap>
     </>

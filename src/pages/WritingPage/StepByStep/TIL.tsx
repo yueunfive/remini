@@ -28,44 +28,46 @@ export default function TIL() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container" style={{ marginRight: "360px" }}>
-            <div className="title_main">TIL 회고</div>
-            <div className="title_content">
-              TIL 회고는 Today I Learned의 줄임말로 매일의 배움을 기록하는
-              회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container" style={{ marginRight: "360px" }}>
+              <div className="title_main">TIL 회고</div>
+              <div className="title_content">
+                TIL 회고는 Today I Learned의 줄임말로 매일의 배움을 기록하는
+                회고예요
+              </div>
             </div>
+            {currentStep === 1 && (
+              <TIL1
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 2 && (
+              <TIL2
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
+            {currentStep === 3 && (
+              <TIL3
+                content={content}
+                setContent={setContent}
+                handleComplete={handleComplete}
+                inputContent={inputContent}
+                setInputContent={setInputContent}
+                isContentFilled={isContentFilled}
+              />
+            )}
           </div>
-          {currentStep === 1 && (
-            <TIL1
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 2 && (
-            <TIL2
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
-          {currentStep === 3 && (
-            <TIL3
-              content={content}
-              setContent={setContent}
-              handleComplete={handleComplete}
-              inputContent={inputContent}
-              setInputContent={setInputContent}
-              isContentFilled={isContentFilled}
-            />
-          )}
         </div>
       </WritingPageWrap>
     </>

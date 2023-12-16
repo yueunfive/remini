@@ -2,38 +2,47 @@ import styled from "styled-components";
 
 const WritingPageWrap = styled.div`
   background-color: #121212;
+  min-height: calc(100vh - 90px);
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  .container {
-    margin-top: 80px;
+  .all-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    .title_container {
+    .container {
+      margin-top: 80px;
       display: flex;
-      align-items: center;
-      gap: 30px;
-      margin-bottom: 50px;
-    }
-    .title_main {
-      color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
-    .title_content {
-      color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-    }
-    .temporary_btn:disabled {
-      /* isContentFilled가 false일 때 버튼 스타일 */
-      opacity: 0.6;
+      flex-direction: column;
+
+      .title_container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+      .title_main {
+        color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .title_content {
+        color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+      .temporary_btn:disabled {
+        /* isContentFilled가 false일 때 버튼 스타일 */
+        opacity: 0.6;
+      }
     }
   }
 `;

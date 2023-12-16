@@ -93,154 +93,156 @@ export default function ORID() {
     <>
       <WritingPageWrap>
         <Header />
-        <div className="container">
-          <div className="title_container">
-            <div className="title_main">ORID 회고</div>
-            <div className="title_content">
-              ORID 회고는 Objective(지각 단계)-Reflective(반응
-              단계)-Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로,
-              사고와 대화를 촉진하는 회고예요
+        <div className="all-container">
+          <div className="container">
+            <div className="title_container">
+              <div className="title_main">ORID 회고</div>
+              <div className="title_content">
+                ORID 회고는 Objective(지각 단계)-Reflective(반응
+                단계)-Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로,
+                사고와 대화를 촉진하는 회고예요
+              </div>
             </div>
           </div>
+          <GuideLineFourContent>
+            <div className="AllmainConten_container">
+              <div className="leftContent_container">
+                <div className="mainContent_Btn">Objective</div>
+                <div className="maintext_container">
+                  <p>
+                    객관적인 사실과 경험을 중심으로
+                    <br />
+                    <span style={{ fontWeight: 700 }}>
+                      스스로 알고 있는 것을 확인
+                    </span>
+                    하여 작성하기
+                  </p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={firstContent}
+                    onChange={(e) => setFirstContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{firstContent.length}/200</p>
+                </div>
+              </div>
+              <div className="middleContent_container">
+                <div className="mainContent_Btn">Reflective</div>
+                <div className="maintext_container">
+                  <p>
+                    그 때의 감정이나 느낌은 무엇인지
+                    <br />
+                    <span style={{ fontWeight: 700 }}>감정과 느낌을 탐색</span>
+                    하며 작성하기
+                  </p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={secondContent}
+                    onChange={(e) => setSecondContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{secondContent.length}/200</p>
+                </div>
+              </div>
+              <div className="rightContent_container">
+                <div className="mainContent_Btn">Interpretive</div>
+                <div className="maintext_container">
+                  <p>
+                    각각의 일들이 시사하는 점이 무엇인지
+                    <br />
+                    <span style={{ fontWeight: 700 }}>해석과 분석</span>을 하며
+                    작성하기
+                  </p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={thirdContent}
+                    onChange={(e) => setThirdContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{thirdContent.length}/200</p>
+                </div>
+              </div>
+              <div className="rightContent_container">
+                <div className="mainContent_Btn">Decisional</div>
+                <div className="maintext_container">
+                  <p>
+                    문제해결을 위해{" "}
+                    <span style={{ fontWeight: 700 }}>
+                      미래에 대한 <br />
+                      행동과 변화를 결정
+                    </span>
+                    하여 작성하기
+                  </p>
+                </div>
+                <div>
+                  <textarea
+                    className="mainContent_Input"
+                    placeholder="텍스트를 입력해주세요"
+                    value={fourContent}
+                    onChange={(e) => setFourContent(e.target.value)}
+                    style={{ resize: "none" }} // 사이즈 조절 방지
+                  ></textarea>
+                  <p className="text_num">{fourContent.length}/200</p>
+                </div>
+              </div>
+            </div>
+          </GuideLineFourContent>
+          <WritingPageBtn>
+            <button
+              className="temporary_btn"
+              style={{
+                opacity:
+                  isFirstContentFilled ||
+                  isSecondContentFilled ||
+                  isThirdContentFilled ||
+                  isFourContentFilled
+                    ? 1
+                    : 0.5,
+              }}
+              disabled={
+                !isFirstContentFilled &&
+                !isSecondContentFilled &&
+                !isThirdContentFilled &&
+                !isFourContentFilled
+              }
+              onClick={handleTemporarySave}
+            >
+              임시 저장
+            </button>
+            <button
+              className="completed_btn"
+              style={{
+                opacity:
+                  isFirstContentFilled &&
+                  isSecondContentFilled &&
+                  isThirdContentFilled &&
+                  isFourContentFilled
+                    ? 1
+                    : 0.5,
+              }}
+              disabled={
+                !isFirstContentFilled ||
+                !isSecondContentFilled ||
+                !isThirdContentFilled ||
+                !isFourContentFilled
+              }
+              onClick={() => {
+                goToAttachPicture();
+              }}
+            >
+              작성 완료
+            </button>
+          </WritingPageBtn>
         </div>
-        <GuideLineFourContent>
-          <div className="AllmainConten_container">
-            <div className="leftContent_container">
-              <div className="mainContent_Btn">Objective</div>
-              <div className="maintext_container">
-                <p>
-                  객관적인 사실과 경험을 중심으로
-                  <br />
-                  <span style={{ fontWeight: 700 }}>
-                    스스로 알고 있는 것을 확인
-                  </span>
-                  하여 작성하기
-                </p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{firstContent.length}/200</p>
-              </div>
-            </div>
-            <div className="middleContent_container">
-              <div className="mainContent_Btn">Reflective</div>
-              <div className="maintext_container">
-                <p>
-                  그 때의 감정이나 느낌은 무엇인지
-                  <br />
-                  <span style={{ fontWeight: 700 }}>감정과 느낌을 탐색</span>
-                  하며 작성하기
-                </p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={secondContent}
-                  onChange={(e) => setSecondContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{secondContent.length}/200</p>
-              </div>
-            </div>
-            <div className="rightContent_container">
-              <div className="mainContent_Btn">Interpretive</div>
-              <div className="maintext_container">
-                <p>
-                  각각의 일들이 시사하는 점이 무엇인지
-                  <br />
-                  <span style={{ fontWeight: 700 }}>해석과 분석</span>을 하며
-                  작성하기
-                </p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={thirdContent}
-                  onChange={(e) => setThirdContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{thirdContent.length}/200</p>
-              </div>
-            </div>
-            <div className="rightContent_container">
-              <div className="mainContent_Btn">Decisional</div>
-              <div className="maintext_container">
-                <p>
-                  문제해결을 위해{" "}
-                  <span style={{ fontWeight: 700 }}>
-                    미래에 대한 <br />
-                    행동과 변화를 결정
-                  </span>
-                  하여 작성하기
-                </p>
-              </div>
-              <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fourContent}
-                  onChange={(e) => setFourContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
-                <p className="text_num">{fourContent.length}/200</p>
-              </div>
-            </div>
-          </div>
-        </GuideLineFourContent>
-        <WritingPageBtn>
-          <button
-            className="temporary_btn"
-            style={{
-              opacity:
-                isFirstContentFilled ||
-                isSecondContentFilled ||
-                isThirdContentFilled ||
-                isFourContentFilled
-                  ? 1
-                  : 0.5,
-            }}
-            disabled={
-              !isFirstContentFilled &&
-              !isSecondContentFilled &&
-              !isThirdContentFilled &&
-              !isFourContentFilled
-            }
-            onClick={handleTemporarySave}
-          >
-            임시 저장
-          </button>
-          <button
-            className="completed_btn"
-            style={{
-              opacity:
-                isFirstContentFilled &&
-                isSecondContentFilled &&
-                isThirdContentFilled &&
-                isFourContentFilled
-                  ? 1
-                  : 0.5,
-            }}
-            disabled={
-              !isFirstContentFilled ||
-              !isSecondContentFilled ||
-              !isThirdContentFilled ||
-              !isFourContentFilled
-            }
-            onClick={() => {
-              goToAttachPicture();
-            }}
-          >
-            작성 완료
-          </button>
-        </WritingPageBtn>
       </WritingPageWrap>
     </>
   );

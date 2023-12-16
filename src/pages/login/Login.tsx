@@ -20,11 +20,13 @@ export default function Login() {
     <div>
       <Header />
       <LoginWrap>
-        <h3 className="login_text">로그인</h3>
-        <button onClick={loginHandler} className="kakao">
-          <img src={kakaoLogo} alt="kakaoLogo"></img>
-          카카오 계정으로 계속하기
-        </button>
+        <div className="container">
+          <h3 className="login_text">로그인</h3>
+          <button onClick={loginHandler} className="kakao">
+            <img src={kakaoLogo} alt="kakaoLogo"></img>
+            카카오 계정으로 계속하기
+          </button>
+        </div>
       </LoginWrap>
       <Footer />
     </div>
@@ -32,41 +34,45 @@ export default function Login() {
 }
 
 const LoginWrap = styled.div`
-  height: 505px;
   box-sizing: border-box;
-  padding: 172.5px 0;
   background-color: #121212;
+  height: calc(100vh - 246px);
 
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 60px;
 
-  .login_text {
-    margin: 0;
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    text-align: center;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  .kakao {
-    width: 530px;
-    height: 62px;
-    border: none;
-    border-radius: 8px;
-    background: #fee500;
-
+  .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    gap: 60px;
 
-    color: #371d1e;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    .login_text {
+      margin: 0;
+      color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
+      text-align: center;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .kakao {
+      width: 530px;
+      height: 62px;
+      border: none;
+      border-radius: 8px;
+      background: #fee500;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+
+      color: #371d1e;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
   }
 `;
