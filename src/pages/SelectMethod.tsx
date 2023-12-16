@@ -63,6 +63,10 @@ const SelectMethodWrap = styled.div`
   text-align: center;
   height: calc(100vh - 246px);
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   .select-method-container {
     display: flex;
     flex-direction: column;
