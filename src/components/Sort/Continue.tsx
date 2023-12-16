@@ -8,7 +8,7 @@ export const Continue: React.FC = () => {
       <div className="text_box">
         <p>
           Continue-Stop-Start 회고는 해결법 지향적이고, 무엇을 시작하고
-          그만둘지의 변화에 중점을 드는 회고예요.
+          그만둘지의 변화에 중점을 두는 회고예요.
         </p>
         <p>필요하다면 긍정적인 점과 부정적인 점들의 논의되기도 해요.</p>
         <br />
