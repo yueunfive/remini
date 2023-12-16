@@ -1,14 +1,102 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
+import axios from "axios";
 import GuideLineFourContent from "../../components/GuideLine/FourContent";
+import filledHeart from "../../img/UI/filledHeart.png";
+import emptyHeart from "../../img/UI/emptyHeart.png";
+
+type DataType = {
+  createdDate: string;
+  liked: boolean;
+  likesCount: number;
+  nickname: String;
+  reminiImage: string;
+};
 
 function CompleteWritingFourL() {
+  const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
   const [fourContent, setFourContent] = useState("");
+  const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
+    null
+  );
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${id}`
+        );
+        const data = response.data;
+
+        setRetrospectiveData(data);
+        if (data.sectionTexts && data.sectionTexts.length === 3) {
+          setFirstContent(data.sectionTexts[0]);
+          setSecondContent(data.sectionTexts[1]);
+          setThirdContent(data.sectionTexts[2]);
+          setFourContent(data.sectionTexts[3]);
+        }
+      } catch (error) {
+        console.error("Error fetching retrospective data:", error);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+
+    if (retrospectiveData) {
+      setIsLiked(retrospectiveData.liked);
+      setLikesCount(retrospectiveData.likesCount);
+    }
+  }, [id, retrospectiveData]);
+
+  //좋아요
+  const handleLikeClick = async () => {
+    const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+    if (!accessToken) {
+      console.log("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      let response;
+      if (!isLiked) {
+        response = await axios.post(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.delete(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      }
+
+      if (response.status === 200) {
+        setIsLiked(!isLiked);
+        setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
+      }
+    } catch (error) {
+      console.error("좋아요 처리 중 오류 발생:", error);
+    }
+  };
 
   return (
     <>
@@ -24,12 +112,32 @@ function CompleteWritingFourL() {
               <div className="user-info">
                 <img src={BasicProfile} />
               </div>
-              <div className="user-name">레미니</div>
+              <div className="user-name">
+                {retrospectiveData?.nickname || "레미니"}
+              </div>
             </div>
-            <div className="date-info">작성일: 2023.09.24</div>
+            <div className="date-info">
+              작성일: {retrospectiveData?.createdDate || "Date not available"}
+            </div>
           </div>
           <div className="Image_container">
-            <img src={CompleteImg} alt="CompleteImg" className="CompleteImg" />
+            <img
+              src={retrospectiveData?.reminiImage || CompleteImg}
+              alt="CompleteImg"
+              className="CompleteImg"
+            />
+            <div className="likes" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={isLiked ? filledHeart : emptyHeart}
+                alt="Heart"
+                onClick={handleLikeClick}
+              />
+              <p
+                style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}
+              >
+                {likesCount}
+              </p>
+            </div>
           </div>
         </div>
         <div className="mainContent-container">
@@ -174,17 +282,37 @@ const CompleteWritingWrap = styled.div`
   }
 
   .Image_container {
+    position: relative;
     width: 280px;
-    height: 200px;
-    flex-shrink: 0;
+    margin-left: 370px;
+  }
+
+  .CompleteImg {
+    width: 280;
+    height: 230px;
     border-radius: 16px;
-    margin-left: 300px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
-    flex: 0 0 auto;
+  }
+
+  .likes {
+    position: absolute;
+    top: 190px;
+    right: 220px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .likes p {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
   }
 
   .userInfo-container {
