@@ -35,9 +35,6 @@ function CompleteWritingKPT() {
         );
         const data = response.data;
 
-        console.log("연동 성공");
-        console.log(data);
-
         setRetrospectiveData(data);
         if (data.sectionTexts && data.sectionTexts.length === 3) {
           setFirstContent(data.sectionTexts[0]);
@@ -269,14 +266,22 @@ const CompleteWritingWrap = styled.div`
     padding: 20px;
   }
 
+  .userInfo-container {
+    margin-top: 60px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 21px;
+  }
+
   .Image_container {
-    position: relative; /* 이미지 컨테이너에 대한 상대적 위치 설정 */
-    width: 280px; /* 필요한 경우 이미지 컨테이너의 너비를 설정 */
-    margin-left: 400px; /* 필요에 따라 조정 */
+    position: relative;
+    width: 280px;
+    margin-left: 400px;
   }
 
   .CompleteImg {
-    width: 330dp;
+    width: 280dp;
     height: 230px;
     border-radius: 16px;
     background: linear-gradient(
@@ -301,14 +306,6 @@ const CompleteWritingWrap = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-  }
-
-  .userInfo-container {
-    margin-top: 60px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 21px;
   }
 
   .user-name {

@@ -37,15 +37,13 @@ function CompleteWritingFiveF() {
         );
         const data = response.data;
 
-        console.log("연동 성공");
-        console.log(data);
-
         setRetrospectiveData(data);
-        if (data.sectionTexts && data.sectionTexts.length === 3) {
+        if (data.sectionTexts && data.sectionTexts.length === 5) {
           setFirstContent(data.sectionTexts[0]);
           setSecondContent(data.sectionTexts[1]);
           setThirdContent(data.sectionTexts[2]);
-          setFiftheContent(data.sectionTexts[3]);
+          setFourContent(data.sectionTexts[3]);
+          setFiftheContent(data.sectionTexts[4]);
         }
       } catch (error) {
         console.error("Error fetching retrospective data:", error);
@@ -64,7 +62,7 @@ function CompleteWritingFiveF() {
 
   //좋아요
   const handleLikeClick = async () => {
-    const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
+    const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       console.log("로그인이 필요합니다.");
       return;
@@ -144,6 +142,7 @@ function CompleteWritingFiveF() {
             </div>
           </div>
         </div>
+
         <div className="mainContent-container">
           <GuideLineVerticleContent>
             <div className="AllmainConten_container">

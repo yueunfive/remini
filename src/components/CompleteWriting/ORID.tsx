@@ -15,10 +15,11 @@ function CompleteWritingORID() {
       <CompleteWritingWrap>
         <div className="content-container">
           <div className="WritingKind_container">
-            <div className="WritingKind_title">4L 회고</div>
+            <div className="WritingKind_title">ORID 회고</div>
             <div className="WritingKind_content">
-              4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게 정리하는
-              회고예요
+              ORID 회고는 Objective(지각 단계)-Reflective(반응
+              단계)-Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로,
+              사고와 대화를 촉진하는 회고예요
             </div>
             <div className="userInfo-container">
               <div className="user-info">

@@ -15,7 +15,6 @@ import TIL from "../../components/CompleteWriting/TIL";
 import YWT from "../../components/CompleteWriting/YWT";
 
 //작성완료 조회 페이지
-
 interface Retrospective {
   title: string;
   type: string;
@@ -60,19 +59,19 @@ function CompleteWriting() {
     switch (retrospective.type) {
       case "AAR":
         return <AAR />;
-      case "Continue":
+      case "CSS":
         return <Continue />;
-      case "FiveF":
+      case "FIVE_F":
         return <FiveF />;
-      case "FourL":
+      case "FOUR_L":
         return <FourL />;
       case "KPT":
         return <KPT />;
       case "ORID":
         return <ORID />;
-      case "Performance":
+      case "RESULT":
         return <Performance />;
-      case "Personal":
+      case "PERSONAL":
         return <Personal />;
       case "TIL":
         return <TIL />;
