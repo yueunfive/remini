@@ -10,6 +10,7 @@ type DataType = {
   createdDate: string;
   nickname: String;
   reminiImage: string;
+  profileImageURL: string;
 };
 
 function CompleteWritingKPT() {
@@ -43,7 +44,7 @@ function CompleteWritingKPT() {
     if (id) {
       fetchData();
     }
-  }, [id]);
+  }, [id, retrospectiveData]);
 
   return (
     <>
@@ -57,7 +58,11 @@ function CompleteWritingKPT() {
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
               <div className="user-name">
                 {retrospectiveData?.nickname || "레미니"}
@@ -211,6 +216,13 @@ const CompleteWritingWrap = styled.div`
     gap: 21px;
   }
 
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
   .Image_container {
     position: relative;
     width: 280px;
@@ -228,23 +240,6 @@ const CompleteWritingWrap = styled.div`
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
-  }
-
-  .likes {
-    position: absolute;
-    top: 190px;
-    right: 200px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .likes p {
-    color: rgba(255, 255, 255, 0.87);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
   }
 
   .user-name {

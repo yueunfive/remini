@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
 import styled from "styled-components";
 import AAR from "../../components/CompleteWriting/AAR";
@@ -16,6 +16,8 @@ import YWT from "../../components/CompleteWriting/YWT";
 import filledHeart from "../../img/UI/filledHeart.png";
 import emptyHeart from "../../img/UI/emptyHeart.png";
 import sharebtn from "../../img/UI/Ic_Share.png";
+import ShareModal from "../../components/Modal/ShareModal";
+import ModalOverlay from "../../components/Modal/ModalOverlay";
 
 //작성완료 조회 페이지
 interface Retrospective {
@@ -32,6 +34,7 @@ function CompleteWriting() {
   );
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchRetrospective = async () => {
     try {
@@ -136,6 +139,14 @@ function CompleteWriting() {
     }
   };
 
+  const handleShareClick = () => {
+    setShowModal(true);
+  };
+
+  const handleOverlayClick = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <CompleteWritingWrap>
@@ -152,8 +163,8 @@ function CompleteWriting() {
               />
               <p>{likesCount}</p>
             </div>
-            <div className="sharebtn">
-              <img src={sharebtn} />
+            <div className="sharebtn" onClick={handleShareClick}>
+              <img src={sharebtn} alt="Share" />
             </div>
           </div>
         </div>
@@ -165,6 +176,12 @@ function CompleteWriting() {
           */}
         </div>
       </CompleteWritingWrap>
+      {showModal && (
+        <>
+          <ShareModal closeModal={() => setShowModal(false)} />
+          <ModalOverlay onClick={handleOverlayClick} />
+        </>
+      )}
     </>
   );
 }

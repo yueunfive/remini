@@ -5,8 +5,6 @@ import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
 import axios from "axios";
 import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
-import filledHeart from "../../img/UI/filledHeart.png";
-import emptyHeart from "../../img/UI/emptyHeart.png";
 
 type DataType = {
   createdDate: string;
@@ -24,8 +22,6 @@ function CompleteWritingContinue() {
   const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
     null
   );
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,52 +45,7 @@ function CompleteWritingContinue() {
     if (id) {
       fetchData();
     }
-
-    if (retrospectiveData) {
-      setIsLiked(retrospectiveData.liked);
-      setLikesCount(retrospectiveData.likesCount);
-    }
   }, [id, retrospectiveData]);
-
-  //좋아요
-  const handleLikeClick = async () => {
-    const accessToken = localStorage.getItem("accessToken"); // 액세스 토큰 가져오기
-    if (!accessToken) {
-      console.log("로그인이 필요합니다.");
-      return;
-    }
-
-    try {
-      let response;
-      if (!isLiked) {
-        response = await axios.post(
-          `https://www.remini.store/api/remini/${id}/likes`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      } else {
-        response = await axios.delete(
-          `https://www.remini.store/api/remini/${id}/likes`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      }
-
-      if (response.status === 200) {
-        setIsLiked(!isLiked);
-        setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-      }
-    } catch (error) {
-      console.error("좋아요 처리 중 오류 발생:", error);
-    }
-  };
 
   return (
     <>
@@ -124,18 +75,6 @@ function CompleteWritingContinue() {
               alt="CompleteImg"
               className="CompleteImg"
             />
-            <div className="likes" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={isLiked ? filledHeart : emptyHeart}
-                alt="Heart"
-                onClick={handleLikeClick}
-              />
-              <p
-                style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}
-              >
-                {likesCount}
-              </p>
-            </div>
           </div>
         </div>
         <div className="mainContent-container">
@@ -286,23 +225,6 @@ const CompleteWritingWrap = styled.div`
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
-  }
-
-  .likes {
-    position: absolute;
-    top: 190px;
-    right: 230px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .likes p {
-    color: rgba(255, 255, 255, 0.87);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
   }
 
   .user-name {
