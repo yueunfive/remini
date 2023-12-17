@@ -13,11 +13,16 @@ import Performance from "../../components/CompleteWriting/Performance";
 import Personal from "../../components/CompleteWriting/Personal";
 import TIL from "../../components/CompleteWriting/TIL";
 import YWT from "../../components/CompleteWriting/YWT";
+import filledHeart from "../../img/UI/filledHeart.png";
+import emptyHeart from "../../img/UI/emptyHeart.png";
+import sharebtn from "../../img/UI/Ic_Share.png";
 
 //작성완료 조회 페이지
 interface Retrospective {
   title: string;
   type: string;
+  liked: boolean;
+  likesCount: number;
 }
 
 function CompleteWriting() {
@@ -25,32 +30,37 @@ function CompleteWriting() {
   const [retrospective, setRetrospective] = useState<Retrospective | null>(
     null
   );
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
+  const fetchRetrospective = async () => {
+    try {
+      if (id) {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        const data = response.data;
+        setRetrospective(data);
+        setIsLiked(data.liked);
+        setLikesCount(data.likesCount);
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("Error fetching retrospective:", error);
+    }
+  };
 
   useEffect(() => {
-    console.log("Retrieved reminiId:", id);
-    const fetchRetrospective = async () => {
-      try {
-        if (id) {
-          const accessToken = localStorage.getItem("accessToken");
-          const response = await axios.get(
-            `https://www.remini.store/api/remini/${id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            }
-          );
-          setRetrospective(response.data);
-          console.log(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching retrospective:", error);
-      }
-    };
-
     fetchRetrospective();
   }, [id]);
 
+  //type 값에 맞는 랜더링
   const renderContent = () => {
     if (!retrospective) {
       return <p>Loading...</p>;
@@ -82,6 +92,50 @@ function CompleteWriting() {
     }
   };
 
+  //좋아요
+  const handleLikeClick = async () => {
+    const currentIsLiked = isLiked;
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      let response;
+      if (!currentIsLiked) {
+        response = await axios.post(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.delete(
+          `https://www.remini.store/api/remini/${id}/likes`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      }
+
+      if (response.status !== 200) {
+        // 요청 실패 시 상태 되돌리기
+        setIsLiked(!currentIsLiked);
+        setLikesCount(currentIsLiked ? likesCount - 1 : likesCount + 1);
+      } else {
+        // 요청 성공 시
+        const likesCountResponse = await response.data;
+        setIsLiked(likesCountResponse.isLiked);
+        setLikesCount(likesCountResponse.likesCount);
+      }
+    } catch (error) {
+      console.error("좋아요 처리 중 오류 발생:", error);
+    }
+  };
+
   return (
     <>
       <CompleteWritingWrap>
@@ -90,11 +144,22 @@ function CompleteWriting() {
           <div className="title_content">
             {retrospective ? retrospective.title : "Loading..."}
           </div>
+          <div className="title-contnet-container">
+            <div className="likes" onClick={handleLikeClick}>
+              <img
+                src={isLiked ? filledHeart : emptyHeart}
+                alt={isLiked ? "좋아요 취소" : "좋아요"}
+              />
+              <p>{likesCount}</p>
+            </div>
+            <div className="sharebtn">
+              <img src={sharebtn} />
+            </div>
+          </div>
         </div>
         <div className="mainContent-container">{renderContent()}</div>
         <div className="completeButtom-contaner">
           {/*
-          <button className="shareBtn">공유</button>
           <button className="deleteBtn">삭제</button>
           <button className="editBtn">수정</button>
           */}
@@ -140,23 +205,6 @@ const CompleteWritingWrap = styled.div`
     justify-content: center;
     flex-direction: row;
   }
-  .shareBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    margin-left: 30dp;
-    border: none;
-  }
   .deleteBtn {
     width: 92dp;
     height: 45dp;
@@ -188,5 +236,31 @@ const CompleteWritingWrap = styled.div`
     font-style: normal;
     font-weight: 600;
     border: none;
+  }
+
+  .likes {
+    position: absolute;
+    top: 180px;
+    right: 320px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .likes p {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .sharebtn {
+    position: absolute;
+    top: 180px;
+    right: 280px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 `;

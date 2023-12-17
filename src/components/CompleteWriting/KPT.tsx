@@ -5,13 +5,9 @@ import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
 import axios from "axios";
 import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
-import filledHeart from "../../img/UI/filledHeart.png";
-import emptyHeart from "../../img/UI/emptyHeart.png";
 
 type DataType = {
   createdDate: string;
-  liked: boolean;
-  likesCount: number;
   nickname: String;
   reminiImage: string;
 };
@@ -24,8 +20,6 @@ function CompleteWritingKPT() {
   const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
     null
   );
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,52 +43,7 @@ function CompleteWritingKPT() {
     if (id) {
       fetchData();
     }
-
-    if (retrospectiveData) {
-      setIsLiked(retrospectiveData.liked);
-      setLikesCount(retrospectiveData.likesCount);
-    }
-  }, [id, retrospectiveData]);
-
-  //좋아요
-  const handleLikeClick = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.log("로그인이 필요합니다.");
-      return;
-    }
-
-    try {
-      let response;
-      if (!isLiked) {
-        response = await axios.post(
-          `https://www.remini.store/api/remini/${id}/likes`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      } else {
-        response = await axios.delete(
-          `https://www.remini.store/api/remini/${id}/likes`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      }
-
-      if (response.status === 200) {
-        setIsLiked(!isLiked);
-        setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-      }
-    } catch (error) {
-      console.error("좋아요 처리 중 오류 발생:", error);
-    }
-  };
+  }, [id]);
 
   return (
     <>
@@ -124,18 +73,6 @@ function CompleteWritingKPT() {
               alt="CompleteImg"
               className="CompleteImg"
             />
-            <div className="likes" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={isLiked ? filledHeart : emptyHeart}
-                alt="Heart"
-                onClick={handleLikeClick}
-              />
-              <p
-                style={{ color: isLiked ? "var(--primary-400, #79CD96)" : "" }}
-              >
-                {likesCount}
-              </p>
-            </div>
           </div>
         </div>
         <div className="mainContent-container">
