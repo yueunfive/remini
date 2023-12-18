@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
-import styled from "styled-components";
+import CompleteWritingWrap from "../Complete/CompleteWritingWrap";
 import AAR from "../../components/CompleteWriting/AAR";
 import Continue from "../../components/CompleteWriting/Continue";
 import FiveF from "../../components/CompleteWriting/FiveF";
@@ -16,7 +16,10 @@ import YWT from "../../components/CompleteWriting/YWT";
 import filledHeart from "../../img/UI/filledHeart.png";
 import emptyHeart from "../../img/UI/emptyHeart.png";
 import sharebtn from "../../img/UI/Ic_Share.png";
+import editbtn from "../../img/UI/edit.png";
+import deletebtn from "../../img/UI/delete.png";
 import ShareModal from "../../components/Modal/ShareModal";
+import DeleteModal from "../../components/Modal/DeleteModal";
 import ModalOverlay from "../../components/Modal/ModalOverlay";
 
 //작성완료 조회 페이지
@@ -25,6 +28,7 @@ interface Retrospective {
   type: string;
   liked: boolean;
   likesCount: number;
+  owner: boolean;
 }
 
 function CompleteWriting() {
@@ -143,6 +147,10 @@ function CompleteWriting() {
     setShowModal(true);
   };
 
+  const handleDeleteClick = () => {
+    setShowModal(true);
+  };
+
   const handleOverlayClick = () => {
     setShowModal(false);
   };
@@ -155,7 +163,7 @@ function CompleteWriting() {
           <div className="title_content">
             {retrospective ? retrospective.title : "Loading..."}
           </div>
-          <div className="title-contnet-container">
+          <div className="Button-contnet-container">
             <div className="likes" onClick={handleLikeClick}>
               <img
                 src={isLiked ? filledHeart : emptyHeart}
@@ -166,19 +174,30 @@ function CompleteWriting() {
             <div className="sharebtn" onClick={handleShareClick}>
               <img src={sharebtn} alt="Share" />
             </div>
+            {/* 유저의 글에만 보임 : 수정, 삭제 */}
+            {retrospective && retrospective.owner && (
+              <>
+                <div className="editbtn">
+                  <img src={editbtn} alt="edit" />
+                </div>
+                <div className="deletebtn" onClick={handleDeleteClick}>
+                  <img src={deletebtn} alt="delete" />
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="mainContent-container">{renderContent()}</div>
-        <div className="completeButtom-contaner">
-          {/*
-          <button className="deleteBtn">삭제</button>
-          <button className="editBtn">수정</button>
-          */}
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
         </div>
       </CompleteWritingWrap>
       {showModal && (
         <>
           <ShareModal closeModal={() => setShowModal(false)} />
+          <DeleteModal closeModal={() => setShowModal(false)} />
           <ModalOverlay onClick={handleOverlayClick} />
         </>
       )}
@@ -187,97 +206,3 @@ function CompleteWriting() {
 }
 
 export default CompleteWriting;
-
-const CompleteWritingWrap = styled.div`
-  background: var(--Background, #121212);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 50px;
-
-  .title_container {
-    width: 100%;
-    height: 90px;
-    flex-shrink: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.1) 100%
-    );
-  }
-
-  .title_content {
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    text-align: center;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-
-  .completeButtom-contaner {
-    width: 1280px;
-    display: inline-flex;
-    justify-content: center;
-    flex-direction: row;
-  }
-  .deleteBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(207, 102, 121, 0.5);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-  .editBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: var(--primary-900, #233e2c);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-
-  .likes {
-    position: absolute;
-    top: 180px;
-    right: 340px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .likes p {
-    color: rgba(255, 255, 255, 0.87);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
-
-  .sharebtn {
-    position: absolute;
-    top: 180px;
-    right: 300px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-`;
