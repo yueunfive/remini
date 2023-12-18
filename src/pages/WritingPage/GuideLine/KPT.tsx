@@ -206,6 +206,11 @@ export default function KPT() {
             </button>
           </WritingPageBtn>
         </div>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </WritingPageWrap>
     </>
   );

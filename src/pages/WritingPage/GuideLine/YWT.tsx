@@ -222,6 +222,11 @@ export default function YWT() {
             </button>
           </WritingPageBtn>
         </div>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </WritingPageWrap>
     </>
   );

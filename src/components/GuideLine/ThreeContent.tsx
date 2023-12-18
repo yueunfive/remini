@@ -15,6 +15,8 @@ const GuideLineTheeContent = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 50px;
+    margin-block-end: 30px;
+    margin-block-start: 30px;
   }
 
   .leftContent_container {
@@ -82,6 +84,7 @@ const GuideLineTheeContent = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    outline: none;
   }
 
   .text_num {

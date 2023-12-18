@@ -211,6 +211,11 @@ export default function TIL() {
             </button>
           </WritingPageBtn>
         </div>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </WritingPageWrap>
     </>
   );

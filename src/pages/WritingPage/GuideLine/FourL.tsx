@@ -234,6 +234,11 @@ export default function FourL() {
             </button>
           </WritingPageBtn>
         </div>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </WritingPageWrap>
     </>
   );

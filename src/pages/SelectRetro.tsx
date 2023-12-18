@@ -254,7 +254,7 @@ const SelectRetroWrap = styled.div`
     background-color: #121212;
     border-radius: 8px;
     border: 2px solid var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-
+    outline: none;
     color: white;
     font-size: 18px;
   }

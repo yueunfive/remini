@@ -241,6 +241,11 @@ export default function AAR() {
             </button>
           </WritingPageBtn>
         </div>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </WritingPageWrap>
     </>
   );

@@ -68,6 +68,7 @@ const StepByStepWrap = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    outline: none;
   }
 
   .btn_container {
