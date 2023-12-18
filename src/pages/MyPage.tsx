@@ -19,6 +19,7 @@ interface UserData {
   nickName: string;
   profileImageUrl: string;
   state: string;
+  alarmTime: number[];
 }
 
 interface RetroData {
@@ -53,7 +54,7 @@ export const MyPage: React.FC = () => {
   const [temporaryRetroData, setTemporaryRetroData] = useState<
     TemporaryRetroData[]
   >([]);
-  const [selectedTime, setSelectedTime] = useState("00:00");
+  const [selectedTime, setSelectedTime] = useState("00");
   const [isTimeListOpen, setIsTimeListOpen] = useState(false);
   const timeListRef = useRef<HTMLDivElement>(null);
   const selectBoxRef = useRef<HTMLDivElement>(null);
@@ -67,15 +68,51 @@ export const MyPage: React.FC = () => {
   const nextDay = new Date(today);
   nextDay.setDate(today.getDate() + 1);
 
+  const apiDate = userData?.alarmTime
+    ? new Date(
+        userData.alarmTime[0],
+        userData.alarmTime[1] - 1,
+        userData.alarmTime[2]
+      )
+    : nextDay;
+
   // selectedDate가 있으면 해당 날짜로 설정
   const dateToShow = selectedDate
     ? selectedDate.toLocaleDateString()
-    : nextDay.toLocaleDateString();
+    : apiDate.toLocaleDateString();
 
   const [toggleOn, setToggleOn] = useState(false);
 
   const toggleHandler = () => {
     setToggleOn(!toggleOn);
+
+    // toggleOn 값이 false로 변경될 때 DELETE 요청 보내기
+    if (toggleOn) {
+      const sendDeleteRequest = async () => {
+        try {
+          const accessToken = localStorage.getItem("accessToken");
+
+          if (accessToken) {
+            const response = await axios.delete(
+              `https://www.remini.store/api/alarm/{userId}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
+
+            console.log("DELETE request response:", response.data);
+          } else {
+            console.error("Access token not found in localStorage.");
+          }
+        } catch (error) {
+          console.error("Error sending DELETE request:", error);
+        }
+      };
+
+      sendDeleteRequest();
+    }
   };
 
   const getCurrentDate = () => {
@@ -102,6 +139,16 @@ export const MyPage: React.FC = () => {
       const user = userResponse.data;
       console.log(user);
       setUserData(user);
+
+      if (user.alarmTime) {
+        setSelectedTime(user.alarmTime[3].toString().padStart(2, "0"));
+      }
+
+      if (user.alarmTime !== null) {
+        setToggleOn(true);
+      } else {
+        setToggleOn(false);
+      }
 
       // 개인 회고 목록 조회(3개)
       const retroResponse = await axios.get(
@@ -239,11 +286,53 @@ export const MyPage: React.FC = () => {
     const hour = (index < 10 ? "0" : "") + index;
 
     return (
-      <TimeItem key={index} onClick={() => handleTimeSelection(`${hour}:00`)}>
+      <TimeItem key={index} onClick={() => handleTimeSelection(hour)}>
         {`${hour}:00`}
       </TimeItem>
     );
   });
+
+  // selectedDate나 selectedTime이 변경될 때마다 localStorage에 저장하고 API로 PATCH 요청 보내기
+  useEffect(() => {
+    if (selectedDate !== null && selectedTime !== "00") {
+      const mergeDateTime = () => {
+        const currentDate = new Date(dateToShow);
+        currentDate.setDate(currentDate.getDate() + 1); // 선택한 날짜에 하루를 더함
+        const timeParts = selectedTime.split(":");
+        currentDate.setUTCHours(Number(timeParts[0]), 0, 0, 0); // 시간 설정
+
+        return currentDate.toISOString(); // ISO 8601 형식으로 반환
+      };
+
+      const sendPatchRequest = async () => {
+        const mergedDateTime = mergeDateTime();
+
+        try {
+          const accessToken = localStorage.getItem("accessToken");
+
+          if (accessToken) {
+            const response = await axios.patch(
+              `https://www.remini.store/api/alarm/{userId}`,
+              { alarmTime: mergedDateTime },
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            );
+
+            console.log("PATCH request response:", response.data);
+          } else {
+            console.error("Access token not found in localStorage.");
+          }
+        } catch (error) {
+          console.error("Error sending PATCH request:", error);
+        }
+      };
+
+      sendPatchRequest();
+    }
+  }, [selectedDate, selectedTime]);
 
   const handleClickOutsideTimeList = (event: MouseEvent) => {
     if (
@@ -326,7 +415,7 @@ export const MyPage: React.FC = () => {
                   onClick={toggleTimeList}
                   ref={selectBoxRef}
                 >
-                  <p>{selectedTime}</p>
+                  <p>{selectedTime}:00</p>
                   <img src={selectIcon} alt="selectIcon"></img>
                   {isTimeListOpen && (
                     <TimeList ref={timeListRef}>{timeList}</TimeList>
@@ -603,8 +692,6 @@ const MyPageWrap = styled.div<toggleProps>`
   }
 
   .footer_btn {
-    width: 186px;
-    height: 21px;
     display: flex;
     gap: 60px;
     margin: 70px 0 80px 717px;

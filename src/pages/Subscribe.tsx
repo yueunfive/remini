@@ -53,7 +53,8 @@ export const Subscribe: React.FC = () => {
         }
       );
       const user = userResponse.data;
-      console.log(user.state);
+      console.log("state : " + user.state);
+      console.log("toBeState : " + user.toBeState);
       setModel(user.state);
     } catch (error) {
       console.error("Error fetching user data:", error);

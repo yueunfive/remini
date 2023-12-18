@@ -152,10 +152,10 @@ function CompleteWriting() {
     setShowDeleteModal(true);
   };
 
-  const closeModals = () => {
-    setShowShareModal(false);
-    setShowDeleteModal(false);
-  };
+  // const closeModals = () => {
+  //   setShowShareModal(false);
+  //   setShowDeleteModal(false);
+  // };
 
   return (
     <>
