@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
 import styled from "styled-components";
 import AAR from "../../components/CompleteWriting/AAR";
