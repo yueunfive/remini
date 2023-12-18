@@ -13,7 +13,7 @@ type DataType = {
   profileImageURL: string;
 };
 
-function CompleteWritingARR() {
+function CompleteWritingARR({ isEditMode }) {
   const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
@@ -46,7 +46,58 @@ function CompleteWritingARR() {
     if (id) {
       fetchData();
     }
-  }, [id, retrospectiveData]);
+  }, [id]);
+
+  //데이터 수정
+  const editData = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const data = {
+      instantSave: false,
+      sectionTexts: [firstContent, secondContent, thirdContent, fourContent],
+      step: 1,
+      title: localStorage.getItem("title"),
+      type: localStorage.getItem("type"),
+    };
+
+    try {
+      const response = await axios.patch(
+        `https://www.remini.store/api/remini/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log("수정 요청 성공:", response.data);
+      alert("수정이 완료되었습니다!🥳");
+      window.location.reload();
+      setIsEditMode(false);
+    } catch (error) {
+      console.error("수정 요청 실패:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    window.location.reload();
+    setIsEditMode(false);
+  };
+
+  const renderContentInput = (content, setContent) => {
+    return isEditMode ? (
+      <textarea
+        className="mainContent_Input"
+        placeholder="텍스트를 입력해주세요"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        style={{ resize: "none" }}
+      />
+    ) : (
+      <div className="mainContent_Input">{content}</div>
+    );
+  };
 
   return (
     <>
@@ -97,7 +148,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <div className="mainContent_Input">{firstContent}</div>
+                  <div>{renderContentInput(firstContent, setFirstContent)}</div>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
               </div>
@@ -111,7 +162,9 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <div className="mainContent_Input">{secondContent}</div>
+                  <div>
+                    {renderContentInput(secondContent, setSecondContent)}
+                  </div>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
               </div>
@@ -124,7 +177,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <div className="mainContent_Input">{thirdContent}</div>
+                  <div>{renderContentInput(thirdContent, setThirdContent)}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -138,12 +191,23 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <div className="mainContent_Input">{fourContent}</div>
+                  <div>{renderContentInput(fourContent, setFourContent)}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
             </div>
           </GuideLineFourContent>
+          {/* 수정 모드 일 때만 보임 */}
+          {isEditMode && (
+            <div className="editButton-contaner">
+              <button className="cancelBtn" onClick={handleCancel}>
+                취소
+              </button>
+              <button className="completeEditBtn" onClick={editData}>
+                확인
+              </button>
+            </div>
+          )}
         </div>
       </CompleteWritingWrap>
     </>
@@ -272,13 +336,13 @@ const CompleteWritingWrap = styled.div`
     line-height: normal;
   }
 
-  .completeButtom-contaner {
+  .editButton-contaner {
     width: 1280px;
     display: inline-flex;
     justify-content: center;
     flex-direction: row;
   }
-  .shareBtn {
+  .cancelBtn {
     width: 92dp;
     height: 45dp;
     display: inline-flex;
@@ -288,11 +352,27 @@ const CompleteWritingWrap = styled.div`
     gap: 10px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.1);
+    color: var(--Text-High-Emphasis, rgba(255, 255, 255, 0.87));
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    border: none;
+    margin-right: 20px;
+  }
+  .completeEditBtn {
+    width: 92dp;
+    height: 45dp;
+    display: inline-flex;
+    padding: 13px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    background: var(--primary-900, #233e2c);
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    margin-left: 30dp;
     border: none;
   }
 `;

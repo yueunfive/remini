@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CompleteWritingWrap = styled.div`
   background: var(--Background, #121212);
-
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,19 +33,12 @@ const CompleteWritingWrap = styled.div`
     display: flex;
     width: 164px;
     height: 20px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
     flex-shrink: 0;
     top: 180px;
-    right: 300px;
-  }
-
-  .likes {
-    margin-block-end: 20dp;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    right: 200px;
   }
 
   .likes p {
@@ -56,20 +49,11 @@ const CompleteWritingWrap = styled.div`
     line-height: normal;
   }
 
-  .sharebtn {
-    margin-block-end: 20dp;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .editbtn {
-    margin-block-end: 20dp;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .likes,
+  .sharebtn,
+  .editbtn,
   .deletebtn {
-    margin-block-end: 20dp;
+    margin-block-end: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
