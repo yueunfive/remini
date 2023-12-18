@@ -10,6 +10,7 @@ type DataType = {
   createdDate: string;
   nickname: String;
   reminiImage: string;
+  profileImageURL: string;
 };
 
 function CompleteWritingFiveF() {
@@ -61,7 +62,11 @@ function CompleteWritingFiveF() {
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
               <div className="user-name">
                 {retrospectiveData?.nickname || "레미니"}
@@ -90,13 +95,7 @@ function CompleteWritingFiveF() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{firstContent}</div>
                 <p className="text_num">{firstContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -106,13 +105,7 @@ function CompleteWritingFiveF() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={secondContent}
-                  onChange={(e) => setSecondContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{secondContent}</div>
                 <p className="text_num">{secondContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -122,13 +115,7 @@ function CompleteWritingFiveF() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={thirdContent}
-                  onChange={(e) => setThirdContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{thirdContent}</div>
                 <p className="text_num">{thirdContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -136,13 +123,7 @@ function CompleteWritingFiveF() {
                 <div className="maintext_container">향후 계획을 작성하기</div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fourContent}
-                  onChange={(e) => setFourContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{fourContent}</div>
                 <p className="text_num">{fourContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -152,13 +133,7 @@ function CompleteWritingFiveF() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fifthContent}
-                  onChange={(e) => setFiftheContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{fifthContent}</div>
                 <p className="text_num">{fifthContent.length}/200</p>
               </div>
             </div>
@@ -232,7 +207,6 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
   }
 
   .userInfo-container {
@@ -243,21 +217,37 @@ const CompleteWritingWrap = styled.div`
     gap: 21px;
   }
 
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
   .Image_container {
-    position: relative;
     width: 280px;
-    margin-left: 400px;
+    height: 200px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .CompleteImg {
-    width: 330dp;
-    height: 230px;
+    width: 280px;
+    height: 200px;
     border-radius: 16px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
+    object-fit: cover;
+    object-position: center;
   }
   .user-name {
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));

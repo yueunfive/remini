@@ -258,7 +258,7 @@ const CompleteWritingWrap = styled.div`
   .likes {
     position: absolute;
     top: 180px;
-    right: 320px;
+    right: 340px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -275,7 +275,7 @@ const CompleteWritingWrap = styled.div`
   .sharebtn {
     position: absolute;
     top: 180px;
-    right: 280px;
+    right: 300px;
     display: flex;
     align-items: center;
     gap: 8px;

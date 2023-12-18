@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
 import GuideLinePersonalContent from "../../components/GuideLine/PersonalContent";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+type DataType = {
+  createdDate: string;
+  nickname: String;
+  reminiImage: string;
+  profileImageURL: string;
+};
 
 function CompleteWritingPerfomance() {
+  const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
@@ -12,6 +22,37 @@ function CompleteWritingPerfomance() {
   const [fifthContent, setFifthContent] = useState("");
   const [sixthContent, setSixthContent] = useState("");
   const [seventhContent, setSeventhContent] = useState("");
+  const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
+    null
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${id}`
+        );
+        const data = response.data;
+
+        setRetrospectiveData(data);
+        if (data.sectionTexts && data.sectionTexts.length === 7) {
+          setFirstContent(data.sectionTexts[0]);
+          setSecondContent(data.sectionTexts[1]);
+          setThirdContent(data.sectionTexts[2]);
+          setFourContent(data.sectionTexts[3]);
+          setFifthContent(data.sectionTexts[4]);
+          setSixthContent(data.sectionTexts[5]);
+          setSeventhContent(data.sectionTexts[6]);
+        }
+      } catch (error) {
+        console.error("Error fetching retrospective data:", error);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id, retrospectiveData]);
 
   return (
     <>
@@ -25,14 +66,26 @@ function CompleteWritingPerfomance() {
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
-              <div className="user-name">레미니</div>
+              <div className="user-name">
+                {retrospectiveData?.nickname || "레미니"}
+              </div>
             </div>
-            <div className="date-info">작성일: 2023.09.24</div>
+            <div className="date-info">
+              작성일: {retrospectiveData?.createdDate || "Date not available"}
+            </div>
           </div>
           <div className="Image_container">
-            <img src={CompleteImg} alt="CompleteImg" className="CompleteImg" />
+            <img
+              src={retrospectiveData?.reminiImage || CompleteImg}
+              alt="CompleteImg"
+              className="CompleteImg"
+            />
           </div>
         </div>
         <div className="mainContent-container">
@@ -44,13 +97,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={firstContent}
-                  onChange={(e) => setFirstContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{firstContent}</div>
                 <p className="text_num">{firstContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -61,13 +108,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={secondContent}
-                  onChange={(e) => setSecondContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{secondContent}</div>
                 <p className="text_num">{secondContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -76,13 +117,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={thirdContent}
-                  onChange={(e) => setThirdContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{thirdContent}</div>
                 <p className="text_num">{thirdContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -92,13 +127,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fourContent}
-                  onChange={(e) => setFourContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{fourContent}</div>
                 <p className="text_num">{fourContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -107,13 +136,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={fifthContent}
-                  onChange={(e) => setFifthContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{fifthContent}</div>
                 <p className="text_num">{fifthContent.length}/200</p>
               </div>
               {/* 6부터 */}
@@ -124,13 +147,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={sixthContent}
-                  onChange={(e) => setSixthContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{sixthContent}</div>
                 <p className="text_num">{sixthContent.length}/200</p>
               </div>
               <div className="Content-Container">
@@ -140,13 +157,7 @@ function CompleteWritingPerfomance() {
                 </div>
               </div>
               <div>
-                <textarea
-                  className="mainContent_Input"
-                  placeholder="텍스트를 입력해주세요"
-                  value={seventhContent}
-                  onChange={(e) => setSeventhContent(e.target.value)}
-                  style={{ resize: "none" }} // 사이즈 조절 방지
-                ></textarea>
+                <div className="mainContent_Input">{seventhContent}</div>
                 <p className="text_num">{seventhContent.length}/200</p>
               </div>
             </div>
@@ -220,21 +231,6 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
-  }
-
-  .Image_container {
-    width: 280px;
-    height: 200px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    margin-left: 300px;
-    background: linear-gradient(
-      180deg,
-      rgba(18, 18, 18, 0) 68.25%,
-      rgba(18, 18, 18, 0.35) 100%
-    );
-    flex: 0 0 auto;
   }
 
   .userInfo-container {
@@ -245,6 +241,38 @@ const CompleteWritingWrap = styled.div`
     gap: 21px;
   }
 
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  .Image_container {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .CompleteImg {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(18, 18, 18, 0) 68.25%,
+      rgba(18, 18, 18, 0.35) 100%
+    );
+    object-fit: cover;
+    object-position: center;
+  }
   .user-name {
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
     font-size: 16px;
@@ -266,54 +294,5 @@ const CompleteWritingWrap = styled.div`
     display: inline-flex;
     justify-content: center;
     flex-direction: row;
-  }
-  .shareBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    margin-left: 30dp;
-    border: none;
-  }
-  .deleteBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(207, 102, 121, 0.5);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-  .editBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: var(--primary-900, #233e2c);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
   }
 `;

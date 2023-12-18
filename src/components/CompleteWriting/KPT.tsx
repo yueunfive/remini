@@ -90,13 +90,7 @@ function CompleteWritingKPT() {
                   <p>계속해서 유지해 나가야할 것을 작성해주세요.</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={firstContent}
-                    onChange={(e) => setFirstContent(e.target.value)}
-                    style={{ resize: "none" }}
-                  ></textarea>
+                  <div className="mainContent_Input">{firstContent}</div>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
               </div>
@@ -107,13 +101,7 @@ function CompleteWritingKPT() {
                   <p>앞으로 개선되어야 할 것</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={secondContent}
-                    onChange={(e) => setSecondContent(e.target.value)}
-                    style={{ resize: "none" }}
-                  ></textarea>
+                  <div className="mainContent_Input">{secondContent}</div>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
               </div>
@@ -124,13 +112,7 @@ function CompleteWritingKPT() {
                   <p>이를 해결하기 위한 구체적인 개선방안</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={thirdContent}
-                    onChange={(e) => setThirdContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{thirdContent}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -205,7 +187,6 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
   }
 
   .userInfo-container {
@@ -224,22 +205,29 @@ const CompleteWritingWrap = styled.div`
   }
 
   .Image_container {
-    position: relative;
     width: 280px;
-    height: 230px;
-    margin-left: 320px;
+    height: 200px;
     border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .CompleteImg {
-    width: 280;
-    height: 230px;
+    width: 280px;
+    height: 200px;
     border-radius: 16px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
+    object-fit: cover;
+    object-position: center;
   }
 
   .user-name {

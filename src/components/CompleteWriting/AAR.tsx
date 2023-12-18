@@ -10,6 +10,7 @@ type DataType = {
   createdDate: string;
   nickname: String;
   reminiImage: string;
+  profileImageURL: string;
 };
 
 function CompleteWritingARR() {
@@ -31,7 +32,7 @@ function CompleteWritingARR() {
         const data = response.data;
 
         setRetrospectiveData(data);
-        if (data.sectionTexts && data.sectionTexts.length === 3) {
+        if (data.sectionTexts && data.sectionTexts.length === 4) {
           setFirstContent(data.sectionTexts[0]);
           setSecondContent(data.sectionTexts[1]);
           setThirdContent(data.sectionTexts[2]);
@@ -55,11 +56,17 @@ function CompleteWritingARR() {
             <div className="WritingKind_title">AAR 회고</div>
             <div className="WritingKind_content">
               AAR은 After Action Review/Report의 줄임말로 짧은 시간 내에
-              유연하고 편하게 진행되는 회고예요
+              유연하고 편하게
+              <br />
+              진행되는 회고예요
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
               <div className="user-name">
                 {retrospectiveData?.nickname || "레미니"}
@@ -90,13 +97,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={firstContent}
-                    onChange={(e) => setFirstContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{firstContent}</div>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
               </div>
@@ -110,13 +111,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={secondContent}
-                    onChange={(e) => setSecondContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{secondContent}</div>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
               </div>
@@ -129,13 +124,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={thirdContent}
-                    onChange={(e) => setThirdContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{thirdContent}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -149,13 +138,7 @@ function CompleteWritingARR() {
                   </p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={fourContent}
-                    onChange={(e) => setFourContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{fourContent}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -230,24 +213,32 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
   }
 
   .Image_container {
-    position: relative;
     width: 280px;
-    margin-left: 370px;
+    height: 200px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .CompleteImg {
-    width: 280;
-    height: 230px;
+    width: 280px;
+    height: 200px;
     border-radius: 16px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
+    object-fit: cover;
+    object-position: center;
   }
 
   .userInfo-container {
@@ -256,6 +247,13 @@ const CompleteWritingWrap = styled.div`
     justify-content: center;
     align-items: center;
     gap: 21px;
+  }
+
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
   }
 
   .user-name {
@@ -295,38 +293,6 @@ const CompleteWritingWrap = styled.div`
     font-style: normal;
     font-weight: 600;
     margin-left: 30dp;
-    border: none;
-  }
-  .deleteBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(207, 102, 121, 0.5);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-  .editBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: var(--primary-900, #233e2c);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
     border: none;
   }
 `;

@@ -10,6 +10,7 @@ type DataType = {
   createdDate: string;
   nickname: String;
   reminiImage: string;
+  profileImageURL: string;
 };
 
 function CompleteWritingORID() {
@@ -31,7 +32,7 @@ function CompleteWritingORID() {
         const data = response.data;
 
         setRetrospectiveData(data);
-        if (data.sectionTexts && data.sectionTexts.length === 3) {
+        if (data.sectionTexts && data.sectionTexts.length === 4) {
           setFirstContent(data.sectionTexts[0]);
           setSecondContent(data.sectionTexts[1]);
           setThirdContent(data.sectionTexts[2]);
@@ -54,13 +55,18 @@ function CompleteWritingORID() {
           <div className="WritingKind_container">
             <div className="WritingKind_title">ORID 회고</div>
             <div className="WritingKind_content">
-              ORID 회고는 Objective(지각 단계)-Reflective(반응
-              단계)-Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로,
-              사고와 대화를 촉진하는 회고예요
+              ORID 회고는 Objective(지각 단계)-Reflective(반응 단계)
+              <br />
+              -Interpretive(해석 단계)-Decisional(결정 단계)의 줄임말로, 사고와
+              대화를 촉진하는 회고예요
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
               <div className="user-name">
                 {retrospectiveData?.nickname || "레미니"}
@@ -87,13 +93,7 @@ function CompleteWritingORID() {
                   <p>좋았던 것을 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={firstContent}
-                    onChange={(e) => setFirstContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{firstContent}</div>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
               </div>
@@ -103,13 +103,7 @@ function CompleteWritingORID() {
                   <p>배운 것을 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={secondContent}
-                    onChange={(e) => setSecondContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{secondContent}</div>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
               </div>
@@ -119,13 +113,7 @@ function CompleteWritingORID() {
                   <p>부족했던 것을 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={thirdContent}
-                    onChange={(e) => setThirdContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{thirdContent}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -135,13 +123,7 @@ function CompleteWritingORID() {
                   <p>바라는 것을 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={fourContent}
-                    onChange={(e) => setFourContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{fourContent}</div>
                   <p className="text_num">{fourContent.length}/200</p>
                 </div>
               </div>
@@ -216,31 +198,47 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
   }
 
   .Image_container {
-    position: relative;
     width: 280px;
-    margin-left: 370px;
+    height: 200px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .CompleteImg {
-    width: 280;
-    height: 230px;
+    width: 280px;
+    height: 200px;
     border-radius: 16px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
+    object-fit: cover;
+    object-position: center;
   }
+
   .userInfo-container {
     margin-top: 60px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: 21px;
+  }
+
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
   }
 
   .user-name {
@@ -280,38 +278,6 @@ const CompleteWritingWrap = styled.div`
     font-style: normal;
     font-weight: 600;
     margin-left: 30dp;
-    border: none;
-  }
-  .deleteBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: rgba(207, 102, 121, 0.5);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    border: none;
-  }
-  .editBtn {
-    width: 92dp;
-    height: 45dp;
-    display: inline-flex;
-    padding: 13px 32px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 16px;
-    background: var(--primary-900, #233e2c);
-    color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
     border: none;
   }
 `;

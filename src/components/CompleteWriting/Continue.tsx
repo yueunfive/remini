@@ -8,10 +8,9 @@ import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
 
 type DataType = {
   createdDate: string;
-  liked: boolean;
-  likesCount: number;
   nickname: String;
   reminiImage: string;
+  profileImageURL: string;
 };
 
 function CompleteWritingContinue() {
@@ -59,7 +58,11 @@ function CompleteWritingContinue() {
             </div>
             <div className="userInfo-container">
               <div className="user-info">
-                <img src={BasicProfile} />
+                <img
+                  src={retrospectiveData?.profileImageURL || BasicProfile}
+                  alt="profileImag"
+                  className="user-profile"
+                />
               </div>
               <div className="user-name">
                 {retrospectiveData?.nickname || "레미니"}
@@ -86,13 +89,7 @@ function CompleteWritingContinue() {
                   <p>우리가 무엇을 계속할 지에 대해 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={firstContent}
-                    onChange={(e) => setFirstContent(e.target.value)}
-                    style={{ resize: "none" }}
-                  ></textarea>
+                  <div className="mainContent_Input">{firstContent}</div>
                   <p className="text_num">{firstContent.length}/200</p>
                 </div>
               </div>
@@ -102,13 +99,7 @@ function CompleteWritingContinue() {
                   <p>우리가 무엇을 그만두어야 할 지에 대해 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={secondContent}
-                    onChange={(e) => setSecondContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{secondContent}</div>
                   <p className="text_num">{secondContent.length}/200</p>
                 </div>
               </div>
@@ -118,13 +109,7 @@ function CompleteWritingContinue() {
                   <p>우리가 무엇을 시작하여야 할 지에 대해 작성하기</p>
                 </div>
                 <div>
-                  <textarea
-                    className="mainContent_Input"
-                    placeholder="텍스트를 입력해주세요"
-                    value={thirdContent}
-                    onChange={(e) => setThirdContent(e.target.value)}
-                    style={{ resize: "none" }} // 사이즈 조절 방지
-                  ></textarea>
+                  <div className="mainContent_Input">{thirdContent}</div>
                   <p className="text_num">{thirdContent.length}/200</p>
                 </div>
               </div>
@@ -199,7 +184,6 @@ const CompleteWritingWrap = styled.div`
     max-width: 800px;
     text-align: justify;
     margin: auto;
-    padding: 20px;
   }
 
   .userInfo-container {
@@ -210,21 +194,37 @@ const CompleteWritingWrap = styled.div`
     gap: 21px;
   }
 
+  .user-profile {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
   .Image_container {
-    position: relative;
     width: 280px;
-    margin-left: 380px;
+    height: 200px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-left: 300px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .CompleteImg {
-    width: 280dp;
-    height: 230px;
+    width: 280px;
+    height: 200px;
     border-radius: 16px;
     background: linear-gradient(
       180deg,
       rgba(18, 18, 18, 0) 68.25%,
       rgba(18, 18, 18, 0.35) 100%
     );
+    object-fit: cover;
+    object-position: center;
   }
 
   .user-name {

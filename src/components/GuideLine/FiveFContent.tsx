@@ -29,7 +29,6 @@ const GuideLineVerticleContent = styled.div`
   .mainContent_Btn {
     display: flex;
     width: 320px;
-    padding: 16px 60px;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
@@ -70,7 +69,6 @@ const GuideLineVerticleContent = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    outline: none;
   }
 
   .text_num {
