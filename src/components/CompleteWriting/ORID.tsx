@@ -17,7 +17,7 @@ interface isEditModeTypeProps {
   isEditMode: boolean;
 }
 
-function CompleteWritingORID({ isEditMode: isEditModeTypeProps }) {
+function CompleteWritingORID({ isEditMode }: isEditModeTypeProps) {
   const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");

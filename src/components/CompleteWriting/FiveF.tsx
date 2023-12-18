@@ -17,7 +17,7 @@ interface isEditModeTypeProps {
   isEditMode: boolean;
 }
 
-function CompleteWritingFiveF({ isEditMode: isEditModeTypeProps }) {
+function CompleteWritingFiveF({ isEditMode }: isEditModeTypeProps) {
   const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
