@@ -13,7 +13,11 @@ type DataType = {
   profileImageURL: string;
 };
 
-function CompleteWritingYWT({ isEditMode }) {
+interface isEditModeTypeProps {
+  isEditMode: boolean;
+}
+
+function CompleteWritingYWT({ isEditMode }: isEditModeTypeProps) {
   const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");

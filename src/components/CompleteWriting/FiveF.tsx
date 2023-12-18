@@ -13,7 +13,11 @@ type DataType = {
   profileImageURL: string;
 };
 
-function CompleteWritingFiveF({ isEditMode }) {
+interface isEditModeTypeProps {
+  isEditMode: boolean;
+}
+
+function CompleteWritingFiveF({ isEditMode: isEditModeTypeProps }) {
   const { id } = useParams();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
