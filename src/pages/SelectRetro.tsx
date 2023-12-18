@@ -23,7 +23,10 @@ export default function SelectRetro() {
   const storedSelectMethod = localStorage.getItem("selectMethod");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const newValue = e.target.value;
+    if (newValue.length <= 25) {
+      setInputValue(newValue);
+    }
   };
 
   const handleButtonClick = (componentName: string) => {

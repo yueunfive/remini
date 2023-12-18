@@ -121,7 +121,11 @@ export const Popular: React.FC = () => {
                 likesCount={item.likesCount}
                 reminiId={item.reminiId}
                 reminiImage={item.reminiImage}
-                title={item.title}
+                title={
+                  item.title.length > 15
+                    ? item.title.substring(0, 15) + "..."
+                    : item.title
+                }
                 goToResult={() => handleRetroBoxClick(item.reminiId)}
                 setShowModal={setShowModal}
               />

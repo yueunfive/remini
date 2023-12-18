@@ -131,7 +131,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={firstContent}
-                    onChange={(e) => setFirstContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setFirstContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{firstContent.length}/200</p>
@@ -151,7 +154,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={secondContent}
-                    onChange={(e) => setSecondContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setSecondContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{secondContent.length}/200</p>
@@ -168,7 +174,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={thirdContent}
-                    onChange={(e) => setThirdContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setThirdContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{thirdContent.length}/200</p>
@@ -185,7 +194,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={fourContent}
-                    onChange={(e) => setFourContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setFourContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{fourContent.length}/200</p>
@@ -201,7 +213,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={fifthContent}
-                    onChange={(e) => setFifthContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setFifthContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{fifthContent.length}/200</p>
@@ -224,7 +239,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={sixthContent}
-                    onChange={(e) => setSixthContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setSixthContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{sixthContent.length}/200</p>
@@ -243,7 +261,10 @@ export default function Performance() {
                     className="mainContent_Input"
                     placeholder="텍스트를 입력해주세요"
                     value={seventhContent}
-                    onChange={(e) => setSeventhContent(e.target.value)}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (text.length <= 200) setSeventhContent(text);
+                    }}
                     style={{ resize: "none" }} // 사이즈 조절 방지
                   ></textarea>
                   <p className="text_num">{seventhContent.length}/200</p>
