@@ -122,13 +122,18 @@ export default function Recommend() {
         >
           {buttonText()}
         </button>
+        <div className="empty-box">
+          <br />
+          <br />
+          <br />
+        </div>
       </RecommendWrap>
     </div>
   );
 }
 
 const RecommendWrap = styled.div`
-  height: 742px;
+  height: 1000px;
   background: var(--Background, #121212);
   display: flex;
   flex-direction: column;
@@ -146,7 +151,7 @@ const RecommendWrap = styled.div`
     text-align: center;
     padding: 26px 0;
     box-sizing: border-box;
-    margin-top: 44px;
+    margin-top: 50px;
 
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));
     font-size: 32px;
