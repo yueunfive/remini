@@ -38,7 +38,8 @@ function CompleteWriting() {
   );
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const fetchRetrospective = async () => {
     try {
@@ -144,15 +145,16 @@ function CompleteWriting() {
   };
 
   const handleShareClick = () => {
-    setShowModal(true);
+    setShowShareModal(true);
   };
 
   const handleDeleteClick = () => {
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
 
-  const handleOverlayClick = () => {
-    setShowModal(false);
+  const closeModals = () => {
+    setShowShareModal(false);
+    setShowDeleteModal(false);
   };
 
   return (
@@ -174,7 +176,7 @@ function CompleteWriting() {
             <div className="sharebtn" onClick={handleShareClick}>
               <img src={sharebtn} alt="Share" />
             </div>
-            {/* 유저의 글에만 보임 : 수정, 삭제 */}
+            {/* 유저의 글에만 보임: 수정, 삭제 */}
             {retrospective && retrospective.owner && (
               <>
                 <div className="editbtn">
@@ -194,12 +196,19 @@ function CompleteWriting() {
           <br />
         </div>
       </CompleteWritingWrap>
-      {showModal && (
-        <>
-          <ShareModal closeModal={() => setShowModal(false)} />
-          <DeleteModal closeModal={() => setShowModal(false)} />
-          <ModalOverlay onClick={handleOverlayClick} />
-        </>
+      {showShareModal && (
+        <ShareModal closeModal={() => setShowShareModal(false)} />
+      )}
+      {showDeleteModal && (
+        <DeleteModal closeModal={() => setShowDeleteModal(false)} />
+      )}
+      {(showShareModal || showDeleteModal) && (
+        <ModalOverlay
+          onClick={() => {
+            setShowShareModal(false);
+            setShowDeleteModal(false);
+          }}
+        />
       )}
     </>
   );
