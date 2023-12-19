@@ -48,6 +48,7 @@ import { CategoryPerformance } from "./pages/Browsing/Category/Performance";
 import { CategoryPersonal } from "./pages/Browsing/Category/Personal";
 import { CategoryYWT } from "./pages/Browsing/Category/YWT";
 import { Subscribe } from "./pages/Subscribe";
+import CompleteLanding from "./pages/Complete/CompleteLanding";
 
 function App() {
   return (
@@ -102,6 +103,7 @@ function App() {
 
           <Route path="/attach-picture" element={<AttachPicture />} />
           <Route path="/complete-writing/:id" element={<CompleteWriting />} />
+          <Route path="/complete-congrats" element={<CompleteLanding />} />
 
           {/* browsing */}
           <Route path="/browsing/popular" element={<Popular />} />
