@@ -85,6 +85,8 @@ const GuideLineTheeContent = styled.div`
     font-weight: 400;
     line-height: normal;
     outline: none;
+    /* PC/Text_M */
+    font-family: Pretendard;
   }
 
   .text_num {

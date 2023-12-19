@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CompleteImg from "../../img/UI/basicImage.png";
 import BasicProfile from "../../img/UI/basicProfile.png";
 import axios from "axios";
 import GuideLineTheeContent from "../../components/GuideLine/ThreeContent";
+import editbtn from "../../img/UI/edit.png";
+import { useNavigate } from "react-router-dom";
 
 type DataType = {
   createdDate: string;
@@ -19,12 +21,23 @@ interface isEditModeTypeProps {
 
 function CompleteWritingKPT({ isEditMode }: isEditModeTypeProps) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [firstContent, setFirstContent] = useState("");
   const [secondContent, setSecondContent] = useState("");
   const [thirdContent, setThirdContent] = useState("");
   const [retrospectiveData, setRetrospectiveData] = useState<DataType | null>(
     null
   );
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // 이미지 파일 선택 핸들러
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImageFile(event.target.files[0]);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +86,12 @@ function CompleteWritingKPT({ isEditMode }: isEditModeTypeProps) {
         }
       );
 
-      console.log("수정 요청 성공:", response.data);
+      if (imageFile) {
+        await uploadImage(response.data.uploadUrl);
+      }
+
+      const newId = response.data.reminiId;
+      navigate(`/complete-writing/${newId}`);
       alert("수정이 완료되었습니다!🥳");
       window.location.reload();
     } catch (error) {
@@ -100,6 +118,26 @@ function CompleteWritingKPT({ isEditMode }: isEditModeTypeProps) {
     ) : (
       <div className="mainContent_Input">{content}</div>
     );
+  };
+
+  // 이미지 업로드 로직
+  const uploadImage = async (uploadUrl: string) => {
+    if (!imageFile) {
+      console.error("업로드할 이미지 파일이 없습니다.");
+      return;
+    }
+
+    try {
+      const imageResponse = await axios.put(uploadUrl, imageFile, {
+        headers: {
+          "Content-Type": imageFile.type,
+        },
+      });
+
+      console.log("이미지 업로드 성공:", imageResponse);
+    } catch (error) {
+      console.error("이미지 업로드 실패:", error);
+    }
   };
 
   return (
@@ -135,6 +173,23 @@ function CompleteWritingKPT({ isEditMode }: isEditModeTypeProps) {
               alt="CompleteImg"
               className="CompleteImg"
             />
+            {/* 수정 모드 일 때만 보임 */}
+            {isEditMode && (
+              <>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                />
+                <img
+                  className="photo-edit-btn"
+                  src={editbtn}
+                  onClick={() => fileInputRef.current?.click()}
+                />
+              </>
+            )}
           </div>
         </div>
         <div className="mainContent-container">
@@ -361,5 +416,10 @@ const CompleteWritingWrap = styled.div`
     font-style: normal;
     font-weight: 600;
     border: none;
+  }
+  .photo-edit-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
   }
 `;

@@ -85,6 +85,8 @@ const GuideLineFourContent = styled.div`
     line-height: normal;
     outline: none;
     margin-block-end: 30px;
+    /* PC/Text_M */
+    font-family: Pretendard;
   }
 
   .text_num {
