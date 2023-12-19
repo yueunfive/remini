@@ -67,7 +67,7 @@ const SubscribeModal: React.FC<{
         <div>
           <h1>해지를 취소하시겠어요?</h1>
           <p>
-            기존 자동 결제일에 결제가 되며 구독 기간은 동일하게 적용됩니다.{" "}
+            기존 다음 결제일에 자동으로 결제가 되며, Premium 혜택이 유지됩니다.
             <br></br>
             다음 결제일 : {expirationDate}
           </p>
