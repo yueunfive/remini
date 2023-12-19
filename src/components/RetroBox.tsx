@@ -49,9 +49,8 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
 
     if (accessToken) {
       try {
-        let response;
         if (!currentIsLiked) {
-          response = await axios.post(
+          await axios.post(
             `https://www.remini.store/api/remini/${reminiId}/likes`,
             {},
             {
@@ -62,7 +61,7 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
           );
           setIsLiked(true);
         } else {
-          response = await axios.delete(
+          await axios.delete(
             `https://www.remini.store/api/remini/${reminiId}/likes`,
             {
               headers: {
