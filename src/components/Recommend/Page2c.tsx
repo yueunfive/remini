@@ -8,7 +8,13 @@ interface Page2cProps {
 }
 
 export const Page2c: React.FC<Page2cProps> = ({ pd }) => {
-  const [isChecked] = useAtom(isCheckedAtoms);
+  const [isChecked, setIsChecked] = useAtom(isCheckedAtoms);
+
+  const handleParagraphClick = (index: number) => {
+    const newCheckedState = [...isChecked];
+    setIsChecked(newCheckedState);
+    pd(index + 1);
+  };
 
   return (
     <SelectWrap>
@@ -19,13 +25,21 @@ export const Page2c: React.FC<Page2cProps> = ({ pd }) => {
             type="checkbox"
             checked={isChecked[0]}
             onChange={() => pd(1)}
+            id="checkbox1"
           />
+          <label htmlFor="checkbox1"></label>
         </div>
-        <p>프로젝트를 진행 중이에요</p>
+        <p onClick={() => handleParagraphClick(0)}>프로젝트를 진행 중이에요</p>
       </div>
       <div className={`select_box ${isChecked[1] ? "checked" : ""}`}>
-        <input type="checkbox" checked={isChecked[1]} onChange={() => pd(2)} />
-        <p>프로젝트를 마무리했어요</p>
+        <input
+          type="checkbox"
+          checked={isChecked[1]}
+          onChange={() => pd(2)}
+          id="checkbox2"
+        />
+        <label htmlFor="checkbox2"></label>
+        <p onClick={() => handleParagraphClick(1)}>프로젝트를 마무리했어요</p>
       </div>
     </SelectWrap>
   );

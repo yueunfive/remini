@@ -1,6 +1,6 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
-import stepNum from "../../img/UI/stepNum.svg";
+import stepNum from "../../img/UI/contract_edit.svg";
 
 export const FiveF: React.FC = () => {
   return (

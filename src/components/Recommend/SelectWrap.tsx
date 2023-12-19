@@ -24,14 +24,45 @@ const SelectWrap = styled.div`
     gap: 24px;
   }
 
-  // 체크박스 디자인 생략
-  .select_box input {
+  /* 기본적인 체크박스 스타일 */
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  /* 체크박스 레이블 스타일 */
+  input[type="checkbox"] + label {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border: 2px solid white;
+    width: 16.5px;
+    height: 16.5px;
+    border: 1.5px solid white; /* 클릭하기 전 테두리 */
     cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    border-radius: 3px;
+    margin-bottom: 1px;
+  }
+
+  /* 체크박스가 체크된 경우 레이블 스타일 */
+  input[type="checkbox"]:checked + label {
+    background-color: rgba(121, 205, 150, 1);
+    border: 1.5px solid transparent;
+    margin-bottom: 1px;
+  }
+
+  /* 체크박스가 체크된 경우 표시하는 체크 표시 스타일 */
+  input[type="checkbox"]:checked + label::after {
+    content: "✔";
+    font-size: 13px;
+    width: 16.5px;
+    height: 16.5px;
+
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 20px;
+    border-radius: 3px;
+    vertical-align: middle;
   }
 
   .select_box p {
@@ -41,6 +72,8 @@ const SelectWrap = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    cursor: pointer;
   }
 
   .select_box.checked p {

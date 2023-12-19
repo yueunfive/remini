@@ -8,7 +8,13 @@ interface Page3aProps {
 }
 
 export const Page3a: React.FC<Page3aProps> = ({ pd }) => {
-  const [isChecked] = useAtom(isCheckedAtoms);
+  const [isChecked, setIsChecked] = useAtom(isCheckedAtoms);
+
+  const handleParagraphClick = (index: number) => {
+    const newCheckedState = [...isChecked];
+    setIsChecked(newCheckedState);
+    pd(index + 1);
+  };
 
   return (
     <SelectWrap>
@@ -19,13 +25,21 @@ export const Page3a: React.FC<Page3aProps> = ({ pd }) => {
             type="checkbox"
             checked={isChecked[0]}
             onChange={() => pd(1)}
+            id="checkbox1"
           />
+          <label htmlFor="checkbox1"></label>
         </div>
-        <p>한 달</p>
+        <p onClick={() => handleParagraphClick(0)}>한 달</p>
       </div>
       <div className={`select_box ${isChecked[1] ? "checked" : ""}`}>
-        <input type="checkbox" checked={isChecked[1]} onChange={() => pd(2)} />
-        <p>분기 (3개월)</p>
+        <input
+          type="checkbox"
+          checked={isChecked[1]}
+          onChange={() => pd(2)}
+          id="checkbox2"
+        />
+        <label htmlFor="checkbox2"></label>
+        <p onClick={() => handleParagraphClick(1)}>분기 (3개월)</p>
       </div>
     </SelectWrap>
   );
