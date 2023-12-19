@@ -17,6 +17,7 @@ import filledHeart from "../../img/UI/filledHeart.png";
 import emptyHeart from "../../img/UI/emptyHeart.png";
 import sharebtn from "../../img/UI/Ic_Share.png";
 import editbtn from "../../img/UI/edit.png";
+import editFilledbtn from "../../img/UI/editFilled.png";
 import deletebtn from "../../img/UI/delete.png";
 import ShareModal from "../../components/Modal/ShareModal";
 import DeleteModal from "../../components/Modal/DeleteModal";
@@ -41,6 +42,7 @@ function CompleteWriting() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditClicked, setIsEditClicked] = useState(false);
 
   const fetchRetrospective = async () => {
     try {
@@ -76,6 +78,7 @@ function CompleteWriting() {
 
   const handleEditClick = () => {
     setIsEditMode(true);
+    setIsEditClicked(!isEditClicked);
   };
 
   //type 값에 맞는 랜더링
@@ -184,8 +187,11 @@ function CompleteWriting() {
             {/* 유저의 글에만 보임: 수정, 삭제 */}
             {retrospective && retrospective.owner && (
               <>
-                <div className="editbtn">
-                  <img src={editbtn} alt="edit" onClick={handleEditClick} />
+                <div className="editbtn" onClick={handleEditClick}>
+                  <img
+                    src={isEditClicked ? editFilledbtn : editbtn}
+                    alt="edit"
+                  />
                 </div>
                 <div className="deletebtn" onClick={handleDeleteClick}>
                   <img src={deletebtn} alt="delete" />
