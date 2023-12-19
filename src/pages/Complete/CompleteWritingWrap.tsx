@@ -58,6 +58,12 @@ const CompleteWritingWrap = styled.div`
     align-items: center;
     gap: 8px;
   }
+  .likes:hover,
+  .sharebtn:hover,
+  .editbtn:hover,
+  .deletebtn:hover {
+    cursor: pointer;
+  }
 `;
 
 export default CompleteWritingWrap;
