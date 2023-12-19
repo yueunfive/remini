@@ -289,7 +289,7 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
                 <div>
                   {renderContentInput(seventhContent, setSeventhContent)}
                 </div>
-                <p className="text_num">{seventhContent}/200</p>
+                <p className="text_num">{seventhContent.length}/200</p>
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
