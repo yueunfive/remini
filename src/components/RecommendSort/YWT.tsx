@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const YWT: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">YWT 회고</h3>
+      <div className="title">
+        <span>YWT 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>YWT는 일본 도요타에서 사용한 방식으로 짧게 진행되는 회고예요.</p>
         <br />

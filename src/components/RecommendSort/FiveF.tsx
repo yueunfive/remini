@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const FiveF: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">5F 회고</h3>
+      <div className="title">
+        <span>5F 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>5</span>
+      </div>
       <div className="text_box">
         <p>
           5F 회고는 다섯 가지 차원(Five Dimensions)을 기반으로 순서대로 진행하는

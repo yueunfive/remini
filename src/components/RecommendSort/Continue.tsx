@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const Continue: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">Continue-Stop-Start 회고</h3>
+      <div className="title">
+        <span>Continue-Stop-Start 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>
           Continue-Stop-Start 회고는 해결법 지향적이고, 무엇을 시작하고

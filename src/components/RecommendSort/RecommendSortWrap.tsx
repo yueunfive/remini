@@ -25,6 +25,14 @@ const RecommendSortWrap = styled.div`
     font-weight: 700;
     line-height: normal;
     margin: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .stepNumImg {
+      margin-left: 12px;
+    }
   }
   p {
     color: var(--text-medium-emphasis, rgba(255, 255, 255, 0.6));

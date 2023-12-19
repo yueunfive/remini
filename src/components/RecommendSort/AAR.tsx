@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const AAR: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">AAR 회고</h3>
+      <div className="title">
+        <span>AAR 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>
           AAR은 After Action Review/Report의 줄임말로 짧은 시간 내에 유연하고

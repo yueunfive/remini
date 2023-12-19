@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const ORID: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">ORID 회고</h3>
+      <div className="title">
+        <span>ORID 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>4</span>
+      </div>
       <div className="text_box">
         <p>
           ORID 회고는 Objective(지각 단계)-Reflective(반응

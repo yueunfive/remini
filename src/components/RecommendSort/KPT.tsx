@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const KPT: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">KPT 회고</h3>
+      <div className="title">
+        <span>KPT 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>KPT는 각각 Keep, Problem, Try의 약자입니다.</p>
         <p>

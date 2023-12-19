@@ -1,10 +1,15 @@
 import React from "react";
 import RecommendSortWrap from "./RecommendSortWrap";
+import stepNum from "../../img/UI/stepNum.svg";
 
 export const Performance: React.FC = () => {
   return (
     <RecommendSortWrap>
-      <h3 className="title">성과/수치 중심 회고</h3>
+      <div className="title">
+        <span>성과/수치 중심 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>8</span>
+      </div>
       <div className="text_box">
         <p>
           성과/수치 중심 회고는 보통 분기/일 년 회고를 할 때 많이 사용하는
