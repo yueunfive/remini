@@ -2,8 +2,6 @@ import React from "react";
 import StepByStepWrap from "../StepByStepWrap";
 import img2 from "../../../img/ProgressBar/KPT2.png";
 import WritingPageBtnWrap from "../../WritingPageBtn";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 //Step by Step KPT 회고 페이지 2
 interface KPT2Props {
@@ -23,7 +21,6 @@ export default function KPT2({
   isContentFilled, // isContentFilled 속성 추가
   setContent, // setContent 속성 추가
 }: KPT2Props) {
-  const navigate = useNavigate();
   const indexToFill = 1;
 
   // 다음
@@ -35,42 +32,6 @@ export default function KPT2({
       setContent(updatedContent); // 새로운 배열로 content 업데이트
       setInputContent("");
       handleComplete();
-    }
-  };
-
-  // 임시 저장
-  const tempStore = () => {
-    if (inputContent.trim().length > 0) {
-      if (inputContent.trim().length > 0) {
-        const updatedContent = [...content];
-        updatedContent[indexToFill] = inputContent;
-
-        const accessToken = localStorage.getItem("accessToken");
-
-        const data = {
-          instantSave: true,
-          sectionTexts: updatedContent,
-          step: indexToFill + 1,
-          title: localStorage.getItem("title"),
-          type: localStorage.getItem("type"),
-        };
-
-        // Axios를 사용한 POST 요청 보내기
-        axios
-          .post("https://www.remini.store/api/remini", data, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((response) => {
-            console.log("임시 저장 완료", response.data);
-            alert("임시 저장에 성공했습니다!");
-            navigate("/MyPage"); // MyPage로 이동
-          })
-          .catch((error) => {
-            console.error("임시 저장 실패:", error);
-          });
-      }
     }
   };
 
@@ -108,13 +69,6 @@ export default function KPT2({
           </div>
         </div>
         <WritingPageBtnWrap>
-          <button
-            className="temporary_btn"
-            disabled={!isContentFilled}
-            onClick={tempStore}
-          >
-            임시 저장
-          </button>
           <button
             className="completed_btn"
             style={{

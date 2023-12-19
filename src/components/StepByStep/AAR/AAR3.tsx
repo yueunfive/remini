@@ -62,9 +62,6 @@ export default function AAR3({
           </div>
         </div>
         <WritingPageBtnWrap>
-          <button className="temporary_btn" disabled={!isContentFilled}>
-            임시 저장
-          </button>
           <button
             className="completed_btn"
             style={{

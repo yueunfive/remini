@@ -77,22 +77,6 @@ const StepByStepWrap = styled.div`
     margin-bottom: 60px;
   }
 
-  .temporary_btn {
-    display: inline-flex;
-    padding: 16px 60px;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.77);
-    text-align: center;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    color: var(--Background, #121212);
-  }
   .completed_btn {
     margin-top: 30px;
     display: inline-flex;

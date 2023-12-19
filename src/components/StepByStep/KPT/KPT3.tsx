@@ -3,7 +3,6 @@ import StepByStepWrap from "../StepByStepWrap";
 import img3 from "../../../img/ProgressBar/KPT3.png";
 import WritingPageBtnWrap from "../../WritingPageBtn";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 //Step by Step KPT 회고 페이지 3
 interface KPT3Props {
@@ -33,42 +32,6 @@ export default function KPT3({
       const updatedContent = [...content];
       updatedContent[indexToFill] = inputContent;
       localStorage.setItem("sectionTexts", JSON.stringify(updatedContent)); // 작성 완료 시 content 배열을 localStorage에 저장
-    }
-  };
-
-  // 임시 저장
-  const tempStore = () => {
-    if (inputContent.trim().length > 0) {
-      if (inputContent.trim().length > 0) {
-        const updatedContent = [...content];
-        updatedContent[indexToFill] = inputContent;
-
-        const accessToken = localStorage.getItem("accessToken");
-
-        const data = {
-          instantSave: true,
-          sectionTexts: updatedContent,
-          step: indexToFill + 1,
-          title: localStorage.getItem("title"),
-          type: localStorage.getItem("type"),
-        };
-
-        // Axios를 사용한 POST 요청 보내기
-        axios
-          .post("https://www.remini.store/api/remini", data, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-          .then((response) => {
-            console.log("임시 저장 완료", response.data);
-            alert("임시 저장에 성공했습니다!");
-            navigate("/MyPage"); // MyPage로 이동
-          })
-          .catch((error) => {
-            console.error("임시 저장 실패:", error);
-          });
-      }
     }
   };
 
@@ -107,13 +70,6 @@ export default function KPT3({
           </div>
         </div>
         <WritingPageBtnWrap>
-          <button
-            className="temporary_btn"
-            disabled={!isContentFilled}
-            onClick={tempStore}
-          >
-            임시 저장
-          </button>
           <button
             className="completed_btn"
             style={{
