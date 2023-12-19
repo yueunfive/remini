@@ -1,10 +1,15 @@
 import React from "react";
 import SortDetailWrap from "./SortDetailWrap";
+import stepNum from "../../img/UI/contract_edit.png";
 
 export const TIL: React.FC = () => {
   return (
     <SortDetailWrap>
-      <h3 className="title">TIL 회고</h3>
+      <div className="title">
+        <span>TIL 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>
           TIL 회고는 Today I Learned의 줄임말로 매일의 배움을 기록하는 회고예요.

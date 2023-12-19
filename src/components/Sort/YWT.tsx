@@ -1,10 +1,15 @@
 import React from "react";
 import SortDetailWrap from "./SortDetailWrap";
+import stepNum from "../../img/UI/contract_edit.png";
 
 export const YWT: React.FC = () => {
   return (
     <SortDetailWrap>
-      <h3 className="title">YWT 회고</h3>
+      <div className="title">
+        <span>YWT 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>YWT는 일본 도요타에서 사용한 방식으로 짧게 진행되는 회고예요.</p>
         <br />

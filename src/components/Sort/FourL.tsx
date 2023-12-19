@@ -1,10 +1,15 @@
 import React from "react";
 import SortDetailWrap from "./SortDetailWrap";
+import stepNum from "../../img/UI/contract_edit.png";
 
 export const FourL: React.FC = () => {
   return (
     <SortDetailWrap>
-      <h3 className="title">4L 회고</h3>
+      <div className="title">
+        <span>4L 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>4</span>
+      </div>
       <div className="text_box">
         <p>
           4L 회고는 오로지 내가 수행하였던 일에만 집중해서 솔직하게 정리하는

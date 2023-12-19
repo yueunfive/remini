@@ -16,6 +16,14 @@ const SortDetailWrap = styled.div`
     font-weight: 600;
     line-height: normal;
     margin: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .stepNumImg {
+      margin-left: 12px;
+    }
   }
   p {
     margin: 0;

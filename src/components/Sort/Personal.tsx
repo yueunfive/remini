@@ -1,10 +1,15 @@
 import React from "react";
 import SortDetailWrap from "./SortDetailWrap";
+import stepNum from "../../img/UI/contract_edit.png";
 
 export const Personal: React.FC = () => {
   return (
     <SortDetailWrap>
-      <h3 className="title">개인적 회고</h3>
+      <div className="title">
+        <span>개인적 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>11</span>
+      </div>
       <div className="text_box">
         <p>
           개인적 회고는 주로 일 년을 돌아보는 회고로, 개인이 보낸 한 해를

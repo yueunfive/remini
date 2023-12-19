@@ -1,10 +1,15 @@
 import React from "react";
 import SortDetailWrap from "./SortDetailWrap";
+import stepNum from "../../img/UI/contract_edit.png";
 
 export const KPT: React.FC = () => {
   return (
     <SortDetailWrap>
-      <h3 className="title">KPT 회고</h3>
+      <div className="title">
+        <span>KPT 회고</span>
+        <img src={stepNum} alt="stepNumImg" className="stepNumImg" />
+        <span>3</span>
+      </div>
       <div className="text_box">
         <p>KPT는 각각 Keep, Problem, Try의 약자입니다.</p>
         <p>
