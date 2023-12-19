@@ -8,7 +8,9 @@ import axios from "axios";
 
 // 구독 모델 변경페이지
 export const Subscribe: React.FC = () => {
-  const [model, setModel] = useState("STANDARD");
+  const [state, setState] = useState("STANDARD");
+  const [toBeState, setToBeState] = useState("");
+  const [expirationDate, setExpirationDate] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리하는 상태
 
   const handleShowModal = () => {
@@ -55,7 +57,18 @@ export const Subscribe: React.FC = () => {
       const user = userResponse.data;
       console.log("state : " + user.state);
       console.log("toBeState : " + user.toBeState);
-      setModel(user.state);
+      setState(user.state);
+      setToBeState(user.toBeState);
+
+      // userData가 설정된 이후에 expirationDate 설정
+      if (user.expirationDate) {
+        const date = new Date(user.expirationDate);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const formattedDate = `${year}.${month}.${day}`;
+        setExpirationDate(formattedDate);
+      }
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -67,9 +80,10 @@ export const Subscribe: React.FC = () => {
       {showModal && (
         <>
           <SubscribeModal
-            model={model}
+            state={state}
+            toBeState={toBeState}
             closeModal={closeModal}
-            setModel={setModel}
+            expirationDate={expirationDate}
           />
           <ModalOverlay onClick={handleOverlayClick} />
         </>
@@ -91,9 +105,16 @@ export const Subscribe: React.FC = () => {
               <button
                 className="standard-btn"
                 onClick={handleShowModal}
-                disabled={model === "STANDARD"}
+                disabled={
+                  state === "STANDARD" ||
+                  (state === "PREMIUM" && toBeState === "STANDARD")
+                }
               >
-                {model === "STANDARD" ? "현재 사용 중" : "시작하기"}
+                {state === "STANDARD"
+                  ? "현재 사용 중"
+                  : toBeState === "STANDARD"
+                  ? `${expirationDate}부터 적용`
+                  : "시작하기"}
               </button>
             </div>
             <div className="subscribe-box">
@@ -107,9 +128,13 @@ export const Subscribe: React.FC = () => {
               <button
                 className="premium-btn"
                 onClick={handleShowModal}
-                disabled={model === "PREMIUM"}
+                disabled={state === "PREMIUM" && toBeState === "PREMIUM"}
               >
-                {model === "PREMIUM" ? "현재 사용 중" : "시작하기"}
+                {state === "PREMIUM" && toBeState === "PREMIUM"
+                  ? "현재 사용 중"
+                  : state === "PREMIUM" && toBeState === "STANDARD"
+                  ? "해지 취소"
+                  : "시작하기"}
               </button>
             </div>
           </div>

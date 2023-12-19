@@ -19,6 +19,7 @@ interface UserData {
   nickName: string;
   profileImageUrl: string;
   state: string;
+  toBeState: string;
   alarmTime: number[];
 }
 
@@ -62,6 +63,7 @@ export const MyPage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const [expirationDate, setExpirationDate] = useState<string | null>(null);
 
   // selectedDate가 없으면 현재 날짜로 설정
   const today = new Date();
@@ -148,6 +150,16 @@ export const MyPage: React.FC = () => {
         setToggleOn(true);
       } else {
         setToggleOn(false);
+      }
+
+      // userData가 설정된 이후에 expirationDate 설정
+      if (user.expirationDate) {
+        const date = new Date(user.expirationDate);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const formattedDate = `${year}.${month}.${day}`;
+        setExpirationDate(formattedDate);
       }
 
       // 개인 회고 목록 조회(3개)
@@ -434,6 +446,16 @@ export const MyPage: React.FC = () => {
                     : "Premium"}
                 </h3>
                 <h4>이용 중</h4>
+                {userData &&
+                  userData.state == "PREMIUM" &&
+                  userData.toBeState == "PREMIUM" && (
+                    <h5>{expirationDate} 갱신 예정</h5>
+                  )}
+                {userData &&
+                  userData.state == "PREMIUM" &&
+                  userData.toBeState == "STANDARD" && (
+                    <h5>{expirationDate} 만료 예정</h5>
+                  )}
               </div>
               <button onClick={goToSubscribe}>구독 변경하기</button>
             </div>
@@ -645,6 +667,18 @@ const MyPageWrap = styled.div<toggleProps>`
         top: 44px;
         left: 142px;
       }
+      h5 {
+        color: rgba(255, 255, 255, 0.38);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        position: absolute;
+        top: 77px;
+        left: 30px;
+      }
+
       button {
         padding: 13px 32px;
         border-radius: 16px;

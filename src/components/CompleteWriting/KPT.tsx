@@ -26,7 +26,7 @@ function CompleteWritingKPT({ isEditMode }: isEditModeTypeProps) {
     null
   );
 
-  const [editMode, setIsEditMode] = useState(false);
+  // const [editMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
