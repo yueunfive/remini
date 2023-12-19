@@ -227,7 +227,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
             <div className="AllmainConten_container">
               <div className="Content-Container">
                 <div className="maintext_container">
-                  올해 가장 자랑스러운 일을 작성하기
+                  <span style={{ fontWeight: 700 }}>
+                    올해 가장 자랑스러운 일
+                  </span>
+                  을 작성하기
                 </div>
               </div>
               <div>
@@ -236,7 +239,8 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  올해 가장 감사한 일을 작성하기
+                  <span style={{ fontWeight: 700 }}>올해 가장 감사한 일</span>을
+                  작성하기
                 </div>
               </div>
               <div>
@@ -245,7 +249,8 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  올해 가장 즐겼던 일을 작성하기
+                  <span style={{ fontWeight: 700 }}>올해 가장 즐겼던 일</span>을
+                  작성하기
                 </div>
               </div>
               <div>
@@ -254,7 +259,8 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  뭘 더 잘할 수 있을지 작성하기
+                  <span style={{ fontWeight: 700 }}>뭘 더 잘할 수 있을지</span>{" "}
+                  작성하기
                 </div>
               </div>
               <div>
@@ -263,7 +269,8 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  올해 극복해낸 챌린지는(난관은) 어떤 것인지 작성하기
+                  <span style={{ fontWeight: 700 }}>올해 극복해낸 챌린지</span>
+                  는(난관은) 어떤 것인지 작성하기
                 </div>
               </div>
               <div>
@@ -273,7 +280,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               {/* 6부터 */}
               <div className="Content-Container">
                 <div className="maintext_container">
-                  올해 얻은 교훈은 어떤 것인지, 어떻게 성장했을지 작성하기
+                  <span style={{ fontWeight: 700 }}>올해 얻은 교훈</span>은 어떤
+                  것인지,{" "}
+                  <span style={{ fontWeight: 700 }}>어떻게 성장했을지</span>{" "}
+                  작성하기
                 </div>
               </div>
               <div>
@@ -282,7 +292,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  하겠다고 해놓고 안 한 일은 어떤 것인지 작성하기
+                  <span style={{ fontWeight: 700 }}>
+                    하겠다고 해놓고 안 한 일
+                  </span>
+                  은 어떤 것인지 작성하기
                 </div>
               </div>
               <div>
@@ -293,7 +306,8 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  다시 하고싶은 일은 어떤 것인지 작성하기
+                  <span style={{ fontWeight: 700 }}>다시 하고싶은 일</span>은
+                  어떤 것인지 작성하기
                 </div>
               </div>
               <div>
@@ -302,8 +316,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  내가 집중했지만 내게 도움이 되지 않았던 일은 어떤 것인지
-                  작성하기
+                  <span style={{ fontWeight: 700 }}>
+                    내가 집중했지만 내게 도움이 되지 않았던 일
+                  </span>
+                  은 어떤 것인지 작성하기
                 </div>
               </div>
               <div>
@@ -312,7 +328,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  삶에서 더 하고 싶은 일은 어떤 것인지 작성하기
+                  <span style={{ fontWeight: 700 }}>
+                    삶에서 더 하고 싶은 일
+                  </span>
+                  은 어떤 것인지 작성하기
                 </div>
               </div>
               <div>
@@ -321,7 +340,10 @@ function CompleteWritingPersonal({ isEditMode }: isEditModeTypeProps) {
               </div>
               <div className="Content-Container">
                 <div className="maintext_container">
-                  삶에서 덜 하고 싶은 일은 어떤 것인지 작성하기
+                  <span style={{ fontWeight: 700 }}>
+                    삶에서 덜 하고 싶은 일
+                  </span>
+                  은 어떤 것인지 작성하기
                 </div>
               </div>
               <div>
