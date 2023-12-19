@@ -5,12 +5,9 @@ const WritingPageBtnWrap = styled.div`
   margin-bottom: 90px;
 
   .temporary_btn {
-    width: 190px;
-    height: 53px;
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    padding: 16px 60px;
+    box-sizing: border-box;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.77);
     text-align: center;
@@ -23,13 +20,9 @@ const WritingPageBtnWrap = styled.div`
     margin-right: 30px;
   }
   .completed_btn {
-    width: 190px;
-    height: 53px;
-    margin-top: 30px;
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    padding: 16px 60px;
+    box-sizing: border-box;
     border-radius: 8px;
     background: var(--primary-800, #79cd96);
     color: #000;

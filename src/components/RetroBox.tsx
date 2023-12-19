@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import emptyHeart from "../img/UI/emptyHeart.png";
 import filledHeart from "../img/UI/filledHeart.png";
@@ -41,28 +41,28 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
     })
     .replace(/\//g, ".");
 
-  // 좋아요(POST / DELETE)
+  // 좋아요
   const handleLikeClick = async () => {
+    const currentIsLiked = isLiked;
+
     const accessToken = localStorage.getItem("accessToken");
+
     if (accessToken) {
       try {
-        if (!isLiked) {
-          const response = await axios.post(
+        let response;
+        if (!currentIsLiked) {
+          response = await axios.post(
             `https://www.remini.store/api/remini/${reminiId}/likes`,
-            null,
+            {},
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
               },
             }
           );
-
-          if (response.status === 200) {
-            setIsLiked(true);
-            setCount(count + 1);
-          }
+          setIsLiked(true);
         } else {
-          const response = await axios.delete(
+          response = await axios.delete(
             `https://www.remini.store/api/remini/${reminiId}/likes`,
             {
               headers: {
@@ -70,15 +70,10 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
               },
             }
           );
-
-          if (response.status === 200) {
-            setIsLiked(false);
-            setCount(count - 1);
-          }
+          setIsLiked(false);
         }
-        window.location.reload(); // 좋아요 실시간 반영이 안되서 일단 새로고침으로
       } catch (error) {
-        console.error("Error:", error);
+        console.error("좋아요 처리 중 오류 발생:", error);
       }
     } else {
       if (setShowModal) {
@@ -86,6 +81,32 @@ export const RetroBox: React.FC<RetroBoxProps> = ({
       }
     }
   };
+
+  // 회고 조회(좋아요 실시간 연동용)
+  const fetchRetrospective = async () => {
+    try {
+      if (reminiId) {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get(
+          `https://www.remini.store/api/remini/${reminiId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        const data = response.data;
+        setIsLiked(data.liked);
+        setCount(data.likesCount);
+      }
+    } catch (error) {
+      console.error("Error fetching retrospective:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRetrospective();
+  }, [handleLikeClick]);
 
   const retroImgStyle = {
     backgroundImage: `url(${reminiImage})`,

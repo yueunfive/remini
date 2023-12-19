@@ -111,7 +111,11 @@ export default function SelectRetro() {
       <SelectRetroWrap>
         <div className="select-retro-container">
           <div className="container">
-            <div className="select_container">
+            <div
+              className={`select_container ${
+                renderActiveComponent() ? "" : "with-margin"
+              }`}
+            >
               <h3>회고하기</h3>
               <div className="retro_title">
                 <p>회고 제목</p>
@@ -232,6 +236,9 @@ const SelectRetroWrap = styled.div`
     display: flex;
     flex-direction: column;
     gap: 40px;
+  }
+  .select_container.with-margin {
+    margin-right: 450px;
   }
   .select_container h3 {
     color: var(--text-high-emphasis, rgba(255, 255, 255, 0.87));

@@ -78,7 +78,6 @@ const StepByStepWrap = styled.div`
   }
 
   .completed_btn {
-    margin-top: 30px;
     display: inline-flex;
     padding: 16px 60px;
     box-sizing: border-box;
