@@ -706,6 +706,7 @@ const MyPageWrap = styled.div<toggleProps>`
   .retro {
     margin-bottom: 10px;
     width: 904px;
+    height: 315px;
   }
   .retro_text {
     display: flex;
