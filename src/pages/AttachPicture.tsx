@@ -123,13 +123,10 @@ export default function AttachPicture() {
           </div>
           <div className="preview">
             {previewUrl && (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                style={{ width: "300px", height: "300px", marginTop: "20px" }}
-              />
+              <img src={previewUrl} alt="Preview" className="preview-image" />
             )}
           </div>
+
           <div
             className="picture_container"
             onDragOver={onDragOver}
@@ -236,9 +233,17 @@ const AttachPictureWrap = styled.div`
       line-height: normal;
     }
 
-    .preview {
-      text-align: center;
-      margin-block: 40px;
+    .preview-image {
+      width: 280px;
+      height: 200px;
+      border-radius: 16px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      border-radius: 16px;
+      object-fit: cover;
+      object-position: center;
+      margin-bottom: 30px;
     }
   }
 `;

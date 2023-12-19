@@ -92,7 +92,6 @@ function CompleteWritingPerfomance({ isEditMode }: isEditModeTypeProps) {
       console.log("수정 요청 성공:", response.data);
       alert("수정이 완료되었습니다!🥳");
       window.location.reload();
-      setIsEditMode(false);
     } catch (error) {
       console.error("수정 요청 실패:", error);
     }
@@ -100,10 +99,12 @@ function CompleteWritingPerfomance({ isEditMode }: isEditModeTypeProps) {
 
   const handleCancel = () => {
     window.location.reload();
-    setIsEditMode(false);
   };
 
-  const renderContentInput = (content, setContent) => {
+  const renderContentInput = (
+    content: string,
+    setContent: React.Dispatch<React.SetStateAction<string>>
+  ) => {
     return isEditMode ? (
       <textarea
         className="mainContent_Input"
