@@ -61,6 +61,9 @@ function CompleteWriting() {
         setIsLiked(data.liked);
         setLikesCount(data.likesCount);
         console.log(data);
+
+        localStorage.setItem("title", data.title);
+        localStorage.setItem("type", data.type);
       }
     } catch (error) {
       console.error("Error fetching retrospective:", error);
