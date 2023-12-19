@@ -3,12 +3,9 @@ code {
     monospace;
 }
 
-/* PretendardVariable 설치 후 연결 */
 @font-face {
-  font-family: "PretendardVariable";
-  src: url("../public/fonts/PretendardVariable.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Pretendard-Regular";
+  src: url("../public/fonts/Pretendard-Regular.otf") format("opentype");
 }
 
 body {
@@ -18,7 +15,7 @@ body {
   min-width: 1300px;
   min-height: 100vh;
 
-  font-family: "PretendardVariable", sans-serif;
+  font-family: "Pretendard-Regular", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

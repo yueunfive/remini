@@ -91,6 +91,10 @@ const GuideLineVerticleContent = styled.div`
     align-items: center;
     gap: 10px;
   }
+
+  textarea {
+    font-family: "Pretendard-Regular", sans-serif;
+  }
 `;
 
 export default GuideLineVerticleContent;

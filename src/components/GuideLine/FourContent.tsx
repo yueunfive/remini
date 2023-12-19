@@ -102,6 +102,10 @@ const GuideLineFourContent = styled.div`
   .mainContent_Input {
     box-sizing: border-box;
   }
+
+  textarea {
+    font-family: "Pretendard-Regular", sans-serif;
+  }
 `;
 
 export default GuideLineFourContent;

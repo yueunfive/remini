@@ -104,6 +104,10 @@ const StepByStepWrap = styled.div`
 
     margin-top: 8px;
   }
+
+  textarea {
+    font-family: "Pretendard-Regular", sans-serif;
+  }
 `;
 
 export default StepByStepWrap;
