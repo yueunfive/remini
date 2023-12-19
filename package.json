@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^2.3.4",
     "atom": "^1.4.2",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
@@ -22,6 +23,7 @@
     "styled-components": "^6.1.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
     "@types/dotenv": "^8.2.0",
     "@types/node": "^20.9.1",
     "@types/react": "^18.2.31",
